@@ -27,7 +27,7 @@ export default class App extends Component {
             readOnly={false}
             blocklyArea={this.getBlocklyArea}
             trashcan={true}
-            media={"media/"}
+            media={process.env.PUBLIC_URL + "media/"}
             move={{
               scrollbars: true,
               drag: true,
@@ -40,7 +40,7 @@ export default class App extends Component {
           `}
           ></BlocklyComponent>
         </div>
-        <div>Simulator</div>
+        <div></div>
       </div>
     );
   }
