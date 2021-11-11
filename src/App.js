@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Counter } from "./features/counter/Counter";
 import "./App.css";
-import BlocklyComponent, { Block, Value, Field, Shadow } from "./modules/Blockly";
+import BlocklyComponent from "./modules/Blockly";
 import BlocklyJS from "blockly/javascript";
+
+import "./modules/Blockly/blocks";
 
 export default class App extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class App extends Component {
           `}
           ></BlocklyComponent>
         </div>
-        <div></div>
+        <div className="flex justify-end"></div>
       </div>
     );
   }

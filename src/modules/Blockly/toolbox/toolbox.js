@@ -34,6 +34,10 @@ export const INITIAL_TOOLBOX_JSON = {
           kind: "block",
           type: "logic_ternary",
         },
+        {
+          kind: "block",
+          type: "afaq_block",
+        },
       ],
     },
     {
