@@ -46,7 +46,7 @@ class BlocklyComponent extends React.Component {
       Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(initialXml), this.primaryWorkspace);
     }
     window.addEventListener("resize", this.onResize(blocklyArea), false);
-    // this.onResize(blocklyArea);
+    this.onResize(blocklyArea);
     // Blockly.svgResize(this.primaryWorkspace);
   }
 
@@ -63,7 +63,7 @@ class BlocklyComponent extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="w-2/3 p-2 top-0 bottom-0 absolute h-full" ref={this.blocklyDiv} id="blocklyDiv" />
+        <div className="w-full bottom-0 md:pb-20 lg:pb-0 pb-20  top-0 absolute  h-screen lg:h-full md:h-screen" ref={this.blocklyDiv} id="blocklyDiv" />
         <xml xmlns="https://developers.google.com/blockly/xml" is="blockly" style={{ display: "none" }} ref={this.toolbox}>
           {children}
         </xml>
