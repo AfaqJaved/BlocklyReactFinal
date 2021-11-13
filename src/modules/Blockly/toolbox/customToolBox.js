@@ -1,5 +1,6 @@
 import * as Blockly from "blockly";
 import { setToolBoxIcons, toolboxDefaultState } from "../../../utils/toolBoxUtils";
+
 class CustomCategory extends Blockly.ToolboxCategory {
   /**
    * Constructor for a custom category.

@@ -7,6 +7,9 @@ module.exports = {
       backgroundImage: {
         "toolbox-background": "url('/src/assets/images/toolbox-background.jpg')",
       },
+      fontFamily: {
+        FingerPaint: ["FingerPaint"],
+      },
     },
   },
   variants: {
