@@ -6,6 +6,8 @@ import list_icon from "../assets/images/list_icon.png";
 import color from "../assets/images/color.png";
 import function_icon from "../assets/images/function_icon.png";
 
+import Math from "../assets/images/math.png";
+
 export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) => {
   switch (categoryName) {
     case "Logic": {
@@ -88,7 +90,7 @@ export const setToolBoxIcons = (categoryName) => {
     case "Math": {
       const img = document.createElement("img");
 
-      img.src = Logo;
+      img.src = Math;
       img.className = "w-10 h-10 ";
       img.alt = "Lamp";
       return img;
