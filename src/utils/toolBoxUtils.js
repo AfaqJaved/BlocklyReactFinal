@@ -1,6 +1,10 @@
 import Logic from "../assets/images/logic.png";
 import Logo from "../assets/images/logic.png";
-import Loops from "../assets/images/loops.png";
+import loops from "../assets/images/loops.png";
+import text_icon from "../assets/images/text_icon.png";
+import list_icon from "../assets/images/list_icon.png";
+import color from "../assets/images/color.png";
+import function_icon from "../assets/images/function_icon.png";
 
 export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) => {
   switch (categoryName) {
@@ -76,7 +80,7 @@ export const setToolBoxIcons = (categoryName) => {
     case "Loops": {
       const img = document.createElement("img");
 
-      img.src = Loops;
+      img.src = loops;
       img.className = "w-10 h-10 ";
       img.alt = "Lamp";
       return img;
@@ -92,7 +96,7 @@ export const setToolBoxIcons = (categoryName) => {
     case "Text": {
       const img = document.createElement("img");
 
-      img.src = Logo;
+      img.src = text_icon;
       img.className = "w-10 h-10 ";
       img.alt = "Lamp";
       return img;
@@ -100,7 +104,7 @@ export const setToolBoxIcons = (categoryName) => {
     case "Lists": {
       const img = document.createElement("img");
 
-      img.src = Logo;
+      img.src = list_icon;
       img.className = "w-10 h-10 ";
       img.alt = "Lamp";
       return img;
@@ -108,7 +112,7 @@ export const setToolBoxIcons = (categoryName) => {
     case "Colour": {
       const img = document.createElement("img");
 
-      img.src = Logo;
+      img.src = color;
       img.className = "w-10 h-10 ";
       img.alt = "Lamp";
       return img;
@@ -132,7 +136,7 @@ export const setToolBoxIcons = (categoryName) => {
     case "Functions": {
       const img = document.createElement("img");
 
-      img.src = Logo;
+      img.src = function_icon;
       img.className = "w-10 h-10 ";
       img.alt = "Lamp";
       return img;
