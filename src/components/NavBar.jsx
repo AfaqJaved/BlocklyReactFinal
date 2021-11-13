@@ -64,7 +64,7 @@ export default function NavBar() {
                   dispatch(setLanguage(e.target.value));
                 }}
                 value={language}
-                class="border text-2xl font-light border-gray-300 rounded-xl  text-gray-600 h-10 pl-5 pr-20 bg-white hover:border-gray-400 focus:outline-none appearance-none"
+                class="border text-2xl font-light border-gray-300 rounded-xl pr-5 md:pr-15 lg:pr-20  text-gray-600 h-10 pl-5  bg-white hover:border-gray-400 focus:outline-none appearance-none"
               >
                 <option value={CONSTANTS.LANGUAGE.ENGLISH}>English</option>
                 <option value={CONSTANTS.LANGUAGE.RUSSIAN}>Russian</option>
