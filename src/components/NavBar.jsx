@@ -3,10 +3,6 @@ import React, { useState } from "react";
 export default function NavBar() {
   const [navState, setnavState] = useState(true);
 
-  const showNavInMoblileView = () => {
-    setnavState(!navState);
-  };
-
   return (
     <div>
       <nav class="bg-indigo-700">

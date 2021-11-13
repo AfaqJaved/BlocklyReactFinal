@@ -47,7 +47,7 @@ class BlocklyComponent extends React.Component {
     }
     window.addEventListener("resize", this.onResize(blocklyArea), false);
     this.onResize(blocklyArea);
-    // Blockly.svgResize(this.primaryWorkspace);
+    Blockly.svgResize(this.primaryWorkspace);
   }
 
   get workspace() {

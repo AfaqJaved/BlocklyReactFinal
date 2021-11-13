@@ -1,8 +1,7 @@
 import * as Blockly from "blockly";
 
-Blockly.JavaScript["afaq_block"] = function (block) {
-  var statements_code = Blockly.JavaScript.statementToCode(block, "Code");
+Blockly.JavaScript["afaq_custom_block"] = function (block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = "afaq;\n";
+  var code = "alert('This is for test');\n";
   return code;
 };

@@ -18,11 +18,12 @@ export default class App extends Component {
     super(props);
     this.simpleWorkspace = React.createRef();
     this.blocklyArea = React.createRef();
+    this.myButton = React.createRef();
   }
   generateCode = () => {
     var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.current.workspace);
     console.log(code);
-    alert(code);
+    eval(code);
   };
 
   getBlocklyArea() {
@@ -42,6 +43,7 @@ export default class App extends Component {
                 readOnly={false}
                 blocklyArea={this.getBlocklyArea}
                 trashcan={true}
+                toolboxPosition="end"
                 media={process.env.PUBLIC_URL + "media/"}
                 move={{
                   scrollbars: true,

@@ -6,14 +6,14 @@ export const INITIAL_TOOLBOX_JSON = {
     {
       kind: "category",
       name: "Logic",
-      colour: 210,
-      cssConfig: {
-        icon: "fas fa-brain text-purple-500 mr-2 ",
-      },
       contents: [
         {
           kind: "block",
           type: "controls_if",
+        },
+        {
+          kind: "block",
+          type: "afaq_custom_block",
         },
         {
           kind: "block",
@@ -39,19 +39,12 @@ export const INITIAL_TOOLBOX_JSON = {
           kind: "block",
           type: "logic_ternary",
         },
-        {
-          kind: "block",
-          type: "afaq_block",
-        },
       ],
     },
     {
       kind: "category",
       name: "Loops",
       colour: 120,
-      cssConfig: {
-        icon: "fas fa-redo text-purple-700",
-      },
       contents: [
         {
           kind: "block",
@@ -103,9 +96,7 @@ export const INITIAL_TOOLBOX_JSON = {
     {
       kind: "category",
       name: "Math",
-      cssConfig: {
-        icon: "fas fa-calculator text-purple-700",
-      },
+
       colour: 230,
       contents: [
         {
@@ -248,9 +239,7 @@ export const INITIAL_TOOLBOX_JSON = {
     {
       kind: "category",
       name: "Text",
-      cssConfig: {
-        icon: "fas fa-align-justify text-purple-700",
-      },
+
       colour: 160,
       contents: [
         {
@@ -392,9 +381,7 @@ export const INITIAL_TOOLBOX_JSON = {
     {
       kind: "category",
       name: "Lists",
-      cssConfig: {
-        icon: "fas fa-list-ul text-purple-700",
-      },
+
       colour: 259,
       contents: [
         {
@@ -500,9 +487,7 @@ export const INITIAL_TOOLBOX_JSON = {
     {
       kind: "category",
       name: "Colour",
-      cssConfig: {
-        icon: "fas fa-palette text-purple-700",
-      },
+
       colour: 19,
       contents: [
         {
