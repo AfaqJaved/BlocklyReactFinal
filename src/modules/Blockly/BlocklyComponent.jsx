@@ -1,12 +1,13 @@
 import React from "react";
-
+import { connect } from "react-redux";
 import Blockly from "blockly/core";
-import locale from "blockly/msg/en";
+import en from "blockly/msg/en";
+import ru from "blockly/msg/ru";
 import "blockly/blocks";
 import "./BlocklyComponent.css";
 import { INITIAL_TOOLBOX_JSON } from "./toolbox/toolbox";
-
-Blockly.setLocale(locale);
+import { setLanguage } from "../../features/language/languageSlice";
+import { CONSTANTS } from "../../utils/constants";
 
 class BlocklyComponent extends React.Component {
   constructor(props) {
@@ -14,6 +15,27 @@ class BlocklyComponent extends React.Component {
     this.blocklyDiv = React.createRef();
     this.toolbox = React.createRef();
     this.blocklyArea = this.props.blocklyArea;
+  }
+
+  setLanguage() {
+    if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
+      Blockly.setLocale(en);
+    } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
+      Blockly.setLocale(ru);
+    }
+  }
+
+  setBlocksLang() {
+    if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
+      Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.ENGLISH;
+    } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
+      Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.RUSSIAN;
+    }
+  }
+
+  componentDidUpdate() {
+    this.setLanguage();
+    this.setBlockLang();
   }
 
   onResize(blocklyArea) {
@@ -35,6 +57,7 @@ class BlocklyComponent extends React.Component {
   }
 
   componentDidMount() {
+    this.setLanguage();
     const { initialXml, children, blocklyArea, ...rest } = this.props;
     Blockly.Scrollbar.scrollbarThickness = 5;
     this.primaryWorkspace = Blockly.inject(this.blocklyDiv.current, {
@@ -72,4 +95,10 @@ class BlocklyComponent extends React.Component {
   }
 }
 
-export default BlocklyComponent;
+const mapStateToProps = function (state) {
+  return {
+    language: state.language.language,
+  };
+};
+
+export default connect(mapStateToProps)(BlocklyComponent);

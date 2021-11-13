@@ -52,7 +52,7 @@ export default class App extends Component {
                 }}
                 initialXml={`
                 <xml xmlns="http://www.w3.org/1999/xhtml">
-                <block type="controls_ifelse" x="10" y="10"></block>
+
                 </xml>
           `}
               ></BlocklyComponent>
