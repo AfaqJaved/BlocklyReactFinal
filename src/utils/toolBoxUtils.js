@@ -1,6 +1,7 @@
 import Logic from "../assets/images/logic.png";
 import Logo from "../assets/images/logic.png";
 import Loops from "../assets/images/loops.png";
+import Math from "../assets/images/math.png";
 
 export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) => {
   switch (categoryName) {
@@ -84,7 +85,7 @@ export const setToolBoxIcons = (categoryName) => {
     case "Math": {
       const img = document.createElement("img");
 
-      img.src = Logo;
+      img.src = Math;
       img.className = "w-10 h-10 ";
       img.alt = "Lamp";
       return img;
