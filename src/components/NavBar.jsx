@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../features/language/languageSlice";
 import { CONSTANTS } from "../utils/constants";
+import BlocklsLogo from "../assets/images/blocks_logo.png";
+import UploadLogo from "../assets/images/upload.png";
 
 export default function NavBar() {
   const [navState, setnavState] = useState(true);
@@ -9,135 +11,38 @@ export default function NavBar() {
   const language = useSelector((state) => state.language.language);
 
   return (
-    <div>
-      <nav class="bg-indigo-700">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-          <div class="relative flex items-center justify-between h-16">
-            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-              <button
-                onClick={() => setnavState(!navState)}
-                type="button"
-                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                aria-controls="mobile-menu"
-                aria-expanded="false"
-              >
-                <span class="sr-only">Open main menu</span>
-
-                <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-
-                <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-              <div class="flex-shrink-0 flex items-center">
-                <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow"></img>
-                <img class="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow"></img>
-              </div>
-              <div class="hidden sm:block sm:ml-6">
-                <div class="flex space-x-4">
-                  <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">
-                    Dashboard
-                  </a>
-
-                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    Team
-                  </a>
-
-                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    Projects
-                  </a>
-
-                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    Calendar
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <h1 className="invisible lg:visible md:visible text-2xl text-white  mr-2 font-sans ">Language</h1>
-              <select
-                onChange={(e) => {
-                  dispatch(setLanguage(e.target.value));
-                }}
-                value={language}
-                class="border text-2xl font-light border-gray-300 rounded-xl pr-5 md:pr-15 lg:pr-20  text-gray-600 h-10 pl-5  bg-white hover:border-gray-400 focus:outline-none appearance-none"
-              >
-                <option value={CONSTANTS.LANGUAGE.ENGLISH}>English</option>
-                <option value={CONSTANTS.LANGUAGE.RUSSIAN}>Russian</option>
-              </select>
-
-              <div class="ml-3 mb-5 relative">
-                <div class="relative inline-flex">
-                  <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
-                    <path
-                      d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-                      fill="#648299"
-                      fill-rule="nonzero"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                    id="user-menu-button"
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                  >
-                    <span class="sr-only">Open user menu</span>
-                    <img
-                      class="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    ></img>
-                  </button>
-                </div>
-
-                <div
-                  class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu-button"
-                  tabindex="-1"
-                  hidden
-                >
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                    Your Profile
-                  </a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
-                    Settings
-                  </a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                    Sign out
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="bg-pink-600 rounded-br-full w-full block ">
+      <nav className="flex justify-around items-center">
+        <div className="p-2 flex items-center justify-center">
+          <img src={BlocklsLogo} className="w-12 h-14 ml-48 lg:ml-0 md:ml-0" alt="" />
+          <label className="text-2xl  text-white font-sans font-medium ml-2">Blockly</label>
         </div>
-
-        <div class="sm:hidden" id="mobile-menu" hidden={navState}>
-          <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">
-              Dashboard
-            </a>
-
-            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-              Team
-            </a>
-
-            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-              Projects
-            </a>
-
-            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-              Calendar
-            </a>
-          </div>
+        <div className="flex justify-center items-center invisible md:visible lg:visible">
+          <label className="text-xl text-white font-sans mr-2 uppercase">Language</label>
+          <select
+            value={language}
+            onChange={(e) => {
+              dispatch(setLanguage(e.target.value));
+            }}
+            className=" bg-gradient-to-r from-yellow-400 to-red-500 p-2 text-2xl shadow-lg pl-10 pr-10  rounded-2xl"
+          >
+            <option value={CONSTANTS.LANGUAGE.ENGLISH} className="p-2 bg-blue-500 font-sans">
+              English
+            </option>
+            <option value={CONSTANTS.LANGUAGE.RUSSIAN} className="p-2 bg-blue-500 font-sans">
+              Russian
+            </option>
+          </select>
+        </div>
+        <div className=" invisible md:visible lg:visible ">
+          <ul className="flex items-center justify-between ">
+            <li>
+              <button className="bg-gradient-to-r from-yellow-400 to-red-500 hover:from-white hover:to-red-500 flex justify-center items-center rounded-md shadow-lg text-white uppercase font-medium text-sm  p-3 md:p0 lg:p3 md:text-sm lg:text-xl hover:bg-white">
+                <img src={UploadLogo} className="w-5 h-5 mr-5"></img>
+                Upload Code
+              </button>
+            </li>
+          </ul>
         </div>
       </nav>
     </div>

@@ -5,13 +5,13 @@ import text_icon from "../assets/images/text_icon.png";
 import list_icon from "../assets/images/list_icon.png";
 import color from "../assets/images/color.png";
 import function_icon from "../assets/images/function_icon.png";
-
 import Math from "../assets/images/math.png";
+import { BLOCKLY_CATEGORIES_CONSTANTS } from "./blocklyCategories";
 
 export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) => {
   switch (categoryName) {
-    case "Logic": {
-      rowDiv_.style.backgroundColor = "#EEB76B";
+    case BLOCKLY_CATEGORIES_CONSTANTS.LOGIC: {
+      rowDiv_.style.backgroundColor = "#9400D3";
       labelDom.style.fontFamily = "Finger Paint";
       labelDom.style.fontWeight = 2;
       iconDom_.style.bac = "black";
@@ -19,49 +19,37 @@ export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) =
       // rowDiv_.style.fontFamily = "FingerPaint";
       break;
     }
-    case "Loops": {
-      rowDiv_.style.backgroundColor = "#E2703A";
+    case BLOCKLY_CATEGORIES_CONSTANTS.LOOPS: {
+      rowDiv_.style.backgroundColor = "#EF3038";
       labelDom.style.fontFamily = "Finger Paint";
       labelDom.style.fontWeight = 2;
       break;
     }
-    case "Math": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.MATH: {
       rowDiv_.style.backgroundColor = "#9C3D54";
       labelDom.style.fontFamily = "Finger Paint";
       labelDom.style.fontWeight = 2;
       break;
     }
-    case "Text": {
-      rowDiv_.style.backgroundColor = "#FFCDA3";
+    case BLOCKLY_CATEGORIES_CONSTANTS.TEXT: {
+      rowDiv_.style.backgroundColor = "#FF8C00";
       labelDom.style.fontFamily = "Finger Paint";
       labelDom.style.fontWeight = 2;
       break;
     }
-    case "Lists": {
-      rowDiv_.style.backgroundColor = "#EE9595";
+    case BLOCKLY_CATEGORIES_CONSTANTS.LISTS: {
+      rowDiv_.style.backgroundColor = "#FF69B4";
       labelDom.style.fontFamily = "Finger Paint";
       labelDom.style.fontWeight = 2;
       break;
     }
-    case "Colour": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.COLOUR: {
       rowDiv_.style.backgroundColor = "#EF4F4F";
       labelDom.style.fontFamily = "Finger Paint";
       labelDom.style.fontWeight = 2;
       break;
     }
-    case "Custom Button": {
-      rowDiv_.style.backgroundColor = "#D4AC2B";
-      labelDom.style.fontFamily = "Finger Paint";
-      labelDom.style.fontWeight = 2;
-      break;
-    }
-    case "Variables": {
-      rowDiv_.style.backgroundColor = "#64C9CF";
-      labelDom.style.fontFamily = "Finger Paint";
-      labelDom.style.fontWeight = 2;
-      break;
-    }
-    case "Functions": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.FUNCTIONS: {
       rowDiv_.style.backgroundColor = "#DF711B";
       labelDom.style.fontFamily = "Finger Paint";
       labelDom.style.fontWeight = 2;
@@ -72,14 +60,14 @@ export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) =
 
 export const setToolBoxIcons = (categoryName) => {
   switch (categoryName) {
-    case "Logic": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.LOGIC: {
       const img = document.createElement("img");
       img.src = Logic;
       img.className = "w-10 h-10 ";
       img.alt = "Lamp";
       return img;
     }
-    case "Loops": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.LOOPS: {
       const img = document.createElement("img");
 
       img.src = loops;
@@ -87,7 +75,7 @@ export const setToolBoxIcons = (categoryName) => {
       img.alt = "Lamp";
       return img;
     }
-    case "Math": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.MATH: {
       const img = document.createElement("img");
 
       img.src = Math;
@@ -95,7 +83,7 @@ export const setToolBoxIcons = (categoryName) => {
       img.alt = "Lamp";
       return img;
     }
-    case "Text": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.TEXT: {
       const img = document.createElement("img");
 
       img.src = text_icon;
@@ -103,7 +91,7 @@ export const setToolBoxIcons = (categoryName) => {
       img.alt = "Lamp";
       return img;
     }
-    case "Lists": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.LISTS: {
       const img = document.createElement("img");
 
       img.src = list_icon;
@@ -111,7 +99,7 @@ export const setToolBoxIcons = (categoryName) => {
       img.alt = "Lamp";
       return img;
     }
-    case "Colour": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.COLOUR: {
       const img = document.createElement("img");
 
       img.src = color;
@@ -119,23 +107,7 @@ export const setToolBoxIcons = (categoryName) => {
       img.alt = "Lamp";
       return img;
     }
-    case "Custom Button": {
-      const img = document.createElement("img");
-
-      img.src = Logo;
-      img.className = "w-10 h-10 ";
-      img.alt = "Lamp";
-      return img;
-    }
-    case "Variables": {
-      const img = document.createElement("img");
-
-      img.src = Logo;
-      img.className = "w-10 h-10 ";
-      img.alt = "Lamp";
-      return img;
-    }
-    case "Functions": {
+    case BLOCKLY_CATEGORIES_CONSTANTS.FUNCTIONS: {
       const img = document.createElement("img");
 
       img.src = function_icon;

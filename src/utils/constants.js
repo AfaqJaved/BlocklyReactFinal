@@ -1,3 +1,5 @@
+import { BLOCKLY_CATEGORIES_CONSTANTS } from "./blocklyCategories";
+
 export const CONSTANTS = {
   LANGUAGE: {
     RUSSIAN: "RUSSIAN",
@@ -7,6 +9,36 @@ export const CONSTANTS = {
     MYBLOCK: {
       ENGLISH: "Show Alert",
       RUSSIAN: "Показать оповещение",
+    },
+  },
+  CATERGORIES: {
+    LOGIC_CATEGORY: {
+      ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.LOGIC,
+      RUSSIAN: "логика",
+    },
+    LOOPS_CATEGORY: {
+      ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.LOOPS,
+      RUSSIAN: "логика",
+    },
+    MATH_CATEGORY: {
+      ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.MATH,
+      RUSSIAN: "логика",
+    },
+    TEXT_CATEGORY: {
+      ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.TEXT,
+      RUSSIAN: "логика",
+    },
+    LISTS_CATEGORY: {
+      ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.LISTS,
+      RUSSIAN: "логика",
+    },
+    COLOUR_CATEGORY: {
+      ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.COLOUR,
+      RUSSIAN: "логика",
+    },
+    FUCNTIONS_CATEGORY: {
+      ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.FUNCTIONS,
+      RUSSIAN: "логика",
     },
   },
 };

@@ -6,8 +6,8 @@ import ru from "blockly/msg/ru";
 import "blockly/blocks";
 import "./BlocklyComponent.css";
 import { INITIAL_TOOLBOX_JSON } from "./toolbox/toolbox";
-import { setLanguage } from "../../features/language/languageSlice";
 import { CONSTANTS } from "../../utils/constants";
+import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
 
 class BlocklyComponent extends React.Component {
   constructor(props) {
@@ -33,9 +33,18 @@ class BlocklyComponent extends React.Component {
     }
   }
 
+  setCategoryLang() {
+    if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
+      Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.ENGLISH;
+    } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
+      Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.RUSSIAN;
+    }
+  }
+
   componentDidUpdate() {
     this.setLanguage();
     this.setBlocksLang();
+    this.setCategoryLang();
   }
 
   onResize(blocklyArea) {
@@ -58,10 +67,13 @@ class BlocklyComponent extends React.Component {
 
   componentDidMount() {
     this.setLanguage();
+    this.setCategoryLang();
+    this.setCategoryLang();
     const { initialXml, children, blocklyArea, ...rest } = this.props;
     Blockly.Scrollbar.scrollbarThickness = 5;
     this.primaryWorkspace = Blockly.inject(this.blocklyDiv.current, {
       toolbox: INITIAL_TOOLBOX_JSON,
+
       ...rest,
     });
 
@@ -71,6 +83,12 @@ class BlocklyComponent extends React.Component {
     window.addEventListener("resize", this.onResize(blocklyArea), false);
     this.onResize(blocklyArea);
     Blockly.svgResize(this.primaryWorkspace);
+    this.setSearchFuncBlockly();
+  }
+
+  setSearchFuncBlockly() {
+    const workspaceSearch = new WorkspaceSearch(this.primaryWorkspace);
+    workspaceSearch.init();
   }
 
   get workspace() {

@@ -1,11 +1,13 @@
 import "./toolbox.css";
+import * as Blockly from "blockly";
+import { CONSTANTS } from "../../../utils/constants";
 
 export const INITIAL_TOOLBOX_JSON = {
   kind: "categoryToolbox",
   contents: [
     {
       kind: "category",
-      name: "Logic",
+      name: "%{BKY_LOGIC_CATEGORY_NAME}",
       contents: [
         {
           kind: "block",
@@ -43,7 +45,7 @@ export const INITIAL_TOOLBOX_JSON = {
     },
     {
       kind: "category",
-      name: "Loops",
+      name: "%{BKY_LOOPS_CATEGORY_NAME}",
       colour: 120,
       contents: [
         {
@@ -95,7 +97,7 @@ export const INITIAL_TOOLBOX_JSON = {
     },
     {
       kind: "category",
-      name: "Math",
+      name: "%{BKY_MATH_CATEGORY_NAME}",
 
       colour: 230,
       contents: [
@@ -238,7 +240,7 @@ export const INITIAL_TOOLBOX_JSON = {
     },
     {
       kind: "category",
-      name: "Text",
+      name: "%{BKY_TEXT_CATEGORY_NAME}",
 
       colour: 160,
       contents: [
@@ -380,7 +382,7 @@ export const INITIAL_TOOLBOX_JSON = {
     },
     {
       kind: "category",
-      name: "Lists",
+      name: "%{BKY_LISTS_CATEGORY_NAME}",
 
       colour: 259,
       contents: [
@@ -486,7 +488,7 @@ export const INITIAL_TOOLBOX_JSON = {
     },
     {
       kind: "category",
-      name: "Colour",
+      name: "%{BKY_COLOUR_CATEGORY_NAME}",
 
       colour: 19,
       contents: [
@@ -542,12 +544,20 @@ export const INITIAL_TOOLBOX_JSON = {
         },
       ],
     },
-    { kind: "sep" },
+    // { kind: "sep" },
     {
       kind: "category",
-      name: "Functions",
+      name: "%{BKY_FUNCTIONS_CATEGORY_NAME}",
       custom: "PROCEDURE",
       colour: 290,
     },
   ],
 };
+
+Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.ENGLISH;
+Blockly.Msg.LOOPS_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOOPS_CATEGORY.ENGLISH;
+Blockly.Msg.MATH_CATEGORY_NAME = CONSTANTS.CATERGORIES.MATH_CATEGORY.ENGLISH;
+Blockly.Msg.TEXT_CATEGORY_NAME = CONSTANTS.CATERGORIES.TEXT_CATEGORY.ENGLISH;
+Blockly.Msg.LISTS_CATEGORY_NAME = CONSTANTS.CATERGORIES.LISTS_CATEGORY.ENGLISH;
+Blockly.Msg.COLOUR_CATEGORY_NAME = CONSTANTS.CATERGORIES.COLOUR_CATEGORY.ENGLISH;
+Blockly.Msg.FUNCTIONS_CATEGORY_NAME = CONSTANTS.CATERGORIES.FUCNTIONS_CATEGORY.ENGLISH;
