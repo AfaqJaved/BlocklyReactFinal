@@ -14,11 +14,16 @@ export default function NavBar() {
   const language = useSelector((state) => state.language.language);
   const bleStatus = useSelector((state) => state.ble.status);
 
+  const onDisconnected = () => {
+    dispatch(changeStatus(BLE.BLE_DISCONNECTED));
+  };
+
   const requestPermission = async () => {
     const device = await BLE.getDevice();
     const server = await BLE.connectGattServer(device);
     const service = await BLE.getServices(server);
     const char = await BLE.getChar(service);
+    device.addEventListener("gattserverdisconnected", onDisconnected);
 
     if (device != undefined) {
       dispatch(setDevice(device));
