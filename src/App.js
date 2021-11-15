@@ -2,29 +2,36 @@ import React, { Component } from "react";
 import "./App.css";
 import BlocklyComponent from "./modules/Blockly";
 import BlocklyJS from "blockly/javascript";
-
+import { connect } from "react-redux";
+import { BLE } from "./utils/bleConstants";
 //importing blocks
 import "./modules/Blockly/blocks";
-
 //importing generators
 import "./modules/Blockly/generators";
 
 import NavBar from "./components/NavBar";
 import "./modules/Blockly/toolbox/customToolBox";
 import { BLOCKLY_THEME } from "./utils/blocklyTheme";
+import { RUNCODE } from "./utils/smartyConstants";
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.simpleWorkspace = React.createRef();
     this.blocklyArea = React.createRef();
     this.myButton = React.createRef();
+    this.code = "";
+    this.initInterpreter = null;
   }
   generateCode = () => {
-    var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.current);
-    console.log(code);
-    // eval(code);
+    this.code = BlocklyJS.workspaceToCode(this.simpleWorkspace.current);
+    console.log(this.code);
+    this.excecuteCode();
   };
+
+  excecuteCode() {
+    RUNCODE(this.code);
+  }
 
   getBlocklyArea() {
     return this.blocklyArea;
@@ -55,7 +62,7 @@ export default class App extends Component {
                 zoom={{ controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2, pinch: true }}
                 initialXml={`
                 <xml xmlns="http://www.w3.org/1999/xhtml">
-
+                <block type="start_block" x="200" y= "200"></block>
                 </xml>
           `}
               ></BlocklyComponent>
@@ -78,3 +85,11 @@ export default class App extends Component {
     );
   }
 }
+
+const mapStateToProps = function (state) {
+  return {
+    bleChar: state.ble.char,
+  };
+};
+
+export default connect(mapStateToProps)(App);

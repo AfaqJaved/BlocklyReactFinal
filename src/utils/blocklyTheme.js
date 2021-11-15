@@ -44,6 +44,7 @@ export const BLOCKLY_THEME = {
       toolboxBackgroundColour: "#F0FFFF",
       flyoutBackgroundColour: "#FFFFFF",
       flyoutOpacity: "0.5",
+      scrollbarColour: "#FFB6C1",
       //   toolboxForegroundColour: "#ffffff",
     },
   },

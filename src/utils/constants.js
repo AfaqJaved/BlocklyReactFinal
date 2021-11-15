@@ -6,12 +6,36 @@ export const CONSTANTS = {
     ENGLISH: "ENGLISH",
   },
   BLOCKS: {
+    START_BLOCK: {
+      ENGLISH: "Start Program",
+      RUSSIAN: "запустить программу",
+    },
     MYBLOCK: {
       ENGLISH: "Show Alert",
       RUSSIAN: "Показать оповещение",
     },
+    DIRECTION_BLOCK: {
+      ENGLISH: "MOVE",
+      RUSSIAN: "двигаться",
+      DIRECTIONS_ENGLISH: {
+        FORWARD: "FORWARD",
+        BACKWARD: "BACKWARD",
+        LEFT: "LEFT",
+        RIGHT: "RIGHT ",
+      },
+      DIRECTIONS_RUSSIAN: {
+        FORWARD: "вперед",
+        BACKWARD: "назад",
+        LEFT: "левый",
+        RIGHT: "Правильно",
+      },
+    },
   },
   CATERGORIES: {
+    SMARTY_CATEGORY: {
+      ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.SMARTY,
+      RUSSIAN: BLOCKLY_CATEGORIES_CONSTANTS.SMARTY,
+    },
     LOGIC_CATEGORY: {
       ENGLISH: BLOCKLY_CATEGORIES_CONSTANTS.LOGIC,
       RUSSIAN: "логика",

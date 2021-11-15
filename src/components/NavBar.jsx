@@ -1,14 +1,36 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../features/language/languageSlice";
+import { changeStatus, setDevice, setServer, setService, setchar } from "../features/ble/bleSlice";
 import { CONSTANTS } from "../utils/constants";
 import BlocklsLogo from "../assets/images/blocks_logo.png";
 import UploadLogo from "../assets/images/upload.png";
+import BleLogo from "../assets/images/bluetooth.png";
+import { BLE } from "../utils/bleConstants";
 
 export default function NavBar() {
   const [navState, setnavState] = useState(true);
   const dispatch = useDispatch();
   const language = useSelector((state) => state.language.language);
+  const bleStatus = useSelector((state) => state.ble.status);
+
+  const requestPermission = async () => {
+    const device = await BLE.getDevice();
+    const server = await BLE.connectGattServer(device);
+    const service = await BLE.getServices(server);
+    const char = await BLE.getChar(service);
+
+    if (device != undefined) {
+      dispatch(setDevice(device));
+      dispatch(setServer(server));
+      dispatch(setService(service));
+      dispatch(setchar(char));
+      dispatch(changeStatus(BLE.BLE_CONNECTED));
+      BLE.writeBle("This is from chrome", char);
+    } else {
+      requestPermission();
+    }
+  };
 
   return (
     <div className="bg-pink-600 rounded-br-full w-full block ">
@@ -37,9 +59,21 @@ export default function NavBar() {
         <div className=" invisible md:visible lg:visible ">
           <ul className="flex items-center justify-between ">
             <li>
-              <button className="bg-gradient-to-r from-yellow-400 to-red-500 hover:from-white hover:to-red-500 flex justify-center items-center rounded-md shadow-lg text-white uppercase font-medium text-sm  p-3 md:p0 lg:p3 md:text-sm lg:text-xl hover:bg-white">
-                <img src={UploadLogo} className="w-5 h-5 mr-5"></img>
-                Upload Code
+              <button className="bg-blue-500  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-3 md:p0 lg:p3 md:text-sm lg:text-xl hover:bg-blue-600">
+                <img src={UploadLogo} className="w-8 h-8 mr-2"></img>
+                Upload
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={requestPermission}
+                className={
+                  "ml-3  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-3 md:p0 lg:p3 md:text-sm lg:text-xl " +
+                  (bleStatus === BLE.BLE_CONNECTED ? "bg-green-500 hover:bg-green-500" : "bg-yellow-300 hover:bg-yellow-500")
+                }
+              >
+                <img src={BleLogo} className="w-8 h-8 mr-2"></img>
+                {bleStatus === BLE.BLE_CONNECTED ? "Sucess" : "Please Connect"}
               </button>
             </li>
           </ul>

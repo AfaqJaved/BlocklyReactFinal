@@ -26,7 +26,7 @@ class CustomCategory extends Blockly.ToolboxCategory {
       labelDom.style.color = "white";
     } else {
       toolboxDefaultState(this.name_, this.rowDiv_, labelDom, this.iconDom_);
-      labelDom.style.color = "black";
+      labelDom.style.color = "white";
     }
     // This is used for accessibility purposes.
     Blockly.utils.aria.setState(/** @type {!Element} */ (this.htmlDiv_), Blockly.utils.aria.State.SELECTED, isSelected);

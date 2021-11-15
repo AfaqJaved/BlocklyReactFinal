@@ -1,4 +1,5 @@
 export const BLOCKLY_CATEGORIES_CONSTANTS = {
+  SMARTY: "Smarty",
   LOGIC: "Logic",
   LOOPS: "Loops",
   MATH: "Math",

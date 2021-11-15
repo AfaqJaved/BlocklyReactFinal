@@ -1,5 +1,5 @@
 import Logic from "../assets/images/logic.png";
-import Logo from "../assets/images/logic.png";
+import Robot from "../assets/images/robot.png";
 import loops from "../assets/images/loops.png";
 import text_icon from "../assets/images/text_icon.png";
 import list_icon from "../assets/images/list_icon.png";
@@ -10,6 +10,15 @@ import { BLOCKLY_CATEGORIES_CONSTANTS } from "./blocklyCategories";
 
 export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) => {
   switch (categoryName) {
+    case BLOCKLY_CATEGORIES_CONSTANTS.SMARTY: {
+      rowDiv_.style.backgroundColor = "#E75480";
+      labelDom.style.fontFamily = "Finger Paint";
+      labelDom.style.fontWeight = 2;
+      iconDom_.style.bac = "black";
+
+      // rowDiv_.style.fontFamily = "FingerPaint";
+      break;
+    }
     case BLOCKLY_CATEGORIES_CONSTANTS.LOGIC: {
       rowDiv_.style.backgroundColor = "#9400D3";
       labelDom.style.fontFamily = "Finger Paint";
@@ -19,6 +28,7 @@ export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) =
       // rowDiv_.style.fontFamily = "FingerPaint";
       break;
     }
+
     case BLOCKLY_CATEGORIES_CONSTANTS.LOOPS: {
       rowDiv_.style.backgroundColor = "#EF3038";
       labelDom.style.fontFamily = "Finger Paint";
@@ -60,6 +70,13 @@ export const toolboxDefaultState = (categoryName, rowDiv_, labelDom, iconDom_) =
 
 export const setToolBoxIcons = (categoryName) => {
   switch (categoryName) {
+    case BLOCKLY_CATEGORIES_CONSTANTS.SMARTY: {
+      const img = document.createElement("img");
+      img.src = Robot;
+      img.className = "w-20 h-14 ";
+      img.alt = "Lamp";
+      return img;
+    }
     case BLOCKLY_CATEGORIES_CONSTANTS.LOGIC: {
       const img = document.createElement("img");
       img.src = Logic;

@@ -7,16 +7,27 @@ export const INITIAL_TOOLBOX_JSON = {
   contents: [
     {
       kind: "category",
+      name: "%{BKY_SMARTY_CATEGORY_NAME}",
+      contents: [
+        {
+          kind: "block",
+          type: "direction",
+        },
+        {
+          kind: "block",
+          type: "start_block",
+        },
+      ],
+    },
+    {
+      kind: "category",
       name: "%{BKY_LOGIC_CATEGORY_NAME}",
       contents: [
         {
           kind: "block",
           type: "controls_if",
         },
-        {
-          kind: "block",
-          type: "afaq_custom_block",
-        },
+
         {
           kind: "block",
           blockxml: '<block type="logic_compare"><field name="OP">EQ</field></block>',
@@ -43,6 +54,7 @@ export const INITIAL_TOOLBOX_JSON = {
         },
       ],
     },
+
     {
       kind: "category",
       name: "%{BKY_LOOPS_CATEGORY_NAME}",
@@ -554,6 +566,7 @@ export const INITIAL_TOOLBOX_JSON = {
   ],
 };
 
+Blockly.Msg.SMARTY_CATEGORY_NAME = CONSTANTS.CATERGORIES.SMARTY_CATEGORY.ENGLISH;
 Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.ENGLISH;
 Blockly.Msg.LOOPS_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOOPS_CATEGORY.ENGLISH;
 Blockly.Msg.MATH_CATEGORY_NAME = CONSTANTS.CATERGORIES.MATH_CATEGORY.ENGLISH;

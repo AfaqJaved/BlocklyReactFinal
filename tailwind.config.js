@@ -4,6 +4,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      colors: {},
       backgroundImage: {
         "toolbox-background": "url('/src/assets/images/toolbox-background.jpg')",
       },
