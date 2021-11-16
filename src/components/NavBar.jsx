@@ -7,6 +7,7 @@ import BlocklsLogo from "../assets/images/blocks_logo.png";
 import UploadLogo from "../assets/images/upload.png";
 import BleLogo from "../assets/images/bluetooth.png";
 import { BLE } from "../utils/bleConstants";
+import Popup from "./Popup";
 
 export default function NavBar() {
   const [navState, setnavState] = useState(true);
@@ -15,15 +16,16 @@ export default function NavBar() {
   const bleStatus = useSelector((state) => state.ble.status);
 
   const onDisconnected = () => {
+    console.log("Device disconnected!!!");
     dispatch(changeStatus(BLE.BLE_DISCONNECTED));
   };
 
   const requestPermission = async () => {
     const device = await BLE.getDevice();
+    device.addEventListener("gattserverdisconnected", onDisconnected);
     const server = await BLE.connectGattServer(device);
     const service = await BLE.getServices(server);
     const char = await BLE.getChar(service);
-    device.addEventListener("gattserverdisconnected", onDisconnected);
 
     if (device != undefined) {
       dispatch(setDevice(device));

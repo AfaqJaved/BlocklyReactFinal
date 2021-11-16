@@ -8,6 +8,8 @@ import "./BlocklyComponent.css";
 import { INITIAL_TOOLBOX_JSON } from "./toolbox/toolbox";
 import { CONSTANTS } from "../../utils/constants";
 import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
+import { Modal } from "./blocklyModal/index";
+import { BLE } from "../../utils/bleConstants";
 
 class BlocklyComponent extends React.Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class BlocklyComponent extends React.Component {
     this.blocklyDiv = React.createRef();
     this.toolbox = React.createRef();
     this.blocklyArea = this.props.blocklyArea;
+    this.modal = null;
   }
 
   setLanguage() {
@@ -101,6 +104,15 @@ class BlocklyComponent extends React.Component {
     this.onResize(blocklyArea);
     Blockly.svgResize(this.primaryWorkspace);
     this.setSearchFuncBlockly();
+    if (this.props.bleState === BLE.BLE_CONNECTED) {
+      this.modal = new Modal("Smarty Connected Sucessfully", "StartCoding", this.primaryWorkspace);
+      this.modal.init();
+      this.modal.show();
+    } else if (this.props.bleState === BLE.BLE_DISCONNECTED) {
+      this.modal = new Modal("Smarty Connected Failed", "Try Again", this.primaryWorkspace);
+      this.modal.init();
+      this.modal.show();
+    }
   }
 
   setSearchFuncBlockly() {
@@ -133,6 +145,7 @@ class BlocklyComponent extends React.Component {
 const mapStateToProps = function (state) {
   return {
     language: state.language.language,
+    bleState: state.ble.status,
   };
 };
 
