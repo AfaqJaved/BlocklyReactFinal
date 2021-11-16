@@ -40,7 +40,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="bg-pink-600  rounded-br-full w-full">
+    <div className="bg-pink-600   w-full">
       <nav className="flex  justify-center gap-x-0 md:gap-x-16 lg:gap-x-16 md:justify-between lg:justify-between pl-5 pr-10 items-center">
         <div className="p-2 flex  items-center justify-center">
           <img src={BlocklsLogo} className="w-12 h-14 " alt="" />

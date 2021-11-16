@@ -65,15 +65,15 @@ class BlocklyComponent extends React.Component {
     this.setLanguage();
     this.setBlocksLang();
     this.setCategoryLang();
-    if (this.props.bleState === BLE.BLE_CONNECTED) {
-      this.modal = new Modal("Smarty Connected Sucessfully", "StartCoding", this.primaryWorkspace);
-      this.modal.init();
-      this.modal.show();
-    } else if (this.props.bleState === BLE.BLE_DISCONNECTED) {
-      this.modal = new Modal("Smarty Connected Failed", "Try Again", this.primaryWorkspace);
-      this.modal.init();
-      this.modal.show();
-    }
+    // if (this.props.bleState === BLE.BLE_CONNECTED) {
+    //   this.modal = new Modal("Smarty Connected Sucessfully", "StartCoding", this.primaryWorkspace);
+    //   this.modal.init();
+    //   this.modal.show();
+    // } else if (this.props.bleState === BLE.BLE_DISCONNECTED) {
+    //   this.modal = new Modal("Smarty Connected Failed", "Try Again", this.primaryWorkspace);
+    //   this.modal.init();
+    //   this.modal.show();
+    // }
   }
 
   onResize(blocklyArea) {
@@ -112,6 +112,7 @@ class BlocklyComponent extends React.Component {
     window.addEventListener("resize", this.onResize(blocklyArea), false);
     this.onResize(blocklyArea);
     Blockly.svgResize(this.primaryWorkspace);
+    this.primaryWorkspace.addChangeListener(this.props.onChange);
     this.setSearchFuncBlockly();
   }
 
