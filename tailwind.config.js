@@ -4,7 +4,11 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      colors: {},
+      colors: {
+        toolbox: {
+          orange: "#ff5f1f",
+        },
+      },
       backgroundImage: {
         "toolbox-background": "url('/src/assets/images/toolbox-background.jpg')",
       },

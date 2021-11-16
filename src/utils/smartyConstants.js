@@ -13,6 +13,11 @@ export const SMARTY = {
   async moveRight() {
     await store.getState().ble.char.writeValue(new TextEncoder().encode(CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.RIGHT));
   },
+  async rotateSmarty(angle) {
+    await store.getState().ble.char.writeValue(new TextEncoder().encode(CONSTANTS.BLOCKS.ROTATION_BLOCK.ENGLISH + ","+ angle));
+  },
+
+
 };
 
 export const RUNCODE = (code) => {

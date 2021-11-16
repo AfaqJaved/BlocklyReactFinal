@@ -6,6 +6,10 @@ export const CONSTANTS = {
     ENGLISH: "ENGLISH",
   },
   BLOCKS: {
+    ROTATION_BLOCK : {
+      ENGLISH : "Rotation",
+      RUSSIAN : "вращение"
+    },
     START_BLOCK: {
       ENGLISH: "Start Program",
       RUSSIAN: "запустить программу",
@@ -29,6 +33,10 @@ export const CONSTANTS = {
         LEFT: "левый",
         RIGHT: "Правильно",
       },
+
+      
+
+
     },
   },
   CATERGORIES: {

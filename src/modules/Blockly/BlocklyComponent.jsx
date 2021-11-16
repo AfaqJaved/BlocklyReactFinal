@@ -8,6 +8,8 @@ import "./BlocklyComponent.css";
 import { INITIAL_TOOLBOX_JSON } from "./toolbox/toolbox";
 import { CONSTANTS } from "../../utils/constants";
 import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
+import { Modal } from "./blocklyModal/index";
+import { BLE } from "../../utils/bleConstants";
 
 class BlocklyComponent extends React.Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class BlocklyComponent extends React.Component {
     this.blocklyDiv = React.createRef();
     this.toolbox = React.createRef();
     this.blocklyArea = this.props.blocklyArea;
+    this.modal = null;
   }
 
   setLanguage() {
@@ -36,6 +39,9 @@ class BlocklyComponent extends React.Component {
       Blockly.Msg.DIRECTION_BLOCK_RIGHT = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.RIGHT;
       // Start Block
       Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.ENGLISH;
+
+      //Rotation Block
+      Blockly.Msg.ROTATION_BLOCK = CONSTANTS.BLOCKS.ROTATION_BLOCK.ENGLISH;
     } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
       Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.RUSSIAN;
       // Directions Block
@@ -47,6 +53,9 @@ class BlocklyComponent extends React.Component {
 
       // Start Block
       Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.RUSSIAN;
+
+      //Rotation Block
+      Blockly.Msg.ROTATION_BLOCK = CONSTANTS.BLOCKS.ROTATION_BLOCK.RUSSIAN;
     }
   }
 
@@ -62,6 +71,15 @@ class BlocklyComponent extends React.Component {
     this.setLanguage();
     this.setBlocksLang();
     this.setCategoryLang();
+    // if (this.props.bleState === BLE.BLE_CONNECTED) {
+    //   this.modal = new Modal("Smarty Connected Sucessfully", "StartCoding", this.primaryWorkspace);
+    //   this.modal.init();
+    //   this.modal.show();
+    // } else if (this.props.bleState === BLE.BLE_DISCONNECTED) {
+    //   this.modal = new Modal("Smarty Connected Failed", "Try Again", this.primaryWorkspace);
+    //   this.modal.init();
+    //   this.modal.show();
+    // }
   }
 
   onResize(blocklyArea) {
@@ -100,6 +118,7 @@ class BlocklyComponent extends React.Component {
     window.addEventListener("resize", this.onResize(blocklyArea), false);
     this.onResize(blocklyArea);
     Blockly.svgResize(this.primaryWorkspace);
+    this.primaryWorkspace.addChangeListener(this.props.onChange);
     this.setSearchFuncBlockly();
   }
 
@@ -133,6 +152,7 @@ class BlocklyComponent extends React.Component {
 const mapStateToProps = function (state) {
   return {
     language: state.language.language,
+    bleState: state.ble.status,
   };
 };
 

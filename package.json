@@ -5,6 +5,7 @@
   "dependencies": {
     "@blockly/plugin-workspace-search": "^4.0.9",
     "@craco/craco": "^6.4.0",
+    "@monaco-editor/react": "^4.3.1",
     "@reduxjs/toolkit": "^1.6.2",
     "blockly": "^6.20210701.0",
     "cra-template-redux": "1.0.3",
@@ -12,6 +13,7 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
+    "scratch-render": "git+https://github.com/LLK/scratch-render.git",
     "web-bluetooth-utils": "^1.1.1"
   },
   "scripts": {
