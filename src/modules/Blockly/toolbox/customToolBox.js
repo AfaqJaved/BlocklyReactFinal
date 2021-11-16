@@ -12,9 +12,9 @@ class CustomCategory extends Blockly.ToolboxCategory {
 
   /** @override */
   addColourBorder_() {
-    this.htmlDiv_.className = "p-4 flex flex-col text-center text-white  shadow-2xl shadow ";
+    this.htmlDiv_.className = "p-1 flex flex-col text-center text-white   ";
     let labelDom = this.rowDiv_.getElementsByClassName("blocklyTreeLabel")[0];
-    this.rowDiv_.className = " mt-1 flex flex-col rounded-xl mb-2 shadow-lg font-sans ";
+    this.rowDiv_.className = " flex flex-col rounded-xl  shadow-lg font-sans ";
     toolboxDefaultState(this.name_, this.rowDiv_, labelDom, this.iconDom_);
   }
 

@@ -8,11 +8,14 @@ import { BLE } from "./utils/bleConstants";
 import "./modules/Blockly/blocks";
 //importing generators
 import "./modules/Blockly/generators";
-
 import NavBar from "./components/NavBar";
 import "./modules/Blockly/toolbox/customToolBox";
 import { BLOCKLY_THEME } from "./utils/blocklyTheme";
 import { RUNCODE } from "./utils/smartyConstants";
+import Bot from "./assets/images/bot.png";
+import PlayIcon from "./assets/images/play.png";
+import PauseIcon from "./assets/images/pause.png";
+import BackLogo from "./assets/images/back.jpg";
 
 class App extends Component {
   constructor(props) {
@@ -58,7 +61,7 @@ class App extends Component {
                   drag: true,
                   wheel: true,
                 }}
-                grid={{ spacing: 20, length: 3, colour: "#000000", snap: true }}
+                grid={{ spacing: 50, length: 5, colour: "gray", snap: true }}
                 zoom={{ controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2, pinch: true }}
                 initialXml={`
                 <xml xmlns="http://www.w3.org/1999/xhtml">
@@ -66,18 +69,39 @@ class App extends Component {
                 </xml>
           `}
               ></BlocklyComponent>
+              <div className="float-right">
+                <h1>Test</h1>
+              </div>
             </div>
           </div>
 
-          <div className="relative  md:invisible lg:visible invisible ">
+          <div className="flex flex-col  justify-between items-center bg-red-500 md:invisible lg:visible invisible ">
+            {/* This is the generate btn */}
             <div className="flex justify-center items-center">
-              <button
-                style={{ fontFamily: "Finger Paint", fontWeight: 2, fontSize: 30 }}
-                onClick={this.generateCode}
-                className="bg-purple-500  rounded text-xl font-semibold text text-white font-sans   hover:bg-purple-600 hover:text-yellow-600 shadow-sm items-center p-2"
-              >
-                Generate Code
-              </button>
+              <h1>Code </h1>
+            </div>
+            {/* This is the card */}
+            <div className="flex flex-col  justify-center w-full p-5 shadow-xl  items-start">
+              <div style={{ backgroundImage: `url(${BackLogo})`, backgroundSize: "cover" }} class="w-full py-4 px-8     shadow-lg rounded-lg my-20">
+                <div class="flex justify-center md:justify-end -mt-16">
+                  <img class="w-18 h-20 object-top  rounded   border-yellow-500 " src={Bot}></img>
+                </div>
+                <div>
+                  {/* This is the buttons */}
+                  <div className="flex justify-around items-center ">
+                    <button
+                      onClick={this.generateCode}
+                      className="p-5 flex flex-col text-white justify-center items-center text-2xl bg-blue-500 rounded-3xl
+                    shadow-2xl"
+                    >
+                      <img class="w-16 h-16 " src={PlayIcon}></img>
+                    </button>
+                    <button className="flex text-white flex-col justify-center items-center p-5 text-2xl  bg-blue-500 rounded-3xl shadow-xl">
+                      <img class="w-16 h-16 " src={PauseIcon}></img>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
