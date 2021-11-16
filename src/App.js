@@ -21,7 +21,7 @@ export default class App extends Component {
     this.myButton = React.createRef();
   }
   generateCode = () => {
-    var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.current.workspace);
+    var code = BlocklyJS.workspaceToCode(this.simpleWorkspace.current);
     console.log(code);
     eval(code);
   };

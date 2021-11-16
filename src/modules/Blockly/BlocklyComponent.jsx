@@ -35,7 +35,7 @@ class BlocklyComponent extends React.Component {
 
   componentDidUpdate() {
     this.setLanguage();
-    this.setBlockLang();
+    this.setBlocksLang();
   }
 
   onResize(blocklyArea) {
