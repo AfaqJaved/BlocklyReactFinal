@@ -81,16 +81,13 @@ class App extends Component {
                 </xml>
           `}
               ></BlocklyComponent>
-              <div className="float-right">
-                <h1>Test</h1>
-              </div>
             </div>
           </div>
 
-          <div className={"flex flex-col p-5 justify-between items-center bg-pink-600 md:invisible lg:visible invisible " + (this.state.expanded ? "col-span-2" : "")}>
+          <div className={"flex flex-col p-5 justify-between items-center bg-blue-300 md:invisible lg:visible invisible " + (this.state.expanded ? "col-span-2" : "")}>
             {/* This is the generate btn */}
 
-            <div className="flex  justify-center items-center  w-full h-full p-5 ">
+            <div className="flex  justify-center  items-center  w-full h-full p-5 ">
               <div className="w-full h-full bg-yellow-500 border-4 border-white  shadow-2xl rounded-t-2xl p-5">
                 <div className="flex justify-center md:justify-end -mt-16 ">
                   <img
@@ -106,7 +103,7 @@ class App extends Component {
             </div>
             {/* This is the card */}
             <div className="flex flex-col  justify-center w-full p-5 mb-16 items-start">
-              <div className="w-full py-4 px-8 bg-white  shadow-lg rounded-lg ">
+              <div className="w-full py-4 px-8 bg-pink-600  shadow-lg rounded-lg ">
                 <div className="flex justify-center md:justify-end -mt-16">
                   <img className="w-18 h-20 object-top  rounded   border-yellow-500 " src={Bot}></img>
                 </div>

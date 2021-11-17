@@ -14,7 +14,11 @@
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
     "scratch-render": "git+https://github.com/LLK/scratch-render.git",
-    "web-bluetooth-utils": "^1.1.1"
+    "web-bluetooth-utils": "^1.1.1",
+    "i18next": "^19.9.0",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "i18next-http-backend": "^1.1.1",
+    "react-i18next": "^11.8.8"
   },
   "scripts": {
     "start": "craco start",

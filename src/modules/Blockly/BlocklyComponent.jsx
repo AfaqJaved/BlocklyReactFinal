@@ -5,11 +5,13 @@ import en from "blockly/msg/en";
 import ru from "blockly/msg/ru";
 import "blockly/blocks";
 import "./BlocklyComponent.css";
-import { INITIAL_TOOLBOX_JSON } from "./toolbox/toolbox";
+import { INITIAL_TOOLBOX_JSON_EN } from "./toolbox/en/toolbox";
+import { INITIAL_TOOLBOX_JSON_RU } from "./toolbox/ru/toolbox";
 import { CONSTANTS } from "../../utils/constants";
 import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
-import { Modal } from "./blocklyModal/index";
+import "./toolbox/customToolBox";
 import { BLE } from "../../utils/bleConstants";
+import { Modal } from "./blocklyModal";
 
 class BlocklyComponent extends React.Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class BlocklyComponent extends React.Component {
     this.toolbox = React.createRef();
     this.blocklyArea = this.props.blocklyArea;
     this.modal = null;
+    this.currentLanguage = "";
   }
 
   setLanguage() {
@@ -33,53 +36,33 @@ class BlocklyComponent extends React.Component {
       Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.ENGLISH;
       // Directions Block
       Blockly.Msg.DIRECTION_BLOCK = CONSTANTS.BLOCKS.DIRECTION_BLOCK.ENGLISH;
-      Blockly.Msg.DIRECTION_BLOCK_FORWARD = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.FORWARD;
-      Blockly.Msg.DIRECTION_BLOCK_BACKWARD = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.BACKWARD;
-      Blockly.Msg.DIRECTION_BLOCK_LEFT = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.LEFT;
-      Blockly.Msg.DIRECTION_BLOCK_RIGHT = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.RIGHT;
       // Start Block
       Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.ENGLISH;
-
       //Rotation Block
       Blockly.Msg.ROTATION_BLOCK = CONSTANTS.BLOCKS.ROTATION_BLOCK.ENGLISH;
     } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
       Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.RUSSIAN;
       // Directions Block
       Blockly.Msg.DIRECTION_BLOCK = CONSTANTS.BLOCKS.DIRECTION_BLOCK.RUSSIAN;
-      Blockly.Msg.DIRECTION_BLOCK_FORWARD = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_RUSSIAN.FORWARD;
-      Blockly.Msg.DIRECTION_BLOCK_BACKWARD = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_RUSSIAN.BACKWARD;
-      Blockly.Msg.DIRECTION_BLOCK_LEFT = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_RUSSIAN.LEFT;
-      Blockly.Msg.DIRECTION_BLOCK_RIGHT = CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_RUSSIAN.RIGHT;
-
       // Start Block
       Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.RUSSIAN;
-
       //Rotation Block
       Blockly.Msg.ROTATION_BLOCK = CONSTANTS.BLOCKS.ROTATION_BLOCK.RUSSIAN;
-    }
-  }
-
-  setCategoryLang() {
-    if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
-      Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.ENGLISH;
-    } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
-      Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.RUSSIAN;
     }
   }
 
   componentDidUpdate() {
     this.setLanguage();
     this.setBlocksLang();
-    this.setCategoryLang();
-    // if (this.props.bleState === BLE.BLE_CONNECTED) {
-    //   this.modal = new Modal("Smarty Connected Sucessfully", "StartCoding", this.primaryWorkspace);
-    //   this.modal.init();
-    //   this.modal.show();
-    // } else if (this.props.bleState === BLE.BLE_DISCONNECTED) {
-    //   this.modal = new Modal("Smarty Connected Failed", "Try Again", this.primaryWorkspace);
-    //   this.modal.init();
-    //   this.modal.show();
-    // }
+    if (this.currentLanguage != this.props.language) {
+      if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
+        this.primaryWorkspace.updateToolbox(INITIAL_TOOLBOX_JSON_EN);
+      } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
+        console.log(INITIAL_TOOLBOX_JSON_RU);
+        this.primaryWorkspace.updateToolbox(INITIAL_TOOLBOX_JSON_RU);
+      }
+      this.currentLanguage = this.props.language;
+    }
   }
 
   onResize(blocklyArea) {
@@ -102,13 +85,16 @@ class BlocklyComponent extends React.Component {
 
   componentDidMount() {
     this.setLanguage();
-    this.setCategoryLang();
-    this.setCategoryLang();
-    const { initialXml, children, blocklyArea, ...rest } = this.props;
-    Blockly.Scrollbar.scrollbarThickness = 5;
-    this.primaryWorkspace = Blockly.inject(this.blocklyDiv.current, {
-      toolbox: INITIAL_TOOLBOX_JSON,
+    this.initBlockly();
+  }
 
+  initBlockly() {
+    const { initialXml, children, blocklyArea, ...rest } = this.props;
+    Blockly.Scrollbar.scrollbarThickness = 0;
+    Blockly.Scrollbar.DEFAULT_SCROLLBAR_MARGIN = 0;
+    Blockly.Toolbox.height = 30;
+    this.primaryWorkspace = Blockly.inject(this.blocklyDiv.current, {
+      toolbox: INITIAL_TOOLBOX_JSON_EN,
       ...rest,
     });
 

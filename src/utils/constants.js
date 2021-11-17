@@ -2,13 +2,13 @@ import { BLOCKLY_CATEGORIES_CONSTANTS } from "./blocklyCategories";
 
 export const CONSTANTS = {
   LANGUAGE: {
-    RUSSIAN: "RUSSIAN",
-    ENGLISH: "ENGLISH",
+    RUSSIAN: "ru",
+    ENGLISH: "en",
   },
   BLOCKS: {
-    ROTATION_BLOCK : {
-      ENGLISH : "Rotation",
-      RUSSIAN : "вращение"
+    ROTATION_BLOCK: {
+      ENGLISH: "Rotation",
+      RUSSIAN: "вращение",
     },
     START_BLOCK: {
       ENGLISH: "Start Program",
@@ -33,10 +33,6 @@ export const CONSTANTS = {
         LEFT: "левый",
         RIGHT: "Правильно",
       },
-
-      
-
-
     },
   },
   CATERGORIES: {

@@ -1,11 +1,106 @@
-/* Stacks the icon on top of the label. */
 .blocklyTreeRowContentContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2px;
+  display: block;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  font-family: "Finger Paint";
 }
 
 .blocklyTreeRow {
-  height: initial;
+}
+
+.smartyIcon {
+  background-image: url("../../../assets/images/robot.png");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 80px 50px;
+  background-repeat: no-repeat;
+  background-color: #e75480;
+  display: block;
+  margin-bottom: -20px;
+  /* padding: 20px; */
+}
+
+.logicIcon {
+  background-image: url("../../../assets/images/logic.png");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  background-color: #9400d3;
+  display: block;
+  margin-bottom: -20px;
+  /* padding: 20px; */
+}
+
+.loopsIcon {
+  background-image: url("../../../assets/images/loops.png");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 80px 50px;
+  background-repeat: no-repeat;
+  background-color: #ef3038;
+  display: block;
+  margin-bottom: -20px;
+  /* padding: 20px; */
+}
+
+.mathIcon {
+  background-image: url("../../../assets/images/math.png");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  background-color: #9c3d54;
+  display: block;
+  margin-bottom: -20px;
+  /* padding: 20px; */
+}
+
+.textIcon {
+  background-image: url("../../../assets/images/text_icon.png");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  background-color: #ff8c00;
+  display: block;
+  margin-bottom: -20px;
+  /* padding: 20px; */
+}
+
+.listIcon {
+  background-image: url("../../../assets/images/list_icon.png");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  background-color: #ff69b4;
+  display: block;
+  margin-bottom: -20px;
+  /* padding: 20px; */
+}
+
+.colorIcon {
+  background-image: url("../../../assets/images/color.png");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  background-color: #ef4f4f;
+  display: block;
+  margin-bottom: -20px;
+  /* padding: 20px; */
+}
+
+.functionIcon {
+  background-image: url("../../../assets/images/function_icon.png");
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  background-color: #df711b;
+  display: block;
+  margin-bottom: -20px;
+  /* padding: 20px; */
 }
