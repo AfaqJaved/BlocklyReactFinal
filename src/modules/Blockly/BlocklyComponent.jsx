@@ -9,9 +9,6 @@ import { INITIAL_TOOLBOX_JSON_EN } from "./toolbox/en/toolbox";
 import { INITIAL_TOOLBOX_JSON_RU } from "./toolbox/ru/toolbox";
 import { CONSTANTS } from "../../utils/constants";
 import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
-import "./toolbox/customToolBox";
-import { BLE } from "../../utils/bleConstants";
-import { Modal } from "./blocklyModal";
 
 class BlocklyComponent extends React.Component {
   constructor(props) {

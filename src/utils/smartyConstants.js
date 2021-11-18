@@ -2,7 +2,7 @@ import { store } from "../app/store";
 import { CONSTANTS } from "../utils/constants";
 export const SMARTY = {
   async moveForward() {
-    await store.getState().ble.char.writeValue(new TextEncoder().encode(CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.FORWARD));
+    await store.getState().ble.char.writeValue(new TextEncoder().encode("{ 'ssid' : 'Notion360' , 'pass' : 'notion36@' , 'mode' : 'wifi' }"));
   },
   async moveBackward() {
     await store.getState().ble.char.writeValue(new TextEncoder().encode(CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.BACKWARD));
@@ -14,10 +14,13 @@ export const SMARTY = {
     await store.getState().ble.char.writeValue(new TextEncoder().encode(CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.RIGHT));
   },
   async rotateSmarty(angle) {
-    await store.getState().ble.char.writeValue(new TextEncoder().encode(CONSTANTS.BLOCKS.ROTATION_BLOCK.ENGLISH + ","+ angle));
+    await store.getState().ble.char.writeValue(new TextEncoder().encode(CONSTANTS.BLOCKS.ROTATION_BLOCK.ENGLISH + "," + angle));
   },
-
-
+  async getDistance() {
+    let value = await store.getState().ble.char.readValue();
+    console.log(new TextDecoder().decode(value));
+    return new TextDecoder().decode(value);
+  },
 };
 
 export const RUNCODE = (code) => {

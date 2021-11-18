@@ -9,7 +9,6 @@ import "./modules/Blockly/blocks";
 //importing generators
 import "./modules/Blockly/generators";
 import NavBar from "./components/NavBar";
-import "./modules/Blockly/toolbox/customToolBox";
 import { BLOCKLY_THEME } from "./utils/blocklyTheme";
 import { RUNCODE } from "./utils/smartyConstants";
 import Bot from "./assets/images/bot.png";
@@ -40,11 +39,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.generateCode();
-  }
-
-  excecuteCode() {
-    RUNCODE(this.code);
+    // this.generateCode();
   }
 
   getBlocklyArea() {
@@ -111,7 +106,9 @@ class App extends Component {
                   {/* This is the buttons */}
                   <div className="flex justify-around items-center ">
                     <button
-                      onClick={this.generateCode}
+                      onClick={() => {
+                        RUNCODE(this.state.code);
+                      }}
                       className="p-5 flex flex-col text-white justify-center items-center text-2xl bg-blue-500 rounded-3xl
                     shadow-3xl"
                     >

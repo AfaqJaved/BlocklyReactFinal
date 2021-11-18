@@ -1,5 +1,5 @@
 export const BLE = {
-  BLE_DEVICE_NAME: "Smarty",
+  BLE_DEVICE_NAME: "Long name works now",
   BLE_SERVICE_NAME: "4fafc201-1fb5-459e-8fcc-c5c9c331914b",
   BLE_CHAR_UUID: "beb5483e-36e1-4688-b7f5-ea07361b26a8",
   BLE_DISCONNECTED: "disconnected",
