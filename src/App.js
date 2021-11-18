@@ -9,7 +9,6 @@ import "./modules/Blockly/blocks";
 //importing generators
 import "./modules/Blockly/generators";
 import NavBar from "./components/NavBar";
-import "./modules/Blockly/toolbox/customToolBox";
 import { BLOCKLY_THEME } from "./utils/blocklyTheme";
 import { RUNCODE } from "./utils/smartyConstants";
 import Bot from "./assets/images/bot.png";
@@ -40,11 +39,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.generateCode();
-  }
-
-  excecuteCode() {
-    RUNCODE(this.code);
+    // this.generateCode();
   }
 
   getBlocklyArea() {
@@ -81,16 +76,13 @@ class App extends Component {
                 </xml>
           `}
               ></BlocklyComponent>
-              <div className="float-right">
-                <h1>Test</h1>
-              </div>
             </div>
           </div>
 
-          <div className={"flex flex-col p-5 justify-between items-center bg-pink-600 md:invisible lg:visible invisible " + (this.state.expanded ? "col-span-2" : "")}>
+          <div className={"flex flex-col p-5 justify-between items-center bg-blue-300 md:invisible lg:visible invisible " + (this.state.expanded ? "col-span-2" : "")}>
             {/* This is the generate btn */}
 
-            <div className="flex  justify-center items-center  w-full h-full p-5 ">
+            <div className="flex  justify-center  items-center  w-full h-full p-5 ">
               <div className="w-full h-full bg-yellow-500 border-4 border-white  shadow-2xl rounded-t-2xl p-5">
                 <div className="flex justify-center md:justify-end -mt-16 ">
                   <img
@@ -106,7 +98,7 @@ class App extends Component {
             </div>
             {/* This is the card */}
             <div className="flex flex-col  justify-center w-full p-5 mb-16 items-start">
-              <div className="w-full py-4 px-8 bg-white  shadow-lg rounded-lg ">
+              <div className="w-full py-4 px-8 bg-pink-600  shadow-lg rounded-lg ">
                 <div className="flex justify-center md:justify-end -mt-16">
                   <img className="w-18 h-20 object-top  rounded   border-yellow-500 " src={Bot}></img>
                 </div>
@@ -114,7 +106,9 @@ class App extends Component {
                   {/* This is the buttons */}
                   <div className="flex justify-around items-center ">
                     <button
-                      onClick={this.generateCode}
+                      onClick={() => {
+                        RUNCODE(this.state.code);
+                      }}
                       className="p-5 flex flex-col text-white justify-center items-center text-2xl bg-blue-500 rounded-3xl
                     shadow-3xl"
                     >

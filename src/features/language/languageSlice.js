@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CONSTANTS } from "../../utils/constants";
-
 const initialState = {
   language: CONSTANTS.LANGUAGE.ENGLISH,
 };

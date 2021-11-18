@@ -2,16 +2,22 @@ import { BLOCKLY_CATEGORIES_CONSTANTS } from "./blocklyCategories";
 
 export const CONSTANTS = {
   LANGUAGE: {
-    RUSSIAN: "RUSSIAN",
-    ENGLISH: "ENGLISH",
+    RUSSIAN: "ru",
+    ENGLISH: "en",
   },
   BLOCKS: {
+<<<<<<< HEAD
 
    
 
     ROTATION_BLOCK : {
       ENGLISH : "Rotation",
       RUSSIAN : "вращение"
+=======
+    ROTATION_BLOCK: {
+      ENGLISH: "Rotation",
+      RUSSIAN: "вращение",
+>>>>>>> 52b44870d7d01a76a79421997d8f94e857f542a9
     },
     START_BLOCK: {
       ENGLISH: "Start Program",
@@ -37,6 +43,7 @@ export const CONSTANTS = {
         BACKWARD: "назад",
         LEFT: "левый",
         RIGHT: "Правильно",
+<<<<<<< HEAD
       },     
 
 
@@ -60,6 +67,9 @@ export const CONSTANTS = {
       },     
 
 
+=======
+      },
+>>>>>>> 52b44870d7d01a76a79421997d8f94e857f542a9
     },
 
   
