@@ -1,21 +1,46 @@
-
 import * as Blockly from "blockly";
 import { CONSTANTS } from "../../../utils/constants";
 
-Blockly.JavaScript['direction_steps'] = function(block) {
-    var dropdown_direction_steps = block.getFieldValue('direction_steps');
-    if (dropdown_direction_steps=== CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.FORWARD) {
-        return "await SMARTY.moveForward();\n";
-      } else if (dropdown_direction_steps === CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.BACKWARD) {
-        return "await SMARTY.moveBackward();\n";
-      } else if (dropdown_direction_steps === CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.LEFT) {
-        return "await SMARTY.moveLeft();\n";
-      } else if (dropdown_direction_steps === CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.RIGHT) {
-        return "await SMARTY.moveRight();\n";
-      }
-        
-    var value_number_input = Blockly.JavaScript.valueToCode(block, 'number_input', Blockly.JavaScript.ORDER_ATOMIC);
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...;\n';
-    return code;
-  };
+// Blockly.JavaScript['dropdowndirectionstep'] = function(block) {
+//   var dropdown_steps = block.getFieldValue('Steps');
+
+//   var value_number = Blockly.JavaScript.valueToCode(block, 'number', Blockly.JavaScript.ORDER_ATOMIC);
+//   // TODO: Assemble JavaScript into code variable.
+//   var code = "await Smarty.test("+ value_number+");";
+//   return code;
+// };
+
+Blockly.JavaScript["directionstepblock"] = function (block) {
+  var dropdown_steps = block.getFieldValue("steps");
+  var value_number = Blockly.JavaScript.valueToCode(
+    block,
+    "number",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  
+  if (
+    dropdown_steps ===
+    CONSTANTS.BLOCKS.DIRECTION_STEPS_BLOCK.DIRECTIONS_STEPS_ENGLISH.FORWARD
+  ) {
+    var code = "\nawait SMARTY.moveForwardSteps(" + value_number + ");\n";
+  } else if (
+    dropdown_steps ===
+    CONSTANTS.BLOCKS.DIRECTION_STEPS_BLOCK.DIRECTIONS_STEPS_ENGLISH.BACKWARD
+  ) {
+    var code = "\nawait SMARTY.moveBackwardSteps(" + value_number + ");\n";
+  } else if (
+    dropdown_steps ===
+    CONSTANTS.BLOCKS.DIRECTION_STEPS_BLOCK.DIRECTIONS_STEPS_ENGLISH.LEFT
+  ) {
+    var code = "\nawait SMARTY.moveLeftSteps(" + value_number + ");\n";
+  } else if (
+    dropdown_steps ===
+    CONSTANTS.BLOCKS.DIRECTION_STEPS_BLOCK.DIRECTIONS_STEPS_ENGLISH.RIGHT
+  ) {
+    var code = "\nawait SMARTY.moveRightSteps(" + value_number + ");\n";
+  }
+
+  return code;
+};
+

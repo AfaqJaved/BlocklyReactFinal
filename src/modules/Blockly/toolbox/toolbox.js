@@ -22,8 +22,8 @@ export const INITIAL_TOOLBOX_JSON = {
           type: "rotation_block",
         },
         {
-          kind: "block",
-          type: "direction_steps",
+          kind: "block", 
+          type: "directionstepblock",
         },
       ],
     },

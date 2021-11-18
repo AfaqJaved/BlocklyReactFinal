@@ -6,6 +6,9 @@ export const CONSTANTS = {
     ENGLISH: "ENGLISH",
   },
   BLOCKS: {
+
+   
+
     ROTATION_BLOCK : {
       ENGLISH : "Rotation",
       RUSSIAN : "вращение"
@@ -18,6 +21,8 @@ export const CONSTANTS = {
       ENGLISH: "Show Alert",
       RUSSIAN: "Показать оповещение",
     },
+
+
     DIRECTION_BLOCK: {
       ENGLISH: "MOVE",
       RUSSIAN: "двигаться",
@@ -32,12 +37,34 @@ export const CONSTANTS = {
         BACKWARD: "назад",
         LEFT: "левый",
         RIGHT: "Правильно",
-      },
-
-      
+      },     
 
 
     },
+
+
+    DIRECTION_STEPS_BLOCK: {
+      ENGLISH: "MOVE",
+      RUSSIAN: "двигаться",
+      DIRECTIONS_STEPS_ENGLISH: {
+        FORWARD: "FORWARD",
+        BACKWARD: "BACKWARD",
+        LEFT: "LEFT",
+        RIGHT: "RIGHT ",
+      },
+      DIRECTIONS_STEPS_RUSSIAN: {
+        FORWARD: "вперед",
+        BACKWARD: "назад",
+        LEFT: "левый",
+        RIGHT: "Правильно",
+      },     
+
+
+    },
+
+  
+
+
   },
   CATERGORIES: {
     SMARTY_CATEGORY: {
