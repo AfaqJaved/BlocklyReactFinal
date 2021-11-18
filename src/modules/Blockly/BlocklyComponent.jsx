@@ -33,7 +33,6 @@ class BlocklyComponent extends React.Component {
       Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.ENGLISH;
       // Directions Block
       Blockly.Msg.DIRECTION_BLOCK = CONSTANTS.BLOCKS.DIRECTION_BLOCK.ENGLISH;
-<<<<<<< HEAD
       Blockly.Msg.DIRECTION_BLOCK_FORWARD =
         CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.FORWARD;
       Blockly.Msg.DIRECTION_BLOCK_BACKWARD =
@@ -54,8 +53,6 @@ class BlocklyComponent extends React.Component {
       Blockly.Msg.DIRECTION_STEPS_BLOCK_RIGHT =
         CONSTANTS.BLOCKS.DIRECTION_STEPS_BLOCK.DIRECTIONS_STEPS_ENGLISH.RIGHT;
 
-=======
->>>>>>> 52b44870d7d01a76a79421997d8f94e857f542a9
       // Start Block
       Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.ENGLISH;
       //Rotation Block
@@ -64,7 +61,6 @@ class BlocklyComponent extends React.Component {
       Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.RUSSIAN;
       // Directions Block
       Blockly.Msg.DIRECTION_BLOCK = CONSTANTS.BLOCKS.DIRECTION_BLOCK.RUSSIAN;
-<<<<<<< HEAD
       Blockly.Msg.DIRECTION_BLOCK_FORWARD =
         CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_RUSSIAN.FORWARD;
       Blockly.Msg.DIRECTION_BLOCK_BACKWARD =
@@ -86,8 +82,6 @@ class BlocklyComponent extends React.Component {
       Blockly.Msg.DIRECTION_STEPS_BLOCK_RIGHT =
         CONSTANTS.BLOCKS.DIRECTION_STEPS_BLOCK.DIRECTIONS_STEPS_RUSSIAN.RIGHT;
 
-=======
->>>>>>> 52b44870d7d01a76a79421997d8f94e857f542a9
       // Start Block
       Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.RUSSIAN;
       //Rotation Block
@@ -95,7 +89,6 @@ class BlocklyComponent extends React.Component {
     }
   }
 
-<<<<<<< HEAD
   setCategoryLang() {
     if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
       Blockly.Msg.LOGIC_CATEGORY_NAME =
@@ -106,8 +99,6 @@ class BlocklyComponent extends React.Component {
     }
   }
 
-=======
->>>>>>> 52b44870d7d01a76a79421997d8f94e857f542a9
   componentDidUpdate() {
     this.setLanguage();
     this.setBlocksLang();
