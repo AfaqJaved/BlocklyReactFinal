@@ -26,10 +26,6 @@ export const INITIAL_TOOLBOX_JSON_RU = {
           kind: "block",
           type: "rotation_block",
         },
-        {
-          kind: "block", 
-          type: "directionstepblock",
-        },
       ],
     },
     {

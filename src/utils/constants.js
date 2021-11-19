@@ -6,18 +6,9 @@ export const CONSTANTS = {
     ENGLISH: "en",
   },
   BLOCKS: {
-<<<<<<< HEAD
-
-   
-
-    ROTATION_BLOCK : {
-      ENGLISH : "Rotation",
-      RUSSIAN : "вращение"
-=======
     ROTATION_BLOCK: {
       ENGLISH: "Rotation",
       RUSSIAN: "вращение",
->>>>>>> 52b44870d7d01a76a79421997d8f94e857f542a9
     },
     START_BLOCK: {
       ENGLISH: "Start Program",
@@ -27,7 +18,6 @@ export const CONSTANTS = {
       ENGLISH: "Show Alert",
       RUSSIAN: "Показать оповещение",
     },
-
 
     DIRECTION_BLOCK: {
       ENGLISH: "MOVE",
@@ -43,38 +33,8 @@ export const CONSTANTS = {
         BACKWARD: "назад",
         LEFT: "левый",
         RIGHT: "Правильно",
-<<<<<<< HEAD
-      },     
-
-
-    },
-
-
-    DIRECTION_STEPS_BLOCK: {
-      ENGLISH: "MOVE",
-      RUSSIAN: "двигаться",
-      DIRECTIONS_STEPS_ENGLISH: {
-        FORWARD: "FORWARD",
-        BACKWARD: "BACKWARD",
-        LEFT: "LEFT",
-        RIGHT: "RIGHT ",
       },
-      DIRECTIONS_STEPS_RUSSIAN: {
-        FORWARD: "вперед",
-        BACKWARD: "назад",
-        LEFT: "левый",
-        RIGHT: "Правильно",
-      },     
-
-
-=======
-      },
->>>>>>> 52b44870d7d01a76a79421997d8f94e857f542a9
     },
-
-  
-
-
   },
   CATERGORIES: {
     SMARTY_CATEGORY: {

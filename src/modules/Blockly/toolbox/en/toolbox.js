@@ -26,10 +26,7 @@ export const INITIAL_TOOLBOX_JSON_EN = {
           kind: "block",
           type: "rotation_block",
         },
-        {
-          kind: "block",
-          type: "direction_steps",
-        },
+
         {
           kind: "block",
           type: "getdistance",
