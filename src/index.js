@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
@@ -32,7 +32,7 @@ i18next
   });
 
 i18next.changeLanguage(CONSTANTS.LANGUAGE.ENGLISH);
-
+//This sifsfsadfdasfds
 ReactDOM.render(
   // <Suspense fallback={loadingMarkup}>
   <React.StrictMode>
