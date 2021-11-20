@@ -5,7 +5,7 @@ import BlocklyJS from "blockly/javascript";
 import { connect } from "react-redux";
 import { BLE } from "./utils/bleConstants";
 //importing blocks
-import "./modules/Blockly/blocks";
+import "./modules/Blockly/blocks-en";
 //importing generators
 import "./modules/Blockly/generators";
 import NavBar from "./components/NavBar";
@@ -72,7 +72,7 @@ class App extends Component {
                 onChange={this.generateCode}
                 initialXml={`
                 <xml xmlns="http://www.w3.org/1999/xhtml">
-                <block type="start_block" x="200" y= "200"></block>
+                <block type="start_block_en" x="200" y= "200"></block>
                 </xml>
           `}
               ></BlocklyComponent>

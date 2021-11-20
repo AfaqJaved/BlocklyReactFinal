@@ -231,11 +231,11 @@ export class Modal {
 
     // Create Container
     const modalContainer = document.createElement("div");
-    modalContainer.className = "blocklyModalContainer bg-yellow-500 text-white text-2xl  rounded-full font-sas";
+    modalContainer.className = "blocklyModalContainer bg-yellow-500 text-white text-2xl  rounded-3xl font-sas";
     modalContainer.setAttribute("role", "dialog");
     modalContainer.setAttribute("aria-labelledby", this.title_);
     const img = document.createElement("img");
-    if (this.buttonText === "Try Again") {
+    if (this.buttonText === "Try Again" || this.buttonText === "Попробуйте снова") {
       img.src = Bot;
     } else {
       img.src = Robot;
@@ -278,7 +278,7 @@ export class Modal {
     modalFooter.className = "flex justify-center items-center";
     const exitButton = document.createElement("button");
     exitButton.innerHTML = this.buttonText;
-    if (this.buttonText === "Try Again") {
+    if (this.buttonText === "Try Again" || this.buttonText === "Попробуйте снова") {
       exitButton.className = "text-white mt-5 text-sm border-none p-4  bg-red-500 rounded-2xl shadow-lg";
     } else {
       exitButton.className = "text-white mt-5 text-sm border-none p-4 bg-purple-500  rounded-2xl shadow-lg";

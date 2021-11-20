@@ -16,19 +16,20 @@ export const INITIAL_TOOLBOX_JSON_RU = {
       contents: [
         {
           kind: "block",
-          type: "direction",
+          type: "direction_ru",
         },
         {
           kind: "block",
-          type: "start_block",
+          type: "start_block_ru",
         },
         {
           kind: "block",
-          type: "rotation_block",
+          type: "rotation_block_ru",
         },
+
         {
-          kind: "block", 
-          type: "directionstepblock",
+          kind: "block",
+          type: "getdistance_ru",
         },
       ],
     },

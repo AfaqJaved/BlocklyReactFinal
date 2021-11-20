@@ -3,12 +3,7 @@
   "LANGUAGE": "язык",
   "CONNECT_BLE": "Пожалуйста, подключитесь",
   "SUCESS": "успех",
-  "SMARTY": "Smarty",
-  "LOGIC": "логика",
-  "LOOPS": "петли",
-  "MATH": "математика",
-  "TEXT": "текст",
-  "LISTS": "списки",
-  "COLOUR": "цвет",
-  "FUNCTIONS": "функции"
+  "SMARTY_CONNECTION_SUCESS": "Smarty успешно подключился !!!",
+  "OK": "Ok",
+  "TRY_AGAIN": "Попробуйте снова"
 }
