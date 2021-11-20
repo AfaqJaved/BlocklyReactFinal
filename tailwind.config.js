@@ -11,6 +11,7 @@ module.exports = {
       },
       backgroundImage: {
         "toolbox-background": "url('/src/assets/images/toolbox-background.jpg')",
+        login_back: "url('/src/assets/images/login_back.jpg')",
       },
       fontFamily: {
         FingerPaint: ["FingerPaint"],

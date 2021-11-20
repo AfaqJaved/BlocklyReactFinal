@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
 // needed for translations
 import i18next from "i18next";
@@ -12,6 +13,7 @@ import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { CONSTANTS } from "./utils/constants";
 import { client } from "./mqtt";
+import RouterComponent from "./routing/router";
 i18next
   .use(HttpApi)
   .use(LanguageDetector)
@@ -37,7 +39,9 @@ ReactDOM.render(
   // <Suspense fallback={loadingMarkup}>
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <RouterComponent></RouterComponent>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   // </Suspense>,
