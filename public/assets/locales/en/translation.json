@@ -2,5 +2,8 @@
   "APP_TITLE": "BLockly",
   "LANGUAGE": "Language",
   "CONNECT_BLE": "Please Connect",
-  "SUCESS": "Sucess"
+  "SUCESS": "Sucess",
+  "SMARTY_CONNECTION_SUCESS": "Smarty Connected Sucessfully!!!",
+  "OK": "OK",
+  "TRY_AGAIN": "Try Again"
 }

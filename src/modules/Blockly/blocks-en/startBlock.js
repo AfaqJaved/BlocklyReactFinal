@@ -1,9 +1,9 @@
 import * as Blockly from "blockly/core";
-import { CONSTANTS } from "../../../utils/constants";
+import { BLOCKS_LANGUAGE_CONSTANTS } from "../../../utils/blockConstants";
 
 let startBlock = {
-  type: "start_block",
-  message0: "%{BKY_START_BLOCK}  %1 %2",
+  type: "start_block_en",
+  message0: BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.START_BLOCK.ENGLISH + "  %1 %2",
   args0: [
     {
       type: "input_dummy",
@@ -19,11 +19,8 @@ let startBlock = {
   helpUrl: "",
 };
 
-Blockly.Blocks["start_block"] = {
+Blockly.Blocks["start_block_en"] = {
   init: function () {
     this.jsonInit(startBlock);
   },
 };
-
-Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.ENGLISH;
-// Blockly.Msg.MYBLOCK = "Показать оповещение";
