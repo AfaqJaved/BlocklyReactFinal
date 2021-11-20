@@ -4,6 +4,7 @@ import languageReducer from "../features/language/languageSlice";
 import bleReducer from "../features/ble/bleSlice";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
+// /This si faetstaese
 const customizedMiddleware = getDefaultMiddleware({
   serializableCheck: false,
 });
