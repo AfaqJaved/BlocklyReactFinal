@@ -1,50 +1,35 @@
-import "../toolbox.css";
-import { BLOCKLY_CATEGORIES_CONSTANTS } from "../../../../utils/blocklyCategories";
+import "./toolbox.css";
+import * as Blockly from "blockly";
+import { CONSTANTS } from "../../../utils/constants";
 
-export const INITIAL_TOOLBOX_JSON_EN = {
+export const INITIAL_TOOLBOX_JSON = {
   kind: "categoryToolbox",
   contents: [
     {
       kind: "category",
-      name: BLOCKLY_CATEGORIES_CONSTANTS.EN_SMARTY,
-      cssConfig: {
-        container: "p-4  flex flex-col text-center text-white",
-        row: "smartyIcon rounded-xl text-white  shadow-lg font-sans",
-        label: " font-sas text-lg text-white",
-        icon: "customicon w-20 h-16",
-      },
+      name: "%{BKY_SMARTY_CATEGORY_NAME}",
       contents: [
         {
           kind: "block",
-          type: "direction_en",
+          type: "direction",
         },
         {
           kind: "block",
-          type: "start_block_en",
+          type: "start_block",
         },
         {
           kind: "block",
-          type: "rotation_block_en",
+          type: "rotation_block",
         },
         // {
-        //   kind: "block",
-        //   type: "direction_steps",
+        //   kind: "block", 
+        //   type: "directionstepblock",
         // },
-        {
-          kind: "block",
-          type: "getdistance_en",
-        },
       ],
     },
     {
       kind: "category",
-      name: BLOCKLY_CATEGORIES_CONSTANTS.EN_LOGIC,
-      cssConfig: {
-        container: "p-4 flex flex-col text-center text-white",
-        row: " logicIcon rounded-xl text-white  shadow-lg font-sans",
-        label: "mt-5 font-sas text-lg text-white ",
-        icon: "customicon w-20 h-16",
-      },
+      name: "%{BKY_LOGIC_CATEGORY_NAME}",
       contents: [
         {
           kind: "block",
@@ -80,13 +65,8 @@ export const INITIAL_TOOLBOX_JSON_EN = {
 
     {
       kind: "category",
-      name: BLOCKLY_CATEGORIES_CONSTANTS.EN_LOOPS,
-      cssConfig: {
-        container: "p-4 flex flex-col text-center text-white",
-        row: "loopsIcon smarty rounded-xl text-white  shadow-lg font-sans",
-        label: "mt-5 font-sas text-lg text-white ",
-        icon: "customicon w-20 h-16",
-      },
+      name: "%{BKY_LOOPS_CATEGORY_NAME}",
+      colour: 120,
       contents: [
         {
           kind: "block",
@@ -137,13 +117,9 @@ export const INITIAL_TOOLBOX_JSON_EN = {
     },
     {
       kind: "category",
-      name: BLOCKLY_CATEGORIES_CONSTANTS.EN_MATH,
-      cssConfig: {
-        container: "p-4 flex flex-col text-center text-white",
-        row: " mathIcon smarty rounded-xl text-white  shadow-lg font-sans",
-        label: " mt-5 font-sas text-lg text-white ",
-        icon: "customicon w-20 h-16",
-      },
+      name: "%{BKY_MATH_CATEGORY_NAME}",
+
+      colour: 230,
       contents: [
         {
           kind: "block",
@@ -284,13 +260,9 @@ export const INITIAL_TOOLBOX_JSON_EN = {
     },
     {
       kind: "category",
-      name: BLOCKLY_CATEGORIES_CONSTANTS.EN_TEXT,
-      cssConfig: {
-        container: "p-4 flex flex-col text-center text-white",
-        row: " textIcon smarty rounded-xl text-white  shadow-lg font-sans",
-        label: " mt-5 font-sas text-lg text-white ",
-        icon: "customicon w-20 h-16",
-      },
+      name: "%{BKY_TEXT_CATEGORY_NAME}",
+
+      colour: 160,
       contents: [
         {
           kind: "block",
@@ -430,13 +402,9 @@ export const INITIAL_TOOLBOX_JSON_EN = {
     },
     {
       kind: "category",
-      name: BLOCKLY_CATEGORIES_CONSTANTS.EN_LISTS,
-      cssConfig: {
-        container: "p-4 flex flex-col text-center text-white",
-        row: "listIcon smarty rounded-xl text-white  shadow-lg font-sans",
-        label: " mt-5 font-sas text-lg text-white ",
-        icon: "customicon w-20 h-16",
-      },
+      name: "%{BKY_LISTS_CATEGORY_NAME}",
+
+      colour: 259,
       contents: [
         {
           kind: "block",
@@ -540,13 +508,9 @@ export const INITIAL_TOOLBOX_JSON_EN = {
     },
     {
       kind: "category",
-      name: BLOCKLY_CATEGORIES_CONSTANTS.EN_COLOUR,
-      cssConfig: {
-        container: "p-4 flex flex-col text-center text-white",
-        row: " colorIcon smarty rounded-xl text-white  shadow-lg font-sans",
-        label: " mt-5 font-sas text-lg text-white ",
-        icon: "customicon w-20 h-16",
-      },
+      name: "%{BKY_COLOUR_CATEGORY_NAME}",
+
+      colour: 19,
       contents: [
         {
           kind: "block",
@@ -603,14 +567,18 @@ export const INITIAL_TOOLBOX_JSON_EN = {
     // { kind: "sep" },
     {
       kind: "category",
-      name: BLOCKLY_CATEGORIES_CONSTANTS.EN_FUNCTIONS,
+      name: "%{BKY_FUNCTIONS_CATEGORY_NAME}",
       custom: "PROCEDURE",
-      cssConfig: {
-        container: "p-4 flex flex-col text-center text-white",
-        row: "functionIcon smarty rounded-xl text-white  shadow-lg font-sans",
-        label: " mt-5 font-sas text-lg text-white ",
-        icon: "customicon w-20 h-16",
-      },
+      colour: 290,
     },
   ],
 };
+
+Blockly.Msg.SMARTY_CATEGORY_NAME = CONSTANTS.CATERGORIES.SMARTY_CATEGORY.ENGLISH;
+Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.ENGLISH;
+Blockly.Msg.LOOPS_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOOPS_CATEGORY.ENGLISH;
+Blockly.Msg.MATH_CATEGORY_NAME = CONSTANTS.CATERGORIES.MATH_CATEGORY.ENGLISH;
+Blockly.Msg.TEXT_CATEGORY_NAME = CONSTANTS.CATERGORIES.TEXT_CATEGORY.ENGLISH;
+Blockly.Msg.LISTS_CATEGORY_NAME = CONSTANTS.CATERGORIES.LISTS_CATEGORY.ENGLISH;
+Blockly.Msg.COLOUR_CATEGORY_NAME = CONSTANTS.CATERGORIES.COLOUR_CATEGORY.ENGLISH;
+Blockly.Msg.FUNCTIONS_CATEGORY_NAME = CONSTANTS.CATERGORIES.FUCNTIONS_CATEGORY.ENGLISH;
