@@ -1,5 +1,4 @@
 import * as Blockly from "blockly/core";
-import { CONSTANTS } from "../../../utils/constants";
 import { BLOCKS_LANGUAGE_CONSTANTS } from "../../../utils/blockConstants";
 
 let getDistanceBlock = {

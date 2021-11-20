@@ -1,4 +1,3 @@
-import fingerPaint from "../assets/fonts/fingerPaint.ttf";
 export const BLOCKLY_THEME = {
   THEME: {
     fontStyle: {

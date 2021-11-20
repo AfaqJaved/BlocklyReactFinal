@@ -37,27 +37,6 @@ class BlocklyComponent extends React.Component {
     }
   }
 
-  // setBlocksLang() {
-  //   if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
-  //     Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.ENGLISH;
-  //     // Directions Block
-  //     Blockly.Msg.DIRECTION_BLOCK = CONSTANTS.BLOCKS.DIRECTION_BLOCK.ENGLISH;
-  //     // Start Block
-  //     Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.ENGLISH;
-  //     //Rotation Block
-  //     Blockly.Msg.ROTATION_BLOCK = CONSTANTS.BLOCKS.ROTATION_BLOCK.ENGLISH;
-  //   } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
-  //     Blockly.Msg.MYBLOCK = CONSTANTS.BLOCKS.MYBLOCK.RUSSIAN;
-  //     // Directions Block
-  //     Blockly.Msg.DIRECTION_BLOCK = CONSTANTS.BLOCKS.DIRECTION_BLOCK.RUSSIAN;
-
-  //     // Start Block
-  //     Blockly.Msg.START_BLOCK = CONSTANTS.BLOCKS.START_BLOCK.RUSSIAN;
-  //     //Rotation Block
-  //     Blockly.Msg.ROTATION_BLOCK = CONSTANTS.BLOCKS.ROTATION_BLOCK.RUSSIAN;
-  //   }
-  // }
-
   setCategoryLang() {
     if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
       Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.ENGLISH;
@@ -67,7 +46,8 @@ class BlocklyComponent extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.currentLanguage != this.props.language) {
+    if (this.currentLanguage !== this.props.language) {
+      this.setLanguage();
       if (this.props.language === CONSTANTS.LANGUAGE.ENGLISH) {
         this.primaryWorkspace.updateToolbox(INITIAL_TOOLBOX_JSON_EN);
       } else if (this.props.language === CONSTANTS.LANGUAGE.RUSSIAN) {
@@ -77,14 +57,14 @@ class BlocklyComponent extends React.Component {
       this.currentLanguage = this.props.language;
     }
 
-    if (this.bleState != this.props.bleState) {
+    if (this.bleState !== this.props.bleState) {
       const { t } = this.props;
       if (this.props.bleState === BLE.BLE_CONNECTED) {
         this.modal = new Modal(t("SMARTY_CONNECTION_SUCESS"), t("OK"), this.primaryWorkspace);
         this.modal.init();
         this.modal.show();
       } else {
-        this.modal = new Modal(t("SMARTY_CONNECTION_SUCESS"), t("TRY_AGAIN"), this.primaryWorkspace);
+        this.modal = new Modal(t("SMARTY_CONNECTION_FAILED"), t("TRY_AGAIN"), this.primaryWorkspace);
         this.modal.init();
         this.modal.show();
       }

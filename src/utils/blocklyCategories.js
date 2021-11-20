@@ -1,5 +1,3 @@
-import i18next from "i18next";
-
 export const BLOCKLY_CATEGORIES_CONSTANTS = {
   // ENGLISH
   EN_SMARTY: "Smarty",
