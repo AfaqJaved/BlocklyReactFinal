@@ -2,5 +2,5 @@ import "./myBlockGenerator";
 import "./directionBlockGenerator";
 import "./startBlockGenerator";
 import "./rotationBlockGenerator";
-import "./directionStepGenerator";
+//import "./directionStepGenerator";
 import "./getDistanceGenerator";

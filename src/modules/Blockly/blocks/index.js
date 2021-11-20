@@ -2,5 +2,5 @@ import "./myBlock";
 import "./directionBlock";
 import "./startBlock";
 import "./rotationBlock";
-import "./directionSteps";
+//import "./directionSteps";
 import "./getDistanceBlock";
