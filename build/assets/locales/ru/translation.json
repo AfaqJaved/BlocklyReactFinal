@@ -4,6 +4,7 @@
   "CONNECT_BLE": "Пожалуйста, подключитесь",
   "SUCESS": "успех",
   "SMARTY_CONNECTION_SUCESS": "Smarty успешно подключился !!!",
+  "SMARTY_CONNECTION_FAILED": "Соединение Smarty не удалось",
   "OK": "Ok",
   "TRY_AGAIN": "Попробуйте снова"
 }

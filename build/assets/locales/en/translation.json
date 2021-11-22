@@ -4,6 +4,7 @@
   "CONNECT_BLE": "Please Connect",
   "SUCESS": "Sucess",
   "SMARTY_CONNECTION_SUCESS": "Smarty Connected Sucessfully!!!",
+  "SMARTY_CONNECTION_FAILED": "Smarty Connection Failed",
   "OK": "OK",
   "TRY_AGAIN": "Try Again"
 }
