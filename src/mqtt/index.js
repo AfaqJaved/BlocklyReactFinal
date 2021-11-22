@@ -1,6 +1,17 @@
+import CA from "../assets/ssl/m2mqtt_srv.crt";
+import CERT from "../assets/ssl/m2mqtt_ca.crt";
+import KEY from "../assets/ssl/m2mqtt_ca.key";
+
 import * as mqtt from "mqtt";
-let client = mqtt.connect("mqtts://192.46.209.78:1887/ws", {
+let client = mqtt.connect("mqtts://192.46.209.78:1887", {
+  port: 1887,
+  host: "192.46.209.78",
+  keyPath: KEY,
+  certPath: CERT,
   rejectUnauthorized: false,
+
+  //The CA list will be used to determine if server is authorized
+  ca: CA,
 }); // create a client
 
 client.on("connect", function () {
