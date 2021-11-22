@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import BlockLogo from "../../assets/images/blocks_logo.png";
+import { withRouter } from "react-router";
 
-export default class LoginComponent extends Component {
+class LoginComponent extends Component {
   render() {
     return (
       <div className="font-san">
-        <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-login_back bg-no-repeat bg-cover bg-center">
+        <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-login_back bg-no-repeat bg-cover bg-center ">
           <div className="relative sm:max-w-sm w-full shadow-2xl">
             <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6"></div>
             <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></div>
@@ -48,9 +49,22 @@ export default class LoginComponent extends Component {
                   </div>
                 </div>
 
-                <div className="mt-7">
-                  <button className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
-                    Login
+                <div className="mt-7 flex justify-center items-center gap-2">
+                  <button
+                    onClick={() => {
+                      this.props.history.push("blockly");
+                    }}
+                    className="bg-blue-500 w-1/2 py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+                  >
+                    Login Single Mode
+                  </button>
+                  <button
+                    onClick={() => {
+                      this.props.history.push("devices");
+                    }}
+                    className="bg-red-500 w-1/2 py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+                  >
+                    Login Mulitple Mode
                   </button>
                 </div>
 
@@ -86,3 +100,5 @@ export default class LoginComponent extends Component {
     );
   }
 }
+
+export default withRouter(LoginComponent);

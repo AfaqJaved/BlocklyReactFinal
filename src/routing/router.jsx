@@ -1,17 +1,24 @@
 import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import LoginComponent from "../modules/LoginModule/LoginComponent";
-import App from "../App";
+import BlocklySingleMode from "../BlocklySingleMode";
+import DevicesComponent from "../modules/Devices/DevicesComponent";
 
 export default class RouterComponent extends Component {
   render() {
     return (
       <main>
-        <Routes>
-          <Route path="/" element={<LoginComponent />} exact />
-          <Route path="/blockly" element={<App />} />
-          <Route component={Error} />
-        </Routes>
+        <Switch>
+          <Route path="/" exact>
+            <LoginComponent></LoginComponent>
+          </Route>
+          <Route path="/devices" exact>
+            <DevicesComponent></DevicesComponent>
+          </Route>
+          <Route path="/blockly">
+            <BlocklySingleMode></BlocklySingleMode>
+          </Route>
+        </Switch>
       </main>
     );
   }
