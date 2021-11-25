@@ -1,7 +1,7 @@
 import * as mqtt from "mqtt";
 
 let client = mqtt.connect("mqtts://mqtt.afaqjaved.com", {
-  port: 8083,
+  port: 1885,
   username: "afaq",
   password: "test",
 }); // create a client
