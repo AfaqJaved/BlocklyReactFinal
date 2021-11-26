@@ -15,7 +15,7 @@ class LoginComponent extends Component {
               <div className="flex justify-center items-start">
                 <img className="w-16 h-18" src={BlockLogo} alt="" />
               </div>
-              <label for="" className="block text-2xl mt-3 text-gray-700 text-center font-semibold">
+              <label for="" className="block text-2xl  text-gray-700 text-center font-semibold">
                 Blockly
               </label>
               <form method="#" action="#" className="mt-10">
@@ -70,17 +70,18 @@ class LoginComponent extends Component {
 
                 <div className="flex mt-7 items-center text-center">
                   <hr className="border-gray-300 border-1 w-full rounded-md"></hr>
-                  <label className="block font-medium text-sm text-gray-600 w-full">Accede con</label>
+                  <label className="block font-medium text-sm text-gray-600 w-full">End</label>
                   <hr className="border-gray-300 border-1 w-full rounded-md"></hr>
                 </div>
 
                 <div className="flex mt-7 justify-center w-full">
-                  <button className="mr-5 bg-blue-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
-                    Facebook
-                  </button>
-
-                  <button className="bg-red-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
-                    Google
+                  <button
+                    onClick={() => {
+                      this.props.history.push("signup");
+                    }}
+                    className=" w-full bg-purple-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+                  >
+                    Sign up
                   </button>
                 </div>
 

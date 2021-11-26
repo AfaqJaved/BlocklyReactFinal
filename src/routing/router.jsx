@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginComponent from "../modules/LoginModule/LoginComponent";
 import BlocklySingleMode from "../BlocklySingleMode";
 import DevicesComponent from "../modules/Devices/DevicesComponent";
+import SignupComponent from "../modules/SingupModule/SignupComponent";
 
 export default class RouterComponent extends Component {
   render() {
@@ -11,6 +12,9 @@ export default class RouterComponent extends Component {
         <Switch>
           <Route path="/" exact>
             <LoginComponent></LoginComponent>
+          </Route>
+          <Route path="/signup" exact>
+            <SignupComponent></SignupComponent>
           </Route>
           <Route path="/devices" exact>
             <DevicesComponent></DevicesComponent>
