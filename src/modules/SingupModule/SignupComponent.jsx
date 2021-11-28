@@ -1,8 +1,46 @@
 import Blocks_logo from "../../assets/images/blocks_logo.png";
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import { CONSTANTS } from "../../utils/constants";
+import { SHOW_TOAST_SUCESS, SHOW_TOAST_WARN } from "../../utils/utils";
+import axiosInstance from "../../axios";
 
 class SignupComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      passwordCnfrm: "",
+    };
+  }
+
+  signup = (event) => {
+    event.preventDefault();
+    if (this.state.firstname === "" || this.state.lastname === "" || this.state.email === "" || this.state.password === "" || this.state.password === "") {
+      SHOW_TOAST_WARN("Please Fill The form");
+    } else {
+      if (this.state.password != this.state.passwordCnfrm) {
+        SHOW_TOAST_WARN("Password does not match");
+        return;
+      }
+      axiosInstance
+        .post(CONSTANTS.API.REGISTER, { email: this.state.email, password: this.state.password, first_name: this.state.firstname, last_name: this.state.lastname })
+        .then((res) => {
+          console.log(res.data);
+          SHOW_TOAST_SUCESS("Account Registered Sucess");
+          setTimeout(() => {
+            this.props.history.push("login");
+          }, 4000);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -21,6 +59,9 @@ class SignupComponent extends Component {
                     Firstname
                   </label>
                   <input
+                    onChange={(event) => {
+                      this.setState({ firstname: event.target.value });
+                    }}
                     id="firstname"
                     type="text"
                     name="firstname"
@@ -35,6 +76,9 @@ class SignupComponent extends Component {
                     Lastname
                   </label>
                   <input
+                    onChange={(event) => {
+                      this.setState({ lastname: event.target.value });
+                    }}
                     id="lastname"
                     type="text"
                     name="lastname"
@@ -49,6 +93,9 @@ class SignupComponent extends Component {
                 E-mail
               </label>
               <input
+                onChange={(event) => {
+                  this.setState({ email: event.target.value });
+                }}
                 id="email"
                 type="email"
                 name="email"
@@ -61,6 +108,9 @@ class SignupComponent extends Component {
                 Password
               </label>
               <input
+                onChange={(event) => {
+                  this.setState({ password: event.target.value });
+                }}
                 id="password"
                 type="password"
                 name="password"
@@ -73,6 +123,9 @@ class SignupComponent extends Component {
                 Confirm password
               </label>
               <input
+                onChange={(event) => {
+                  this.setState({ passwordCnfrm: event.target.value });
+                }}
                 id="password-confirm"
                 type="password"
                 name="password-confirm"
@@ -83,6 +136,7 @@ class SignupComponent extends Component {
               />
               <div className="w-full flex justify-center items-center">
                 <button
+                  onClick={(event) => this.signup(event)}
                   type="submit"
                   className="w-1/2  py-3 mt-6 font-medium tracking-widest text-white uppercase bg-purple-500 rounded-full shadow-lg focus:outline-none hover:bg-purple-900 hover:shadow-none"
                 >

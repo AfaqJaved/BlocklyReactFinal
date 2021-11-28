@@ -3,4 +3,8 @@ export const CONSTANTS = {
     RUSSIAN: "ru",
     ENGLISH: "en",
   },
+  API: {
+    LOGIN: "/api/login",
+    REGISTER: "/api/register",
+  },
 };

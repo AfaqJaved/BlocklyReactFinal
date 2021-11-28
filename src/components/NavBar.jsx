@@ -9,13 +9,17 @@ import BleLogo from "../assets/images/bluetooth.png";
 import { BLE } from "../utils/bleConstants";
 import Popup from "./Popup";
 import i18next from "i18next";
+import { setToken, setAuth, setEmail, setFirstName, setLastName, setUserId } from "../features/auth/authSlice";
+import Logout from "../assets/images/logout.png";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 export default function NavBar() {
   const [navState, setnavState] = useState(true);
   const dispatch = useDispatch();
   const language = useSelector((state) => state.language.language);
   const bleStatus = useSelector((state) => state.ble.status);
+  const history = useHistory();
   const { t } = useTranslation();
 
   const onDisconnected = () => {
@@ -45,6 +49,16 @@ export default function NavBar() {
   const onLanguageChange = (e) => {
     dispatch(setLanguage(e.target.value));
     i18next.changeLanguage(e.target.value);
+  };
+
+  const logout = () => {
+    dispatch(setAuth(false));
+    dispatch(setFirstName(""));
+    dispatch(setLastName(""));
+    dispatch(setEmail(""));
+    dispatch(setUserId(""));
+    dispatch(setToken(""));
+    history.push("login");
   };
 
   return (
@@ -79,6 +93,13 @@ export default function NavBar() {
                 {bleStatus === BLE.BLE_CONNECTED ? t("SUCESS") : t("CONNECT_BLE")}
               </button>
             </li>
+            <button
+              onClick={logout}
+              className=" ml-3 bg-purple-400 hover:bg-purple-500  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-1 md:p-1 lg:p-3 md:p0 lg:p3 md:text-sm lg:text-xl "
+            >
+              <img src={Logout} className="w-8 h-8 mr-2"></img>
+              Logout
+            </button>
           </ul>
         </div>
       </nav>
