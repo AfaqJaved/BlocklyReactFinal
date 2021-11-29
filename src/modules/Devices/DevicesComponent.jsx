@@ -11,6 +11,15 @@ import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { BLE } from "../../utils/bleConstants";
 import { useDispatch } from "react-redux";
+import { CONSTANTS } from "../../utils/constants";
+import axiosInstance from "../../axios";
+import client from "../../mqtt";
+import { TOPICS } from "../../utils/topicUtils";
+import EditIcon from "../../assets/images/edit.png";
+import DeleteIcon from "../../assets/images/delete.png";
+import Offline from "../../assets/images/no-wifi.png";
+import Online from "../../assets/images/wifi.png";
+import { SHOW_TOAST_SUCESS } from "../../utils/utils";
 
 class DevicesComponent extends Component {
   constructor(props) {
@@ -19,16 +28,66 @@ class DevicesComponent extends Component {
       deviceName: "",
       ssid: "",
       password: "",
+      devices: [],
+      addBtnStatus: true,
     };
   }
 
-  dummpyData() {
-    var rows = [];
-    for (var x = 0; x < 4; x++) {
-      rows.push(<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">Robot-1</td>);
+  onMqttCallBack = (topic, message) => {
+    let newDevices = [];
+    console.log(topic + "   " + message);
+    for (let x = 0; x < this.state.devices.length; x++) {
+      let currentDevice = this.state.devices[x];
+      if (topic === "/topic/" + currentDevice.str_deviceName + "/status") {
+        currentDevice.str_status = true;
+      }
+      newDevices.push(currentDevice);
     }
-    return rows;
-  }
+    this.setState({
+      devices: newDevices,
+    });
+  };
+
+  onDeleteDevice = (item) => {
+    TOPICS.unSubscribeDeviceStatus(client, item.str_deviceName);
+    axiosInstance
+      .get(CONSTANTS.API.DELETE_DEVICE + item.id)
+      .then((res) => {
+        let code = res.data.data.affected;
+        if (code == 1) {
+          SHOW_TOAST_SUCESS("Sucessfully Deleted!!!");
+          this.getAllDevices();
+        }
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+
+  componentDidMount = () => {
+    this.getAllDevices();
+  };
+
+  getAllDevices = () => {
+    axiosInstance
+      .get(CONSTANTS.API.GET_ALL_DEVICES)
+      .then((res) => {
+        let data = res.data.data;
+        this.setState({
+          devices: data,
+          addBtnStatus: true,
+        });
+        // Subscribe topics for status
+        this.state.devices.forEach((device) => {
+          TOPICS.subscribeDeviceStatus(client, device.str_deviceName);
+        });
+        // Listening for message
+        client.on("message", this.onMqttCallBack);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
 
   onDisconnected = () => {
     console.log("Device disconnected!!!");
@@ -56,6 +115,7 @@ class DevicesComponent extends Component {
         ssid: ssid,
         password: pass,
         deviceName: deviceId,
+        addBtnStatus: false,
       });
     }
   };
@@ -70,6 +130,27 @@ class DevicesComponent extends Component {
     this.props.history.push("login");
   };
 
+  addDevice = (obj) => {
+    axiosInstance
+      .post(CONSTANTS.API.SAVE_DEVICE, {
+        userId: this.state.userId,
+        devices: [
+          {
+            ssid: obj.ssid,
+            pass: obj.pass,
+            deviceId: obj.deviceId,
+          },
+        ],
+      })
+      .then((res) => {
+        SHOW_TOAST_SUCESS("Device Added Sucessfully!!");
+        this.getAllDevices();
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+
   sendBle = async () => {
     let obj = {
       ssid: this.state.ssid,
@@ -77,6 +158,7 @@ class DevicesComponent extends Component {
       deviceId: this.state.deviceName,
     };
     await BLE.writeBle(JSON.stringify(obj), this.props.char);
+    this.addDevice(obj);
     this.setState({
       ssid: "",
       password: "",
@@ -130,6 +212,7 @@ class DevicesComponent extends Component {
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                       <button
                         hidden={false}
+                        disabled={this.state.addBtnStatus}
                         onClick={() => {
                           this.sendBle();
                         }}
@@ -168,37 +251,47 @@ class DevicesComponent extends Component {
                         <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                           Status
                         </th>
+                        <th className=" flex justify-center items-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
 
                     <tbody>
-                      <tr>{this.dummpyData()}</tr>
+                      {/* <tr>{this.state.devices}</tr> */}
+                      {this.state.devices.map((item, i) => (
+                        <tr key={i}>
+                          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">{item.str_deviceName}</td>
+                          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">{item.str_ssid}</td>
+                          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">{item.str_pass}</td>
+                          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                            <img className=" ml-1 w-12 h-12 flex justify-center items-center flex-col" src={item.str_status === true ? Online : Offline} alt="" />
+                            <h1>{item.str_status === true ? "Online" : "Offline"}</h1>
+                          </td>
+                          <td className=" flex justify-center items-center gap-2 border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                            <button onClick={() => this.onDeleteDevice(item)} className="flex justify-center gap-2 items-center px-6 py-2 rounded-2xl  text-xl shadow-xl bg-red-500 text-white">
+                              <img src={DeleteIcon} className="w-8 h-8"></img>Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           )}
-          {/* <footer className="relative pt-8 pb-6 mt-16">
+          <footer className="relative pt-8 pb-6 mt-16">
             <div className="container mx-auto px-4">
               <div className="flex flex-wrap items-center md:justify-between justify-center">
                 <div className="w-full md:w-6/12 px-4 mx-auto text-center">
                   <div className="text-sm text-blueGray-500 font-semibold py-1">
-                    Made with{" "}
-                    <a href="https://www.creative-tim.com/product/notus-js" className="text-blueGray-500 hover:text-gray-800" target="_blank">
-                      Notus JS
-                    </a>{" "}
-                    by{" "}
-                    <a href="https://www.creative-tim.com" className="text-blueGray-500 hover:text-blueGray-800" target="_blank">
-                      {" "}
-                      Creative Tim
-                    </a>
-                    .
+                    <button className="p-8 shadow-2xl text-3xl hover:bg-purple-900 hover:shadow-sm text-white bg-purple-700 rounded-full ">Start Coding </button>
                   </div>
                 </div>
               </div>
             </div>
-          </footer> */}
+          </footer>
         </section>
       </div>
     );
@@ -210,6 +303,7 @@ const mapStateToProps = function (state) {
     modalState: state.modal.status,
     bleState: state.ble.status,
     char: state.ble.char,
+    userId: state.auth.userId,
   };
 };
 

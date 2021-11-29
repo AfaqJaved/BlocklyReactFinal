@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { store } from "./app/store";
+import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
@@ -13,6 +13,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { CONSTANTS } from "./utils/constants";
 import { client } from "./mqtt";
 import RouterComponent from "./routing/router";
+import { PersistGate } from "redux-persist/integration/react";
+
 i18next
   .use(HttpApi)
   .use(LanguageDetector)
@@ -38,9 +40,11 @@ ReactDOM.render(
   // <Suspense fallback={loadingMarkup}>
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <RouterComponent></RouterComponent>
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <RouterComponent></RouterComponent>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   // </Suspense>,

@@ -7,6 +7,7 @@ import { setToken, setAuth, setEmail, setFirstName, setLastName, setUserId } fro
 import { connect, useDispatch } from "react-redux";
 import { compose } from "redux";
 import { CONSTANTS } from "../../utils/constants";
+import { LOGIC_COMPARE_HELPURL } from "blockly/msg/en";
 
 class LoginComponent extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class LoginComponent extends Component {
           this.props.dispatch(setEmail(email));
           this.props.dispatch(setUserId(userId));
           this.props.dispatch(setToken(res.data.data.token));
+
           console.log(this.state.email);
           this.props.history.push("blockly");
         })
