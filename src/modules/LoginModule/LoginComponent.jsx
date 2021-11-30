@@ -88,7 +88,7 @@ class LoginComponent extends Component {
                 <img className="w-16 h-18" src={BlockLogo} alt="" />
               </div>
               <label for="" className="block text-2xl  text-gray-700 text-center font-semibold">
-                Blockly
+                Blockly Test
               </label>
               <form method="#" action="#" className="mt-10">
                 <div>
