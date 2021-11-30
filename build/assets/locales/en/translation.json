@@ -1,10 +1,13 @@
 {
-  "APP_TITLE": "BLockly",
+  "APP_TITLE_BLOCKLY": "BLockly Smarty",
+  "APP_TITLE_BLOCKLY_WIFI": "BLockly Wifi",
   "LANGUAGE": "Language",
   "CONNECT_BLE": "Please Connect",
   "SUCESS": "Sucess",
   "SMARTY_CONNECTION_SUCESS": "Smarty Connected Sucessfully!!!",
   "SMARTY_CONNECTION_FAILED": "Smarty Connection Failed",
   "OK": "OK",
-  "TRY_AGAIN": "Try Again"
+  "TRY_AGAIN": "Try Again",
+  "DEVICES": "DEVICES",
+  "LOGOUT": "LOGOUT"
 }

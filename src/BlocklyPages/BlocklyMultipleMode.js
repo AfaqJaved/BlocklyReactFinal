@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import "./App.css";
-import BlocklyComponent from "./modules/Blockly";
+import BlocklyComponentWifi from "../modules/Blockly";
 import BlocklyJS from "blockly/javascript";
 import { connect } from "react-redux";
 //importing blocks
-import "./modules/Blockly/blocks-en";
+import "../modules/Blockly/blocks-en";
 //importing generators
-import "./modules/Blockly/generators";
-import NavBar from "./components/NavBar";
-import { BLOCKLY_THEME } from "./utils/blocklyTheme";
-import { RUNCODE } from "./utils/smartyConstants";
-import Bot from "./assets/images/bot.png";
-import PlayIcon from "./assets/images/play.png";
-import PauseIcon from "./assets/images/pause.png";
-import ExpandIcon from "./assets/images/expand.png";
+import "../modules/Blockly/generators";
+import NavBarBlocklyWifi from "../components/NavBarBlocklyWifi";
+import { BLOCKLY_THEME } from "../utils/blocklyTheme";
+import { RUNCODE } from "../utils/smartyConstants";
+import Bot from "../assets/images/bot.png";
+import PlayIcon from "../assets/images/play.png";
+import PauseIcon from "../assets/images/pause.png";
+import ExpandIcon from "../assets/images/expand.png";
 import Editor, { DiffEditor, useMonaco, loader, Monaco } from "@monaco-editor/react";
 
-class BlocklySingleMode extends Component {
+class BlocklyMultipleMode extends Component {
   constructor(props) {
     super(props);
     this.simpleWorkspace = React.createRef();
@@ -29,6 +29,7 @@ class BlocklySingleMode extends Component {
       expanded: false,
     };
   }
+
   generateCode = () => {
     this.code = BlocklyJS.workspaceToCode(this.simpleWorkspace.current);
     console.log(this.code);
@@ -48,12 +49,12 @@ class BlocklySingleMode extends Component {
     return (
       <div className="h-screen w-screen overflow-hidden ">
         <div>
-          <NavBar></NavBar>
+          <NavBarBlocklyWifi></NavBarBlocklyWifi>
         </div>
         <div className="grid grid-cols-3 gap-2 w-full h-full">
           <div style={{ height: "90%" }} className={"relative col-span-3 md:col-span-3 bg-red-500 w-full " + (this.state.expanded ? "lg:col-span-1" : "lg:col-span-2")}>
             <div ref={this.blocklyArea}>
-              <BlocklyComponent
+              <BlocklyComponentWifi
                 ref={this.simpleWorkspace}
                 readOnly={false}
                 blocklyArea={this.getBlocklyArea}
@@ -74,7 +75,7 @@ class BlocklySingleMode extends Component {
                 <block type="start_block_en" x="200" y= "200"></block>
                 </xml>
           `}
-              ></BlocklyComponent>
+              ></BlocklyComponentWifi>
             </div>
           </div>
 
@@ -133,4 +134,4 @@ const mapStateToProps = function (state) {
   };
 };
 
-export default connect(mapStateToProps)(BlocklySingleMode);
+export default connect(mapStateToProps)(BlocklyMultipleMode);

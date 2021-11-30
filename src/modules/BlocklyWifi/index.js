@@ -1,5 +1,5 @@
 import React from "react";
-import BlocklyComponent from "./BlocklyComponentSmarty";
+import BlocklyComponent from "./BlocklyComponent";
 
 export default BlocklyComponent;
 

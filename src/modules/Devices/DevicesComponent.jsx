@@ -4,22 +4,20 @@ import Scan from "../../assets/images/scan.png";
 import Blocks_logo from "../../assets/images/blocks_logo.png";
 import Logout from "../../assets/images/logout.png";
 import Add_logo from "../../assets/images/add.png";
-import AddDeviceComponent from "../AddDeviceModule/AddDeviceComponent";
 import { setToken, setAuth, setEmail, setFirstName, setLastName, setUserId } from "../../features/auth/authSlice";
 import { changeStatus, setDevice, setServer, setService, setchar } from "../../features/ble/bleSlice";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { BLE } from "../../utils/bleConstants";
-import { useDispatch } from "react-redux";
-import { CONSTANTS } from "../../utils/constants";
 import axiosInstance from "../../axios";
 import client from "../../mqtt";
 import { TOPICS } from "../../utils/topicUtils";
-import EditIcon from "../../assets/images/edit.png";
 import DeleteIcon from "../../assets/images/delete.png";
 import Offline from "../../assets/images/no-wifi.png";
 import Online from "../../assets/images/wifi.png";
 import { SHOW_TOAST_SUCESS } from "../../utils/utils";
+import { CONSTANTS } from "./../../utils/constants";
+import { addDevice, changeDeviceStatus } from "../../features/devices/deviceSlice";
 
 class DevicesComponent extends Component {
   constructor(props) {
@@ -28,7 +26,6 @@ class DevicesComponent extends Component {
       deviceName: "",
       ssid: "",
       password: "",
-      devices: [],
       addBtnStatus: true,
     };
   }
@@ -36,16 +33,13 @@ class DevicesComponent extends Component {
   onMqttCallBack = (topic, message) => {
     let newDevices = [];
     console.log(topic + "   " + message);
-    for (let x = 0; x < this.state.devices.length; x++) {
-      let currentDevice = this.state.devices[x];
+    for (let x = 0; x < this.props.devices.length; x++) {
+      let currentDevice = this.props.devices[x];
       if (topic === "/topic/" + currentDevice.str_deviceName + "/status") {
-        currentDevice.str_status = true;
+        // currentDevice.str_status = true;
+        this.props.dispatch(changeDeviceStatus(currentDevice.str_deviceName));
       }
-      newDevices.push(currentDevice);
     }
-    this.setState({
-      devices: newDevices,
-    });
   };
 
   onDeleteDevice = (item) => {
@@ -73,16 +67,17 @@ class DevicesComponent extends Component {
       .get(CONSTANTS.API.GET_ALL_DEVICES)
       .then((res) => {
         let data = res.data.data;
+        this.props.dispatch(addDevice(data));
         this.setState({
-          devices: data,
           addBtnStatus: true,
         });
         // Subscribe topics for status
-        this.state.devices.forEach((device) => {
+        this.props.devices.forEach((device) => {
           TOPICS.subscribeDeviceStatus(client, device.str_deviceName);
         });
         // Listening for message
         client.on("message", this.onMqttCallBack);
+        console.log(this.props.devices);
       })
       .catch((res) => {
         console.log(res);
@@ -92,6 +87,10 @@ class DevicesComponent extends Component {
   onDisconnected = () => {
     console.log("Device disconnected!!!");
     this.props.dispatch(changeStatus(BLE.BLE_DISCONNECTED));
+  };
+
+  startCodingBtnClick = () => {
+    this.props.history.push(CONSTANTS.ROUTING.BLOCKLY_WIFI_PAGE);
   };
 
   bleStart = async () => {
@@ -259,7 +258,7 @@ class DevicesComponent extends Component {
 
                     <tbody>
                       {/* <tr>{this.state.devices}</tr> */}
-                      {this.state.devices.map((item, i) => (
+                      {this.props.devices.map((item, i) => (
                         <tr key={i}>
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">{item.str_deviceName}</td>
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">{item.str_ssid}</td>
@@ -286,7 +285,9 @@ class DevicesComponent extends Component {
               <div className="flex flex-wrap items-center md:justify-between justify-center">
                 <div className="w-full md:w-6/12 px-4 mx-auto text-center">
                   <div className="text-sm text-blueGray-500 font-semibold py-1">
-                    <button className="p-8 shadow-2xl text-3xl hover:bg-purple-900 hover:shadow-sm text-white bg-purple-700 rounded-full ">Start Coding </button>
+                    <button onClick={this.startCodingBtnClick} className="p-8 shadow-2xl text-3xl hover:bg-purple-900 hover:shadow-sm text-white bg-purple-700 rounded-full ">
+                      Start Coding
+                    </button>
                   </div>
                 </div>
               </div>
@@ -304,6 +305,7 @@ const mapStateToProps = function (state) {
     bleState: state.ble.status,
     char: state.ble.char,
     userId: state.auth.userId,
+    devices: state.devices.devices,
   };
 };
 

@@ -4,10 +4,12 @@ import languageReducer from "../features/language/languageSlice";
 import bleReducer from "../features/ble/bleSlice";
 import modalReducer from "../features/modal/modalSlice";
 import authReducer from "../features/auth/authSlice";
+import deviceReducer from "../features/devices/deviceSlice";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
+import { devicesSlice } from "./../features/devices/deviceSlice";
 
 // /This si faetstaese
 const customizedMiddleware = getDefaultMiddleware({
@@ -25,6 +27,7 @@ const reducers = combineReducers({
   ble: bleReducer,
   modal: modalReducer,
   auth: authReducer,
+  devices: deviceReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -10,4 +10,11 @@ export const CONSTANTS = {
     GET_ALL_DEVICES: "/api/device/findAll",
     DELETE_DEVICE: "/api/device/delete/",
   },
+  ROUTING: {
+    LOGIN_PAGE: "/login",
+    REGISTER_PAGE: "/register",
+    BLOCKY_PAGE: "/blockly",
+    BLOCKLY_WIFI_PAGE: "/blockly-wifi",
+    DEVICES_PAGE: "/devices",
+  },
 };

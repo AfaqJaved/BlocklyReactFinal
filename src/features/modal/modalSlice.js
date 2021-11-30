@@ -11,8 +11,9 @@ export const modalSlice = createSlice({
     changeStatus: (state, action) => {
       state.status = action.payload;
     },
+    resetModal: () => initialState,
   },
 });
 
-export const { changeStatus } = modalSlice.actions;
+export const { changeStatus, resetModal } = modalSlice.actions;
 export default modalSlice.reducer;

@@ -18,7 +18,7 @@ import "./blocks-en";
 import "./blocks-ru";
 import "./generators";
 
-class BlocklyComponent extends React.Component {
+class BlocklyComponentSimple extends React.Component {
   constructor(props) {
     super(props);
     this.blocklyDiv = React.createRef();
@@ -91,7 +91,6 @@ class BlocklyComponent extends React.Component {
   }
 
   componentDidMount() {
-    // this.setLanguage();
     this.initBlockly();
   }
 
@@ -149,4 +148,4 @@ const mapStateToProps = function (state) {
   };
 };
 
-export default connect(mapStateToProps)(withTranslation()(BlocklyComponent));
+export default connect(mapStateToProps)(withTranslation()(BlocklyComponentSimple));

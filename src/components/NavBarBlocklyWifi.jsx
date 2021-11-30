@@ -5,7 +5,7 @@ import { changeStatus, setDevice, setServer, setService, setchar } from "../feat
 import { CONSTANTS } from "../utils/constants";
 import BlocklsLogo from "../assets/images/blocks_logo.png";
 import UploadLogo from "../assets/images/upload.png";
-import BleLogo from "../assets/images/bluetooth.png";
+import Iot from "../assets/images/iot.png";
 import { BLE } from "../utils/bleConstants";
 import Popup from "./Popup";
 import i18next from "i18next";
@@ -13,8 +13,9 @@ import { setToken, setAuth, setEmail, setFirstName, setLastName, setUserId } fro
 import Logout from "../assets/images/logout.png";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+import { RESET_REDUX_STATE } from "../utils/utils";
 
-export default function NavBar() {
+export default function NavBarBlocklyWifi() {
   const [navState, setnavState] = useState(true);
   const dispatch = useDispatch();
   const language = useSelector((state) => state.language.language);
@@ -27,37 +28,13 @@ export default function NavBar() {
     dispatch(changeStatus(BLE.BLE_DISCONNECTED));
   };
 
-  const requestPermission = async () => {
-    const device = await BLE.getDevice();
-    device.addEventListener("gattserverdisconnected", onDisconnected);
-    const server = await BLE.connectGattServer(device);
-    const service = await BLE.getServices(server);
-    const char = await BLE.getChar(service);
-
-    if (device != undefined) {
-      dispatch(setDevice(device));
-      dispatch(setServer(server));
-      dispatch(setService(service));
-      dispatch(setchar(char));
-      dispatch(changeStatus(BLE.BLE_CONNECTED));
-      BLE.writeBle("This is from chrome", char);
-    } else {
-      requestPermission();
-    }
-  };
-
+  const showDevicesDialog = () => {};
   const onLanguageChange = (e) => {
     dispatch(setLanguage(e.target.value));
-    i18next.changeLanguage(e.target.value);
   };
 
   const logout = () => {
-    dispatch(setAuth(false));
-    dispatch(setFirstName(""));
-    dispatch(setLastName(""));
-    dispatch(setEmail(""));
-    dispatch(setUserId(""));
-    dispatch(setToken(""));
+    RESET_REDUX_STATE();
     history.push("login");
   };
 
@@ -66,7 +43,7 @@ export default function NavBar() {
       <nav className="flex  justify-center gap-x-0 md:gap-x-16 lg:gap-x-16 md:justify-between lg:justify-between pl-5 pr-10 items-center">
         <div className="p-2 flex  items-center justify-start">
           <img src={BlocklsLogo} className="w-12 h-14 " alt="" />
-          <label className="text-2xl  text-white font-sans font-medium ml-2">{t("APP_TITLE")}</label>
+          <label className="text-2xl  text-white font-sans font-medium ml-2">{t("APP_TITLE_BLOCKLY_WIFI")}</label>
         </div>
         <div className="flex justify-center items-center invisible md:visible lg:visible">
           <label className="text-xl  text-white font-sans mr-2 uppercase lg:visible md:invisible ">{t("LANGUAGE")}</label>
@@ -83,14 +60,11 @@ export default function NavBar() {
           <ul className="flex items-center justify-between ">
             <li>
               <button
-                onClick={requestPermission}
-                className={
-                  " ml-3  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-1 md:p-1 lg:p-3 md:p0 lg:p3 md:text-sm lg:text-xl " +
-                  (bleStatus === BLE.BLE_CONNECTED ? "bg-green-500 hover:bg-green-500" : "bg-yellow-300 hover:bg-yellow-500")
-                }
+                onClick={showDevicesDialog}
+                className=" ml-3  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-1 md:p-1 lg:p-3 md:p0 lg:p3 md:text-sm lg:text-xl bg-green-400 hover:bg-green-600 "
               >
-                <img src={BleLogo} className="w-8 h-8 mr-2"></img>
-                {bleStatus === BLE.BLE_CONNECTED ? t("SUCESS") : t("CONNECT_BLE")}
+                <img src={Iot} className="w-8 h-8 mr-2"></img>
+                {t("DEVICES")}
               </button>
             </li>
             <button
@@ -98,7 +72,7 @@ export default function NavBar() {
               className=" ml-3 bg-purple-400 hover:bg-purple-500  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-1 md:p-1 lg:p-3 md:p0 lg:p3 md:text-sm lg:text-xl "
             >
               <img src={Logout} className="w-8 h-8 mr-2"></img>
-              Logout
+              {t("LOGOUT")}
             </button>
           </ul>
         </div>

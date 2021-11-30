@@ -40,7 +40,7 @@ class LoginComponent extends Component {
           this.props.dispatch(setToken(res.data.data.token));
 
           console.log(this.state.email);
-          this.props.history.push("blockly");
+          this.props.history.push(CONSTANTS.ROUTING.BLOCKY_PAGE);
         })
         .catch((res) => {
           console.log(res);
@@ -67,7 +67,7 @@ class LoginComponent extends Component {
           this.props.dispatch(setUserId(userId));
           this.props.dispatch(setToken(res.data.data.token));
           console.log(this.state.email);
-          this.props.history.push("devices");
+          this.props.history.push(CONSTANTS.ROUTING.DEVICES_PAGE);
         })
         .catch((res) => {
           console.log(res);
@@ -88,7 +88,7 @@ class LoginComponent extends Component {
                 <img className="w-16 h-18" src={BlockLogo} alt="" />
               </div>
               <label for="" className="block text-2xl  text-gray-700 text-center font-semibold">
-                Blockly
+                Blockly Updated
               </label>
               <form method="#" action="#" className="mt-10">
                 <div>
@@ -151,7 +151,7 @@ class LoginComponent extends Component {
                 <div className="flex mt-7 justify-center w-full">
                   <button
                     onClick={() => {
-                      this.props.history.push("register");
+                      this.props.history.push(CONSTANTS.ROUTING.REGISTER_PAGE);
                     }}
                     className=" w-full bg-purple-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
                   >

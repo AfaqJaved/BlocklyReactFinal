@@ -12,8 +12,9 @@ export const languageSlice = createSlice({
       state.language = action.payload;
       console.log(state.language);
     },
+    resetLang: () => initialState,
   },
 });
 
-export const { setLanguage } = languageSlice.actions;
+export const { setLanguage, resetLang } = languageSlice.actions;
 export default languageSlice.reducer;
