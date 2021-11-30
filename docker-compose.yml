@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   app:
+    container_name: blocklyFrontEnd@React
     build: .
     ports:
       - "5555:80"
