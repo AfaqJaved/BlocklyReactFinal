@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../features/language/languageSlice";
 import { changeStatus, setDevice, setServer, setService, setchar } from "../features/ble/bleSlice";
@@ -46,6 +46,10 @@ export default function NavBarBlockly() {
       requestPermission();
     }
   };
+
+  useEffect(() => {
+    console.log("Language has changed" + language);
+  }, [language]);
 
   const onLanguageChange = (e) => {
     dispatch(setLanguage(e.target.value));

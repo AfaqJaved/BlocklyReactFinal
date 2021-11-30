@@ -7,7 +7,6 @@ import { setToken, setAuth, setEmail, setFirstName, setLastName, setUserId } fro
 import { connect, useDispatch } from "react-redux";
 import { compose } from "redux";
 import { CONSTANTS } from "../../utils/constants";
-import { LOGIC_COMPARE_HELPURL } from "blockly/msg/en";
 
 class LoginComponent extends Component {
   constructor(props) {
