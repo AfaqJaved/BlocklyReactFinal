@@ -3,18 +3,23 @@ import "./App.css";
 import BlocklyComponentWifi from "../modules/Blockly";
 import BlocklyJS from "blockly/javascript";
 import { connect } from "react-redux";
-//importing blocks
-import "../modules/Blockly/blocks-en";
-//importing generators
-import "../modules/Blockly/generators";
+
 import NavBarBlocklyWifi from "../components/NavBarBlocklyWifi";
 import { BLOCKLY_THEME } from "../utils/blocklyTheme";
-import { RUNCODE } from "../utils/smartyConstants";
+import { RUNCODE } from "../utils/smartyConstantsWifi";
+
+import Editor, { DiffEditor, useMonaco, loader, Monaco } from "@monaco-editor/react";
+
+//importing blocks for wifi
+import "../modules/BlocklyWifi/blocks-en";
+import "../modules/BlocklyWifi/blocks-ru";
+//importing generators
+import "../modules/BlocklyWifi/generators";
+// assets
 import Bot from "../assets/images/bot.png";
 import PlayIcon from "../assets/images/play.png";
 import PauseIcon from "../assets/images/pause.png";
 import ExpandIcon from "../assets/images/expand.png";
-import Editor, { DiffEditor, useMonaco, loader, Monaco } from "@monaco-editor/react";
 
 class BlocklyMultipleMode extends Component {
   constructor(props) {

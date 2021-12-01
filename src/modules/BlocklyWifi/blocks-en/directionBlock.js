@@ -1,5 +1,6 @@
 import * as Blockly from "blockly/core";
 import { BLOCKS_LANGUAGE_CONSTANTS } from "../../../utils/blockConstants";
+import { store } from "../../../app/store";
 
 let directionBlock = {
   type: "direction_en",

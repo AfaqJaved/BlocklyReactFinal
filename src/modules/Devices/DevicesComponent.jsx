@@ -15,7 +15,7 @@ import { TOPICS } from "../../utils/topicUtils";
 import DeleteIcon from "../../assets/images/delete.png";
 import Offline from "../../assets/images/no-wifi.png";
 import Online from "../../assets/images/wifi.png";
-import { SHOW_TOAST_SUCESS } from "../../utils/utils";
+import { SHOW_TOAST_SUCESS, SHOW_TOAST_WARN } from "../../utils/utils";
 import { CONSTANTS } from "./../../utils/constants";
 import { addDevice, changeDeviceStatus } from "../../features/devices/deviceSlice";
 
@@ -35,7 +35,7 @@ class DevicesComponent extends Component {
     console.log(topic + "   " + message);
     for (let x = 0; x < this.props.devices.length; x++) {
       let currentDevice = this.props.devices[x];
-      if (topic === "/topic/" + currentDevice.str_deviceName + "/status") {
+      if (topic === "/topic/" + this.props.userId + "/status") {
         // currentDevice.str_status = true;
         this.props.dispatch(changeDeviceStatus(currentDevice.str_deviceName));
       }
@@ -73,7 +73,7 @@ class DevicesComponent extends Component {
         });
         // Subscribe topics for status
         this.props.devices.forEach((device) => {
-          TOPICS.subscribeDeviceStatus(client, device.str_deviceName);
+          TOPICS.subscribeDeviceStatus(client, device.user.id);
         });
         // Listening for message
         client.on("message", this.onMqttCallBack);
@@ -130,6 +130,13 @@ class DevicesComponent extends Component {
   };
 
   addDevice = (obj) => {
+    for (let x = 0; x < this.props.devices.length; x++) {
+      let currentDevice = this.props.devices[x];
+      if (obj.deviceId === currentDevice.str_deviceName) {
+        SHOW_TOAST_WARN("Device Name " + obj.deviceId + " Already Exsist");
+        return;
+      }
+    }
     axiosInstance
       .post(CONSTANTS.API.SAVE_DEVICE, {
         userId: this.state.userId,
@@ -155,6 +162,7 @@ class DevicesComponent extends Component {
       ssid: this.state.ssid,
       pass: this.state.password,
       deviceId: this.state.deviceName,
+      userId: this.props.userId,
     };
     await BLE.writeBle(JSON.stringify(obj), this.props.char);
     this.addDevice(obj);
