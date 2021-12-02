@@ -1,36 +1,57 @@
-import { store } from "../app/store";
-import { BLOCKS_LANGUAGE_CONSTANTS } from "../utils/blockConstants";
+import {store} from "../app/store";
 import client from "../mqtt";
 
-const TOPICS = {
-  FORWARD_TOPIC_SMARTY: "/topic/" + store.getState().auth.userId + "/FORWARD",
-  BACKWARD_TOPIC_SMARTY: "/topic/" + store.getState().auth.userId + "/BACKWARD",
-  LEFT_TOPIC_SMARTY: "/topic/" + store.getState().auth.userId + "/LEFT",
-  RIGHT_TOPIC_SMARTY: "/topic/" + store.getState().auth.userId + "/RIGHT",
+export const TOPICS = {
+
+    getForwardTopicSmarty(deviceName) {
+        return "/topic/" + store.getState().auth.userId + "/" + deviceName + "/FORWARD";
+    },
+    getBackwardTopicSmarty(deviceName) {
+        return "/topic/" + store.getState().auth.userId + "/" + deviceName + "/BACKWARD";
+    },
+    getLeftTopicSmarty(deviceName) {
+        return "/topic/" + store.getState().auth.userId + "/" + deviceName + "/LEFT";
+    },
+    getRightTopicSmarty(deviceName) {
+        return "/topic/" + store.getState().auth.userId + "/" + deviceName + "/RIGHT";
+    },
+    getStatusTopic(deviceName){
+        return  "/topic/" + store.getState().auth.userId + "/" + deviceName + "/STATUS";
+    },
+    subscribeStatusTopicSmarty(deviceName) {
+        client.subscribe( "/topic/" + store.getState().auth.userId + "/" + deviceName + "/STATUS");
+    },
+    unSubscribeStatusTopicSmarty(deviceName) {
+        client.unsubscribe( "/topic/" + store.getState().auth.userId + "/" + deviceName + "/STATUS");
+    }
 };
 export const SMARTY_WIFI = {
-  async moveForward() {
-    await client.publish(TOPICS.FORWARD_TOPIC_SMARTY, "move forward");
-  },
-  async moveBackward() {
-    await client.publish(TOPICS.BACKWARD_TOPIC_SMARTY, "move backward");
-  },
-  async moveLeft() {
-    await client.publish(TOPICS.LEFT_TOPIC_SMARTY, "move left");
-  },
-  async moveRight() {
-    await client.publish(TOPICS.RIGHT_TOPIC_SMARTY, "move right");
-  },
-  async rotateSmarty(angle) {
-    // await client.publish(TOPICS.FORWARD_TOPIC_SMARTY, "move forward");
-  },
-  async getDistance() {
-    let value = await store.getState().ble.char.readValue();
-    console.log(new TextDecoder().decode(value));
-    return new TextDecoder().decode(value);
-  },
+    async moveForward() {
+        for (let i = 0; i < store.getState().devices.selectedDevices.length; i++) {
+            client.publish(TOPICS.getForwardTopicSmarty(store.getState().devices.selectedDevices[i].str_deviceName), "move forward");
+        }
+    },
+    async moveBackward() {
+        for (let i = 0; i < store.getState().devices.selectedDevices.length; i++) {
+            client.publish(TOPICS.getBackwardTopicSmarty(store.getState().devices.selectedDevices[i].str_deviceName), "move forward");
+        }
+    },
+    async moveLeft() {
+        for (let i = 0; i < store.getState().devices.selectedDevices.length; i++) {
+            client.publish(TOPICS.getLeftTopicSmarty(store.getState().devices.selectedDevices[i].str_deviceName), "move forward");
+        }
+    },
+    async moveRight() {
+        for (let i = 0; i < store.getState().devices.selectedDevices.length; i++) {
+            client.publish(TOPICS.getRightTopicSmarty(store.getState().devices.selectedDevices[i].str_deviceName), "move forward");
+        }
+    },
+    async rotateSmarty(angle) {
+        //  client.publish(TOPICS.FORWARD_TOPIC_SMARTY, "move forward");
+    },
+
 };
 
 export const RUNCODE = (code) => {
-  eval(code);
+    eval(code);
 };
