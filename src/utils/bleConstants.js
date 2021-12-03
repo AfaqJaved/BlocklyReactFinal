@@ -6,7 +6,7 @@ export const BLE = {
   BLE_DISCONNECTED: "disconnected",
   BLE_CONNECTED: "Connected",
   getDevice() {
-    return navigator.bluetooth.requestDevice({ filters: [{ name: BLE.BLE_DEVICE_NAME }], optionalServices: [BLE.BLE_SERVICE_NAME] });
+    return navigator.bluetooth.requestDevice({ filters: [], optionalServices: [BLE.BLE_SERVICE_NAME] });
   },
   connectGattServer(device) {
     return device.gatt.connect();
