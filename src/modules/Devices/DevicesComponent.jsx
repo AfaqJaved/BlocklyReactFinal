@@ -16,10 +16,15 @@ import Offline from "../../assets/images/no-wifi.png";
 import Online from "../../assets/images/wifi.png";
 import {SHOW_TOAST_SUCESS, SHOW_TOAST_WARN} from "../../utils/utils";
 import {CONSTANTS} from "./../../utils/constants";
-import {addDevice, changeDeviceStatus , addSelectedDevice} from "../../features/devices/deviceSlice";
+import {
+    addDevice,
+    changeDeviceStatus,
+    addSelectedDevice,
+    resetDevice,
+    deleteSelectedDevice
+} from "../../features/devices/deviceSlice";
 import {SMARTY} from "../../utils/smartyConstants";
 import {SMARTY_WIFI, TOPICS} from "../../utils/smartyConstantsWifi";
-import {store} from "../../app/store";
 
 class DevicesComponent extends Component {
     constructor(props) {
@@ -63,18 +68,32 @@ class DevicesComponent extends Component {
         this.getAllDevices();
     };
 
+    onChecked = (data, device) => {
+        console.log(device);
+        console.log(data);
+        if (data === "on") {
+            this.props.dispatch(addSelectedDevice(device));
+        } else {
+            this.props.dispatch(deleteSelectedDevice(device));
+        }
+    }
+
     getAllDevices = () => {
         axiosInstance
             .get(CONSTANTS.API.GET_ALL_DEVICES)
             .then((res) => {
+                this.props.dispatch(resetDevice());
                 let data = res.data.data;
                 this.props.dispatch(addDevice(data));
+                for (let x = 0; x < data.length; x++) {
+                    this.props.dispatch(addSelectedDevice(data[x]));
+                }
                 this.setState({
                     addBtnStatus: true,
                 });
                 // Subscribe topics for status
                 this.props.devices.forEach((device) => {
-                    client.subscribe( "/topic/" + this.props.userId + "/" + device.str_deviceName + "/STATUS");
+                    client.subscribe("/topic/" + this.props.userId + "/" + device.str_deviceName + "/STATUS");
                 });
 
                 // Listening for message
@@ -92,11 +111,6 @@ class DevicesComponent extends Component {
     };
 
     startCodingBtnClick = () => {
-        let selectedDevices = [];
-        for (let i = 0; i < this.props.devices.length; i++) {
-            selectedDevices.push(this.props.devices[i]);
-        }
-        this.props.dispatch(addSelectedDevice(selectedDevices));
         this.props.history.push(CONSTANTS.ROUTING.BLOCKLY_WIFI_PAGE);
     };
 
@@ -107,7 +121,7 @@ class DevicesComponent extends Component {
         const service = await BLE.getServices(server);
         const char = await BLE.getChar(service);
 
-        if (device != undefined) {
+        if (device !== undefined) {
             this.props.dispatch(setDevice(device));
             this.props.dispatch(setServer(server));
             this.props.dispatch(setService(service));
@@ -268,6 +282,9 @@ class DevicesComponent extends Component {
                                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                                 Status
                                             </th>
+                                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Deploy Code
+                                            </th>
                                             <th className=" flex justify-center items-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                                 Actions
                                             </th>
@@ -287,10 +304,19 @@ class DevicesComponent extends Component {
                                                         src={item.str_status === true ? Online : Offline} alt=""/>
                                                     <h1>{item.str_status === true ? "Online" : "Offline"}</h1>
                                                 </td>
+                                                <td className="border-t-0   px-12  align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                                                    <label className="inline-flex  items-center mb-3">
+                                                        <input type="checkbox"
+                                                               className="form-checkbox h-8 w-8  text-purple-600"
+                                                               defaultChecked={true}
+                                                               onChange={(e) => this.onChecked(e.target.value, item)}
+                                                        />
+                                                    </label>
+                                                </td>
                                                 <td className=" flex justify-center items-center gap-2 border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
                                                     <button onClick={() => this.onDeleteDevice(item)}
                                                             className="flex justify-center gap-2 items-center px-6 py-2 rounded-2xl  text-xl shadow-xl bg-red-500 text-white">
-                                                        <img src={DeleteIcon} className="w-8 h-8"></img>Delete
+                                                        <img src={DeleteIcon} className="w-8 h-8"/>Delete
                                                     </button>
                                                 </td>
                                             </tr>

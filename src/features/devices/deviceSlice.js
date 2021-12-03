@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {BLE} from "../../utils/bleConstants";
 
+
 const initialState = {
     selectedDevices: [],
     devices: [
@@ -20,11 +21,16 @@ export const devicesSlice = createSlice({
             state.devices = action.payload;
         },
         addSelectedDevice: (state, action) => {
-            state.selectedDevices = action.payload;
+            state.selectedDevices.push(action.payload);
+        },
+        deleteSelectedDevice: (state, action) => {
+            state.selectedDevices.filter(function(ele){
+                return ele !== action.payload;
+            });
         },
         changeDeviceStatus: (state, action) => {
             state.devices.forEach((device) => {
-                if (device.str_deviceName == action.payload) {
+                if (device.str_deviceName === action.payload) {
                     device.str_status = true;
                 }
             });
@@ -33,5 +39,5 @@ export const devicesSlice = createSlice({
     },
 });
 
-export const {addDevice, changeDeviceStatus, resetDevice , addSelectedDevice} = devicesSlice.actions;
+export const {addDevice, changeDeviceStatus, resetDevice , addSelectedDevice  ,deleteSelectedDevice} = devicesSlice.actions;
 export default devicesSlice.reducer;

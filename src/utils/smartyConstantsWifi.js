@@ -28,6 +28,7 @@ export const TOPICS = {
 export const SMARTY_WIFI = {
     async moveForward() {
         for (let i = 0; i < store.getState().devices.selectedDevices.length; i++) {
+            console.log(TOPICS.getForwardTopicSmarty(store.getState().devices.selectedDevices[i].str_deviceName));
             client.publish(TOPICS.getForwardTopicSmarty(store.getState().devices.selectedDevices[i].str_deviceName), "move forward");
         }
     },
