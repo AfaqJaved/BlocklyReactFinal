@@ -19,9 +19,8 @@ import {CONSTANTS} from "./../../utils/constants";
 import {
     addDevice,
     changeDeviceStatus,
-    addSelectedDevice,
     resetDevice,
-    deleteSelectedDevice
+removeDeployCodeDevice
 } from "../../features/devices/deviceSlice";
 import {SMARTY} from "../../utils/smartyConstants";
 import {SMARTY_WIFI, TOPICS} from "../../utils/smartyConstantsWifi";
@@ -72,9 +71,9 @@ class DevicesComponent extends Component {
         console.log(device);
         console.log(data);
         if (data === "on") {
-            this.props.dispatch(addSelectedDevice(device));
+            this.props.dispatch(removeDeployCodeDevice({ str_deviceName : device.str_deviceName , str_deployCode : false}));
         } else {
-            this.props.dispatch(deleteSelectedDevice(device));
+            this.props.dispatch(removeDeployCodeDevice({ str_deviceName : device.str_deviceName , str_deployCode : true}));
         }
     }
 
@@ -85,9 +84,6 @@ class DevicesComponent extends Component {
                 this.props.dispatch(resetDevice());
                 let data = res.data.data;
                 this.props.dispatch(addDevice(data));
-                for (let x = 0; x < data.length; x++) {
-                    this.props.dispatch(addSelectedDevice(data[x]));
-                }
                 this.setState({
                     addBtnStatus: true,
                 });
@@ -308,7 +304,7 @@ class DevicesComponent extends Component {
                                                     <label className="inline-flex  items-center mb-3">
                                                         <input type="checkbox"
                                                                className="form-checkbox h-8 w-8  text-purple-600"
-                                                               defaultChecked={true}
+                                                               checked={item.str_deployCode}
                                                                onChange={(e) => this.onChecked(e.target.value, item)}
                                                         />
                                                     </label>
@@ -354,6 +350,7 @@ const mapStateToProps = function (state) {
         char: state.ble.char,
         userId: state.auth.userId,
         devices: state.devices.devices,
+        selectedDevices: state.devices.selectedDevices,
     };
 };
 

@@ -3,7 +3,6 @@ import {BLE} from "../../utils/bleConstants";
 
 
 const initialState = {
-    selectedDevices: [],
     devices: [
         // {
         //   str_deviceName: null,
@@ -20,12 +19,11 @@ export const devicesSlice = createSlice({
         addDevice: (state, action) => {
             state.devices = action.payload;
         },
-        addSelectedDevice: (state, action) => {
-            state.selectedDevices.push(action.payload);
-        },
-        deleteSelectedDevice: (state, action) => {
-            state.selectedDevices.filter(function(ele){
-                return ele !== action.payload;
+        removeDeployCodeDevice: (state, action) => {
+            state.devices.forEach((device) => {
+                if (device.str_deviceName === action.payload.str_deviceName) {
+                    device.str_deployCode = action.payload.str_deployCode;
+                }
             });
         },
         changeDeviceStatus: (state, action) => {
@@ -39,5 +37,5 @@ export const devicesSlice = createSlice({
     },
 });
 
-export const {addDevice, changeDeviceStatus, resetDevice , addSelectedDevice  ,deleteSelectedDevice} = devicesSlice.actions;
+export const {addDevice, changeDeviceStatus, resetDevice ,removeDeployCodeDevice} = devicesSlice.actions;
 export default devicesSlice.reducer;
