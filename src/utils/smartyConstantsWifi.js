@@ -103,7 +103,7 @@ export const SMARTY_WIFI = {
           )
         );
         client.publish(
-          TOPICS.getLeftTopicSmarty(
+          TOPICS.getRightTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
           ),
           "move forward"
