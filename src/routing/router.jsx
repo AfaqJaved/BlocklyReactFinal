@@ -26,11 +26,29 @@ class RouterComponent extends Component {
         <ToastContainer />
         <Switch>
           <Route path="/" exact component={LoginComponent} />
-          <Route path={CONSTANTS.ROUTING.LOGIN_PAGE} component={LoginComponent} />
-          <Route path={CONSTANTS.ROUTING.REGISTER_PAGE} component={SignupComponent} />
-          <PrivateRoute authed={this.props.authenticated} path={CONSTANTS.ROUTING.BLOCKY_PAGE} component={BlocklySingleMode} />
-          <PrivateRoute authed={this.props.authenticated} path={CONSTANTS.ROUTING.BLOCKLY_WIFI_PAGE} component={BlocklyMultipleMode} />
-          <PrivateRoute authed={this.props.authenticated} path={CONSTANTS.ROUTING.DEVICES_PAGE} component={DevicesComponent} />
+          <Route
+            path={CONSTANTS.ROUTING.LOGIN_PAGE}
+            component={LoginComponent}
+          />
+          <Route
+            path={CONSTANTS.ROUTING.REGISTER_PAGE}
+            component={SignupComponent}
+          />
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCKY_PAGE}
+            component={BlocklySingleMode}
+          />
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCKLY_WIFI_PAGE}
+            component={BlocklyMultipleMode}
+          />
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.DEVICES_PAGE}
+            component={DevicesComponent}
+          />
         </Switch>
       </main>
     );
