@@ -5,6 +5,7 @@ import bleReducer from "../features/ble/bleSlice";
 import modalReducer from "../features/modal/modalSlice";
 import authReducer from "../features/auth/authSlice";
 import deviceReducer from "../features/devices/deviceSlice";
+import robotReducer from "../features/robot/robotSlice";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -27,6 +28,7 @@ const reducers = combineReducers({
   modal: modalReducer,
   auth: authReducer,
   devices: deviceReducer,
+  robot: robotReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

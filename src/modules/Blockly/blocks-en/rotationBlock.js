@@ -1,7 +1,7 @@
 import * as Blockly from "blockly/core";
 import { BLOCKS_LANGUAGE_CONSTANTS } from "../../../utils/blockConstants";
 
-let rotationBlock = {
+export const rotation_block_en = {
   type: "rotation_block_en",
   message0: BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.ROTATION_BLOCK.ENGLISH + " %1",
   args0: [
@@ -18,8 +18,8 @@ let rotationBlock = {
   helpUrl: "",
 };
 
-Blockly.Blocks["rotation_block_en"] = {
-  init: function () {
-    this.jsonInit(rotationBlock);
-  },
-};
+// Blockly.Blocks["rotation_block_en"] = {
+//   init: function () {
+//     this.jsonInit(rotationBlock);
+//   },
+// };

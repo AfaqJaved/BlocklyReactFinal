@@ -1,7 +1,7 @@
 import * as Blockly from "blockly/core";
 import { BLOCKS_LANGUAGE_CONSTANTS } from "../../../utils/blockConstants";
 
-let startBlock = {
+export const start_block_ru = {
   type: "start_block_ru",
   message0: BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.START_BLOCK.RUSSIAN + "  %1 %2",
   args0: [
@@ -19,8 +19,8 @@ let startBlock = {
   helpUrl: "",
 };
 
-Blockly.Blocks["start_block_ru"] = {
-  init: function () {
-    this.jsonInit(startBlock);
-  },
-};
+// Blockly.Blocks["start_block_ru"] = {
+//   init: function () {
+//     this.jsonInit(startBlock);
+//   },
+// };

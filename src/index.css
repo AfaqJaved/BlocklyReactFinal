@@ -6,4 +6,5 @@
   font-family: "FingerPaint";
   src: local("FingerPaint"), url(./assets/fonts/fingerPaint.ttf) format("ttf");
 }
+
 @tailwind utilities;

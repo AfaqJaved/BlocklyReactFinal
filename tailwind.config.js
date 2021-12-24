@@ -10,11 +10,13 @@ module.exports = {
         },
       },
       backgroundImage: {
-        "toolbox-background": "url('/src/assets/images/toolbox-background.jpg')",
+        "toolbox-background":
+          "url('/src/assets/images/toolbox-background.jpg')",
         login_back: "url('/src/assets/images/login.png')",
       },
       fontFamily: {
         FingerPaint: ["FingerPaint"],
+        Roboto: "Roboto, sans-serif",
       },
     },
   },

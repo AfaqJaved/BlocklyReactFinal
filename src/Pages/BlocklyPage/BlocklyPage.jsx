@@ -1,0 +1,156 @@
+import React, { Component } from "react";
+import BlocklyJS from "blockly/javascript";
+import { connect, useDispatch, useSelector } from "react-redux";
+import NavBarBlockly from "../../components/NavBarBlockly";
+import { BLOCKLY_THEME } from "../../utils/blocklyTheme";
+import { RUNCODE } from "../../utils/smartyConstants";
+import Bot from "../../assets/images/bot.png";
+import PlayIcon from "../../assets/images/play.png";
+import PauseIcon from "../../assets/images/pause.png";
+import ExpandIcon from "../../assets/images/expand.png";
+import Editor from "@monaco-editor/react";
+import BlocklyComponent from "../../components/blockly/BlocklyComponent";
+import { INITIAL_TOOLBOX_JSON_EN } from "../../modules/Blockly/toolbox/en/toolbox";
+import * as Fr from "blockly/msg/fr";
+import SelectionDialog from "./dialogSettings/SelectionDialog";
+import { setRobot } from "../../features/robot/robotSlice";
+import axiosInstance from "../../axios";
+import { CONSTANTS } from "../../utils/constants";
+
+export default function BlocklyPage() {
+  const [expanded, setExpanded] = React.useState(false);
+  const [code, setcode] = React.useState("");
+  const blocklyArea = React.useRef();
+  const simpleWorkspace = React.useRef();
+  const [showDialog, setShowDialog] = React.useState(false);
+  const dispatch = useDispatch();
+  const getBlocklyArea = () => {
+    return blocklyArea;
+  };
+
+  React.useEffect(() => {}, []);
+
+  const generateCode = () => {
+    let codeGenertated = BlocklyJS.workspaceToCode(simpleWorkspace.current);
+    setcode(codeGenertated);
+  };
+
+  const onChangeDialog = (data) => {
+    console.log("parent dta" + JSON.stringify(data));
+    setShowDialog(!showDialog);
+    dispatch(setRobot(data));
+  };
+  return (
+    <div className="h-screen w-screen overflow-hidden ">
+      <SelectionDialog
+        open={showDialog}
+        closeDialog={(data) => onChangeDialog(data)}
+      ></SelectionDialog>
+      <div>
+        <NavBarBlockly on onChangeDialog={onChangeDialog}></NavBarBlockly>
+      </div>
+      <div className="grid grid-cols-3 gap-2 w-full h-full">
+        <div
+          style={{ height: "90%" }}
+          className={
+            "relative col-span-3 md:col-span-3 bg-red-500 w-full " +
+            (expanded ? "lg:col-span-1" : "lg:col-span-2")
+          }
+        >
+          <div ref={blocklyArea}>
+            <BlocklyComponent
+              ref={simpleWorkspace}
+              readOnly={false}
+              blocklyArea={getBlocklyArea}
+              // trashcan={true}
+              // language={Fr}
+              // toolboxPosition="start"
+              // media={process.env.PUBLIC_URL + "media/"}
+              // theme={BLOCKLY_THEME.THEME}
+              // move={{
+              //   scrollbars: true,
+              //   drag: true,
+              //   wheel: true,
+              // }}
+              toolbox={INITIAL_TOOLBOX_JSON_EN}
+              // grid={{ spacing: 50, length: 5, colour: "gray", snap: true }}
+              // zoom={{
+              //   controls: true,
+              //   wheel: true,
+              //   startScale: 1.0,
+              //   maxScale: 3,
+              //   minScale: 0.3,
+              //   scaleSpeed: 1.2,
+              //   pinch: true,
+              // }}
+              onChange={generateCode}
+              initialXml={`
+                <xml xmlns="http://www.w3.org/1999/xhtml">
+                <block type="start_block_en" x="200" y= "200"></block>
+                </xml>
+          `}
+            ></BlocklyComponent>
+          </div>
+        </div>
+
+        <div
+          className={
+            "flex flex-col p-5 justify-between items-center bg-blue-300 md:invisible lg:visible invisible " +
+            (expanded ? "col-span-2" : "")
+          }
+        >
+          {/* This is the generate btn */}
+
+          <div className="flex  justify-center  items-center  w-full h-full p-5 ">
+            <div className="w-full h-full bg-yellow-500 border-4 border-white  shadow-2xl rounded-t-2xl p-5">
+              <div className="flex justify-center md:justify-end -mt-16 ">
+                <img
+                  onClick={() => {
+                    setExpanded(!expanded);
+                  }}
+                  className="w-14 h-18 p-1 object-top  rounded bg-purple-300 cursor-pointer "
+                  src={ExpandIcon}
+                ></img>
+              </div>
+              <Editor
+                theme="light"
+                defaultLanguage="javascript"
+                value={code}
+                defaultValue={code}
+                height="100%"
+              />
+            </div>
+          </div>
+          {/* This is the card */}
+          <div className="flex flex-col  justify-center w-full p-5 mb-16 items-start">
+            <div className="w-full py-4 px-8 bg-pink-600  shadow-lg rounded-lg ">
+              <div className="flex justify-center md:justify-end -mt-16">
+                <img
+                  className="w-18 h-20 object-top  rounded   border-yellow-500 "
+                  src={Bot}
+                ></img>
+              </div>
+              <div>
+                {/* This is the buttons */}
+                <div className="flex justify-around items-center ">
+                  <button
+                    onClick={() => {
+                      RUNCODE(code);
+                    }}
+                    className="p-5 flex flex-col text-white justify-center items-center text-2xl bg-blue-500 rounded-3xl
+                    shadow-3xl"
+                  >
+                    <img className="w-16 h-16 " src={PlayIcon}></img>
+                  </button>
+                  <button className="flex text-white flex-col justify-center items-center p-5 text-2xl  bg-blue-500 rounded-3xl shadow-3xl">
+                    <img className="w-16 h-16 " src={PauseIcon}></img>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

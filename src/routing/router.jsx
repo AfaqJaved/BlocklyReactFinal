@@ -11,6 +11,9 @@ import { ToastContainer, toast } from "react-toastify";
 import BlocklyMultipleMode from "../BlocklyPages/BlocklyMultipleMode";
 import { CONSTANTS } from "../utils/constants";
 import i18next from "i18next";
+import BlocklyPage from "../Pages/BlocklyPage/BlocklyPage";
+import BlocklyParamsPage from "../Pages/blocklyParamsPage/BlocklyParamsPage";
+import BlocklyToolBoxPage from "../Pages/blocklyToolboxPage/BlocklyToolBoxPage";
 
 class RouterComponent extends Component {
   componentDidMount() {
@@ -34,7 +37,26 @@ class RouterComponent extends Component {
             path={CONSTANTS.ROUTING.REGISTER_PAGE}
             component={SignupComponent}
           />
+
           <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCKY_PAGE}
+            component={BlocklyPage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCKLY_PARAMS_PAGE}
+            component={BlocklyParamsPage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCKY_TOOLBOX_PAGE}
+            component={BlocklyToolBoxPage}
+          />
+
+          {/* <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKY_PAGE}
             component={BlocklySingleMode}
@@ -43,7 +65,7 @@ class RouterComponent extends Component {
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKLY_WIFI_PAGE}
             component={BlocklyMultipleMode}
-          />
+          /> */}
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.DEVICES_PAGE}

@@ -1,8 +1,9 @@
 export const BLOCKLY_THEME = {
   THEME: {
     fontStyle: {
-      weight: "bold",
+      weight: "lighter ",
       size: 12,
+      family: "Finger Paint, cursive",
     },
     blockStyles: {
       colour_blocks: {
