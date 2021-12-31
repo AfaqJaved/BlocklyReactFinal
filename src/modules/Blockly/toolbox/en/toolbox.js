@@ -655,3 +655,20 @@ export const INITIAL_TOOLBOX_JSON_EN = {
     },
   ],
 };
+
+export const test = {
+  kind: "categoryToolbox",
+  contents: [
+    {
+      kind: "category",
+      name: "Logic",
+      cssConfig: {
+        container: "p-4 flex flex-col text-center text-white",
+        row: " logicIcon rounded-xl text-white  shadow-lg font-sans",
+        label: "mt-5 font-sas text-lg text-white ",
+        icon: "customicon w-20 h-16",
+      },
+      contents: [],
+    },
+  ],
+};

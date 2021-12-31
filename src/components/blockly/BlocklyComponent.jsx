@@ -8,8 +8,6 @@ import axiosInstance from "../../axios";
 
 function BlocklyComponent(props) {
   const blocklyDiv = React.useRef();
-  const toolbox = React.useRef();
-  const [blocklyOptions, setBlocklyOptions] = React.useState(null);
   let primaryWorkspace = null;
 
   const onResize = (blocklyArea) => {
@@ -29,43 +27,35 @@ function BlocklyComponent(props) {
     Blockly.svgResize(primaryWorkspace);
   };
 
-  const getBlocklyParams = () => {
-    axiosInstance
-      .get(CONSTANTS.API.GET_BLOCKLY_PARAMS)
-      .then((res) => {
-        let options = JSON.parse(res.data.data.str_blockly_json);
-        setBlocklyOptions(options);
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-  };
-
   React.useEffect(() => {
     initBlockly();
-  }, [blocklyOptions]);
-
-  React.useEffect(() => {
-    getBlocklyParams();
   }, []);
 
+  React.useEffect(() => {
+    if (primaryWorkspace != null) {
+      console.log("options :" + props.options);
+      primaryWorkspace = Blockly.inject(blocklyDiv.current, props.options);
+    }
+  }, [props.options]);
+
   const initBlockly = () => {
-    if (blocklyOptions != null) {
-      primaryWorkspace = Blockly.inject(blocklyDiv.current, blocklyOptions);
-      primaryWorkspace.updateToolbox(props.toolbox);
-      // render start block xml
-      if (props.initialXml) {
-        Blockly.Xml.domToWorkspace(
-          Blockly.Xml.textToDom(props.initialXml),
-          primaryWorkspace
-        );
-      }
-      window.addEventListener("resize", onResize(props.blocklyArea), false);
-      onResize(props.blocklyArea);
-      Blockly.svgResize(primaryWorkspace);
-      primaryWorkspace.addChangeListener(props.onChange);
+    if (primaryWorkspace == null) {
+      primaryWorkspace = Blockly.inject(blocklyDiv.current, props.options);
       setSearchFuncBlockly();
     }
+    console.log("this is toolbox" + props.toolbox);
+    primaryWorkspace.updateToolbox(props.toolbox);
+    // render start block xml
+    if (props.initialXml) {
+      Blockly.Xml.domToWorkspace(
+        Blockly.Xml.textToDom(props.initialXml),
+        primaryWorkspace
+      );
+    }
+    window.addEventListener("resize", onResize(props.blocklyArea), false);
+    onResize(props.blocklyArea);
+    Blockly.svgResize(primaryWorkspace);
+    primaryWorkspace.addChangeListener(props.onChange);
   };
 
   const setSearchFuncBlockly = () => {
@@ -79,15 +69,15 @@ function BlocklyComponent(props) {
         className="w-full bottom-0 md:pb-20 lg:pb-0 pb-20  top-0 absolute  h-screen lg:h-full md:h-screen"
         ref={blocklyDiv}
         id="blocklyDiv"
-      />
-      <xml
-        xmlns="https://developers.google.com/blockly/xml"
-        is="blockly"
-        style={{ display: "none" }}
-        ref={toolbox}
       >
-        {props.children}
-      </xml>
+        <xml
+          xmlns="https://developers.google.com/blockly/xml"
+          is="blockly"
+          style={{ display: "none" }}
+        >
+          {props.children}
+        </xml>
+      </div>
     </React.Fragment>
   );
 }

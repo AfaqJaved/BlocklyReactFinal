@@ -14,6 +14,32 @@ export const CONSTANTS = {
     FIND_ALL_PRODUCTS: "/api/product/findAll",
     GET_BLOCKLY_PARAMS: "/api/blockly-params/find",
     ADD_BLOCKLY_PARAMS: "/api/blockly-params/add",
+    TOOLBOX: {
+      ADD: "/api/toolbox/add",
+      FIND_ALL: "/api/toolbox/findAll",
+      DELETE: "/api/toolbox/delete/",
+      FIND_TOOLBOX_BY_MODE_PRODUCT: "/api/toolbox/findByParams",
+    },
+    TOOLBOX_CATEGORIES: {
+      FIND_ALL: "/api/toolbox-category/findAll",
+      ADD: "/api/toolbox-category/add",
+      DELETE: "/api/toolbox-category/delete/",
+    },
+    PRODUCT: {
+      ADD: "/api/product/add",
+      FIND_ALL: "/api/product/findAll",
+      DELETE: "/api/product/delete/",
+    },
+    LOOKUP: {
+      FIND_ALL_PRODUCTS: "/api/lookup/products",
+      FIND_ALL_TOOLBOX: "/api/lookup/toolbox",
+      FIND_ALL_TOOLBOX_CATEGORIES: "/api/lookup/categories",
+    },
+    BLOCK: {
+      FIND_ALL: "/api/block/findAll",
+      ADD: "/api/block/add",
+      DELETE: "/api/block/delete/",
+    },
   },
   ROUTING: {
     LOGIN_PAGE: "/login",
@@ -23,6 +49,9 @@ export const CONSTANTS = {
     DEVICES_PAGE: "/devices",
     BLOCKLY_PARAMS_PAGE: "/blockly-params",
     BLOCKY_TOOLBOX_PAGE: "/blockly-toolbox",
+    TOOLBOX_CATEGORIES: "/categories",
+    PRODUCT_PAGE: "/product",
+    BLOCKS_PAGE: "/blocks",
   },
 };
 

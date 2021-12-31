@@ -2,6 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import SliderLogo from "../../assets/images/slider.png";
 import ToolboxLogo from "../../assets/images/toolbox.png";
+import OptionsLogo from "../../assets/images/options.png";
+import Robot from "../../assets/images/robot2.png";
+import Cubes from "../../assets/images/cubes.png";
 import { CONSTANTS } from "../../utils/constants";
 
 export default function SidebarComponent() {
@@ -21,18 +24,33 @@ export default function SidebarComponent() {
               </div>
             </div>
           </li>
+
+          <li>
+            <a
+              onClick={() => history.push(CONSTANTS.ROUTING.PRODUCT_PAGE)}
+              className=" cursor-pointer relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6 p-5  "
+            >
+              <span className="inline-flex justify-center items-center ml-4">
+                {/* logo */}
+                <img src={Robot} className=" w-8 h-8 "></img>
+              </span>
+              <span className="ml-2 text-xl tracking-wide truncate">
+                Products
+              </span>
+            </a>
+          </li>
           <li>
             <a
               onClick={() =>
                 history.push(CONSTANTS.ROUTING.BLOCKLY_PARAMS_PAGE)
               }
-              className=" cursor-pointer relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+              className=" cursor-pointer relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6 p-5 mt-4 "
             >
               <span className="inline-flex justify-center items-center ml-4">
                 {/* logo */}
-                <img src={SliderLogo} className=" w-6 h-6 "></img>
+                <img src={SliderLogo} className="w-8 h-8 "></img>
               </span>
-              <span className="ml-2 text-sm tracking-wide truncate">
+              <span className="ml-2 text-xl tracking-wide truncate">
                 Params
               </span>
             </a>
@@ -43,17 +61,48 @@ export default function SidebarComponent() {
               onClick={() =>
                 history.push(CONSTANTS.ROUTING.BLOCKY_TOOLBOX_PAGE)
               }
-              className=" cursor-pointer relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+              className=" cursor-pointer relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6 p-5 mt-4 "
             >
               <span className="inline-flex justify-center items-center ml-4">
                 {/* logo */}
-                <img src={ToolboxLogo} className=" w-6 h-6 "></img>
+                <img src={ToolboxLogo} className=" w-8 h-8  "></img>
               </span>
-              <span className="ml-2 text-sm tracking-wide truncate">
+              <span className="ml-2 text-xl tracking-wide truncate">
                 Toolbox
               </span>
             </a>
           </li>
+
+          <li>
+            <a
+              onClick={() => history.push(CONSTANTS.ROUTING.TOOLBOX_CATEGORIES)}
+              className=" cursor-pointer relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6 p-5 mt-4 "
+            >
+              <span className="inline-flex justify-center items-center ml-4">
+                {/* logo */}
+                <img src={OptionsLogo} className=" w-8 h-8  "></img>
+              </span>
+              <span className="ml-2 text-xl tracking-wide truncate">
+                Categories
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              onClick={() => history.push(CONSTANTS.ROUTING.BLOCKS_PAGE)}
+              className=" cursor-pointer relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6 p-5 mt-4 "
+            >
+              <span className="inline-flex justify-center items-center ml-4">
+                {/* logo */}
+                <img src={Cubes} className=" w-8 h-8  "></img>
+              </span>
+              <span className="ml-2 text-xl tracking-wide truncate">
+                Blocks
+              </span>
+            </a>
+          </li>
+
           {/* <li>
             <a
               href="#"

@@ -22,7 +22,7 @@ export const INITIAL_TOOLBOX_JSON = {
           type: "rotation_block",
         },
         // {
-        //   kind: "block", 
+        //   kind: "block",
         //   type: "directionstepblock",
         // },
       ],
@@ -38,11 +38,13 @@ export const INITIAL_TOOLBOX_JSON = {
 
         {
           kind: "block",
-          blockxml: '<block type="logic_compare"><field name="OP">EQ</field></block>',
+          blockxml:
+            '<block type="logic_compare"><field name="OP">EQ</field></block>',
         },
         {
           kind: "block",
-          blockxml: '<block type="logic_operation"><field name="OP">AND</field></block>',
+          blockxml:
+            '<block type="logic_operation"><field name="OP">AND</field></block>',
         },
         {
           kind: "block",
@@ -50,7 +52,8 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '<block type="logic_boolean"><field name="BOOL">TRUE</field></block>',
+          blockxml:
+            '<block type="logic_boolean"><field name="BOOL">TRUE</field></block>',
         },
         {
           kind: "block",
@@ -81,7 +84,10 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="controls_whileUntil">\n' + '      <field name="MODE">WHILE</field>\n' + "    </block>",
+          blockxml:
+            '    <block type="controls_whileUntil">\n' +
+            '      <field name="MODE">WHILE</field>\n' +
+            "    </block>",
         },
         {
           kind: "block",
@@ -107,11 +113,17 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="controls_forEach">\n' + '      <field name="VAR" id="Cg!CSk/ZJo2XQN3=VVrz" variabletype="">j</field>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="controls_forEach">\n' +
+            '      <field name="VAR" id="Cg!CSk/ZJo2XQN3=VVrz" variabletype="">j</field>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
-          blockxml: '    <block type="controls_flow_statements">\n' + '      <field name="FLOW">BREAK</field>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="controls_flow_statements">\n' +
+            '      <field name="FLOW">BREAK</field>\n' +
+            "    </block>\n",
         },
       ],
     },
@@ -135,7 +147,10 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="math_number">\n' + '      <field name="NUM">0</field>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="math_number">\n' +
+            '      <field name="NUM">0</field>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
@@ -163,7 +178,10 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="math_constant">\n' + '      <field name="CONSTANT">PI</field>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="math_constant">\n' +
+            '      <field name="CONSTANT">PI</field>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
@@ -197,7 +215,11 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="math_on_list">\n' + '      <mutation op="SUM"></mutation>\n' + '      <field name="OP">SUM</field>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="math_on_list">\n' +
+            '      <mutation op="SUM"></mutation>\n' +
+            '      <field name="OP">SUM</field>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
@@ -279,7 +301,10 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="text">\n' + '      <field name="TEXT"></field>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="text">\n' +
+            '      <field name="TEXT"></field>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
@@ -334,7 +359,10 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="text_join">\n' + '      <mutation items="2"></mutation>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="text_join">\n' +
+            '      <mutation items="2"></mutation>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
@@ -420,7 +448,10 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="lists_create_with">\n' + '      <mutation items="0"></mutation>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="lists_create_with">\n' +
+            '      <mutation items="0"></mutation>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
@@ -443,7 +474,10 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="lists_create_with">\n' + '      <mutation items="3"></mutation>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="lists_create_with">\n' +
+            '      <mutation items="3"></mutation>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
@@ -502,7 +536,11 @@ export const INITIAL_TOOLBOX_JSON = {
         },
         {
           kind: "block",
-          blockxml: '    <block type="lists_sort">\n' + '      <field name="TYPE">NUMERIC</field>\n' + '      <field name="DIRECTION">1</field>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="lists_sort">\n' +
+            '      <field name="TYPE">NUMERIC</field>\n' +
+            '      <field name="DIRECTION">1</field>\n' +
+            "    </block>\n",
         },
       ],
     },
@@ -514,7 +552,10 @@ export const INITIAL_TOOLBOX_JSON = {
       contents: [
         {
           kind: "block",
-          blockxml: '    <block type="colour_picker">\n' + '      <field name="COLOUR">#ff0000</field>\n' + "    </block>\n",
+          blockxml:
+            '    <block type="colour_picker">\n' +
+            '      <field name="COLOUR">#ff0000</field>\n' +
+            "    </block>\n",
         },
         {
           kind: "block",
@@ -574,11 +615,14 @@ export const INITIAL_TOOLBOX_JSON = {
   ],
 };
 
-Blockly.Msg.SMARTY_CATEGORY_NAME = CONSTANTS.CATERGORIES.SMARTY_CATEGORY.ENGLISH;
+Blockly.Msg.SMARTY_CATEGORY_NAME =
+  CONSTANTS.CATERGORIES.SMARTY_CATEGORY.ENGLISH;
 Blockly.Msg.LOGIC_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOGIC_CATEGORY.ENGLISH;
 Blockly.Msg.LOOPS_CATEGORY_NAME = CONSTANTS.CATERGORIES.LOOPS_CATEGORY.ENGLISH;
 Blockly.Msg.MATH_CATEGORY_NAME = CONSTANTS.CATERGORIES.MATH_CATEGORY.ENGLISH;
 Blockly.Msg.TEXT_CATEGORY_NAME = CONSTANTS.CATERGORIES.TEXT_CATEGORY.ENGLISH;
 Blockly.Msg.LISTS_CATEGORY_NAME = CONSTANTS.CATERGORIES.LISTS_CATEGORY.ENGLISH;
-Blockly.Msg.COLOUR_CATEGORY_NAME = CONSTANTS.CATERGORIES.COLOUR_CATEGORY.ENGLISH;
-Blockly.Msg.FUNCTIONS_CATEGORY_NAME = CONSTANTS.CATERGORIES.FUCNTIONS_CATEGORY.ENGLISH;
+Blockly.Msg.COLOUR_CATEGORY_NAME =
+  CONSTANTS.CATERGORIES.COLOUR_CATEGORY.ENGLISH;
+Blockly.Msg.FUNCTIONS_CATEGORY_NAME =
+  CONSTANTS.CATERGORIES.FUCNTIONS_CATEGORY.ENGLISH;

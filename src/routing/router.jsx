@@ -14,6 +14,9 @@ import i18next from "i18next";
 import BlocklyPage from "../Pages/BlocklyPage/BlocklyPage";
 import BlocklyParamsPage from "../Pages/blocklyParamsPage/BlocklyParamsPage";
 import BlocklyToolBoxPage from "../Pages/blocklyToolboxPage/BlocklyToolBoxPage";
+import ProductPage from "../Pages/product-page/ProductPage";
+import ToolboxCategoriesPage from "../Pages/categories/ToolboxCategories";
+import BlocksPage from "../Pages/blocksPage/BlocksPage";
 
 class RouterComponent extends Component {
   componentDidMount() {
@@ -54,6 +57,24 @@ class RouterComponent extends Component {
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKY_TOOLBOX_PAGE}
             component={BlocklyToolBoxPage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.PRODUCT_PAGE}
+            component={ProductPage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.TOOLBOX_CATEGORIES}
+            component={ToolboxCategoriesPage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCKS_PAGE}
+            component={BlocksPage}
           />
 
           {/* <PrivateRoute

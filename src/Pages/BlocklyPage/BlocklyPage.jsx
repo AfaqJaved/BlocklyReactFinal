@@ -10,7 +10,13 @@ import PauseIcon from "../../assets/images/pause.png";
 import ExpandIcon from "../../assets/images/expand.png";
 import Editor from "@monaco-editor/react";
 import BlocklyComponent from "../../components/blockly/BlocklyComponent";
-import { INITIAL_TOOLBOX_JSON_EN } from "../../modules/Blockly/toolbox/en/toolbox";
+import * as Blockly from "blockly";
+import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
+
+import {
+  INITIAL_TOOLBOX_JSON_EN,
+  test,
+} from "../../modules/Blockly/toolbox/en/toolbox";
 import * as Fr from "blockly/msg/fr";
 import SelectionDialog from "./dialogSettings/SelectionDialog";
 import { setRobot } from "../../features/robot/robotSlice";
@@ -18,17 +24,83 @@ import axiosInstance from "../../axios";
 import { CONSTANTS } from "../../utils/constants";
 
 export default function BlocklyPage() {
+  const blocklyDiv = React.useRef();
   const [expanded, setExpanded] = React.useState(false);
+  const [toolbox, setToolbox] = React.useState(null);
   const [code, setcode] = React.useState("");
   const blocklyArea = React.useRef();
   const simpleWorkspace = React.useRef();
-  const [showDialog, setShowDialog] = React.useState(false);
+  const [showDialog, setShowDialog] = React.useState(true);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.userId);
+  const robot = useSelector((state) => state.robot.robot);
   const getBlocklyArea = () => {
     return blocklyArea;
   };
+  const [blocklyOptions, setBlocklyOptions] = React.useState(null);
+  let primaryWorkspace = null;
 
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    if (showDialog == false) {
+      if (blocklyOptions == null) {
+        getBlocklyParams();
+      }
+      if (toolbox == null) {
+        getBlocklyToolbox();
+      }
+    }
+  }, [showDialog]);
+
+  React.useEffect(() => {
+    if (blocklyOptions != null && toolbox != null) {
+      initBlockly();
+    }
+  }, [blocklyOptions, toolbox]);
+
+  const getBlocklyToolbox = () => {
+    if (robot != undefined) {
+      let find = {
+        str_mode: "MQTT",
+        userId: userId,
+        productId: robot.id,
+      };
+      axiosInstance
+        .post(CONSTANTS.API.TOOLBOX.FIND_TOOLBOX_BY_MODE_PRODUCT, find)
+        .then((res) => {
+          let contents = [];
+          res.data.data.toolboxCat.forEach((element) => {
+            let obj = {
+              kind: element.str_kind,
+              name: element.str_name,
+              cssConfig: {
+                container: element.json_cssConfig.container,
+                row: element.json_cssConfig.row,
+                label: element.json_cssConfig.label,
+                icon: element.json_cssConfig.icon,
+              },
+              contents: [],
+            };
+            element.blocks.forEach((block) => {
+              let customBlock = {
+                kind: block.str_kind,
+                blockxml: block.str_block_style_json,
+              };
+              obj.contents.push(customBlock);
+            });
+            contents.push(obj);
+          });
+          let obj = {
+            kind: res.data.data.str_kind,
+            contents: contents,
+          };
+          console.log(obj);
+          setToolbox(obj);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    }
+  };
 
   const generateCode = () => {
     let codeGenertated = BlocklyJS.workspaceToCode(simpleWorkspace.current);
@@ -40,6 +112,58 @@ export default function BlocklyPage() {
     setShowDialog(!showDialog);
     dispatch(setRobot(data));
   };
+
+  const getBlocklyParams = () => {
+    axiosInstance
+      .get(CONSTANTS.API.GET_BLOCKLY_PARAMS)
+      .then((res) => {
+        let options = JSON.parse(res.data.data.str_blockly_json);
+        setBlocklyOptions(options);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+
+  const initBlockly = () => {
+    primaryWorkspace = Blockly.inject(blocklyDiv.current, blocklyOptions);
+    setSearchFuncBlockly();
+    primaryWorkspace.updateToolbox(toolbox);
+    // render start block xml
+    // if (initialXml) {
+    //   Blockly.Xml.domToWorkspace(
+    //     Blockly.Xml.textToDom(props.initialXml),
+    //     primaryWorkspace
+    //   );
+    // }
+    window.addEventListener("resize", onResize(blocklyArea), false);
+    onResize(blocklyArea);
+    Blockly.svgResize(primaryWorkspace);
+    primaryWorkspace.addChangeListener(generateCode);
+  };
+
+  const setSearchFuncBlockly = () => {
+    const workspaceSearch = new WorkspaceSearch(primaryWorkspace);
+    workspaceSearch.init();
+  };
+
+  const onResize = (blocklyArea) => {
+    let element = blocklyArea;
+    let x = 0;
+    let y = 0;
+    do {
+      x += element.offsetLeft;
+      y += element.offsetTop;
+      element = element.offsetParent;
+    } while (element);
+    // Position blocklyDiv over blocklyArea.
+    blocklyDiv.current.style.left = x + "px";
+    blocklyDiv.current.style.top = y + "px";
+    blocklyDiv.current.style.width = blocklyArea.offsetWidth + "px";
+    blocklyDiv.current.style.height = blocklyArea.offsetHeight + "px";
+    Blockly.svgResize(primaryWorkspace);
+  };
+
   return (
     <div className="h-screen w-screen overflow-hidden ">
       <SelectionDialog
@@ -47,7 +171,7 @@ export default function BlocklyPage() {
         closeDialog={(data) => onChangeDialog(data)}
       ></SelectionDialog>
       <div>
-        <NavBarBlockly on onChangeDialog={onChangeDialog}></NavBarBlockly>
+        <NavBarBlockly onChangeDialog={onChangeDialog}></NavBarBlockly>
       </div>
       <div className="grid grid-cols-3 gap-2 w-full h-full">
         <div
@@ -58,38 +182,32 @@ export default function BlocklyPage() {
           }
         >
           <div ref={blocklyArea}>
-            <BlocklyComponent
+            <div
+              className="w-full bottom-0 md:pb-20 lg:pb-0 pb-20  top-0 absolute  h-screen lg:h-full md:h-screen"
+              ref={blocklyDiv}
+              id="blocklyDiv"
+            >
+              <xml
+                xmlns="https://developers.google.com/blockly/xml"
+                is="blockly"
+                style={{ display: "none" }}
+              >
+                {/* {props.children} */}
+              </xml>
+            </div>
+            {/* <BlocklyComponent
               ref={simpleWorkspace}
               readOnly={false}
               blocklyArea={getBlocklyArea}
-              // trashcan={true}
-              // language={Fr}
-              // toolboxPosition="start"
-              // media={process.env.PUBLIC_URL + "media/"}
-              // theme={BLOCKLY_THEME.THEME}
-              // move={{
-              //   scrollbars: true,
-              //   drag: true,
-              //   wheel: true,
-              // }}
-              toolbox={INITIAL_TOOLBOX_JSON_EN}
-              // grid={{ spacing: 50, length: 5, colour: "gray", snap: true }}
-              // zoom={{
-              //   controls: true,
-              //   wheel: true,
-              //   startScale: 1.0,
-              //   maxScale: 3,
-              //   minScale: 0.3,
-              //   scaleSpeed: 1.2,
-              //   pinch: true,
-              // }}
+              toolbox={toolbox}
               onChange={generateCode}
+              options={blocklyOptions}
               initialXml={`
                 <xml xmlns="http://www.w3.org/1999/xhtml">
                 <block type="start_block_en" x="200" y= "200"></block>
                 </xml>
           `}
-            ></BlocklyComponent>
+            ></BlocklyComponent> */}
           </div>
         </div>
 
