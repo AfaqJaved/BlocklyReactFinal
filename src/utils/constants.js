@@ -20,6 +20,10 @@ export const CONSTANTS = {
       DELETE: "/api/toolbox/delete/",
       FIND_TOOLBOX_BY_MODE_PRODUCT: "/api/toolbox/findByParams",
     },
+    BLOCK_DEFINATION: {
+      FIND_ALL: "/api/block/findAllCustomBlock",
+      ADD: "/api/block/addCustomBlock",
+    },
     TOOLBOX_CATEGORIES: {
       FIND_ALL: "/api/toolbox-category/findAll",
       ADD: "/api/toolbox-category/add",
@@ -40,6 +44,11 @@ export const CONSTANTS = {
       ADD: "/api/block/add",
       DELETE: "/api/block/delete/",
     },
+    TRANSLATIONS: {
+      FIND_BY_LANGUAGE: "/api/translations/findByLang/",
+      UPDATE: "/api/translations/update",
+      ADD: "/api/translations/add",
+    },
   },
   ROUTING: {
     LOGIN_PAGE: "/login",
@@ -52,6 +61,8 @@ export const CONSTANTS = {
     TOOLBOX_CATEGORIES: "/categories",
     PRODUCT_PAGE: "/product",
     BLOCKS_PAGE: "/blocks",
+    BLOCK_DEFINATIONS: "/block-definations",
+    TRANSLATIONS_PAGE: "/translations",
   },
 };
 

@@ -1,12 +1,18 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import RobotLogo from "../../assets/images/blocks_logo.png";
+import { CONSTANTS } from "../../utils/constants";
 
 export default function HeaderComponent() {
+  const history = useHistory();
   return (
     <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
       <div className="flex items-center justify-start md:justify-center p-5  pl-3 w-14 md:w-64 h-14 bg-blue-800 dark:bg-gray-800 border-none">
         <img
-          className="w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden"
+          onClick={() => {
+            history.push(CONSTANTS.ROUTING.BLOCKY_PAGE);
+          }}
+          className="w-7 h-7 cursor-pointer md:w-10 md:h-10 mr-2 rounded-md overflow-hidden"
           src={RobotLogo}
         />
         <span className="hidden md:block">Blockly Admin</span>

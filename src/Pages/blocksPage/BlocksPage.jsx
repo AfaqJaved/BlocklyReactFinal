@@ -12,6 +12,7 @@ import { SHOW_TOAST_SUCESS } from "../../utils/utils";
 export default function BlocksPage() {
   const [openAddDialog, setOpenAddDialog] = React.useState(false);
   const [blocks, setblocks] = React.useState([]);
+
   const addBlock = () => {
     setOpenAddDialog(true);
   };
@@ -80,14 +81,18 @@ export default function BlocksPage() {
                   <th className="py-3 px-6 text-left">Category</th>
                   <th className="py-3 px-6 text-center">Actions</th>
                 </tr>
-                
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
                 {blocks.map((obj) => {
                   return (
                     <tr
                       key={obj.id}
-                      className="border-b border-gray-200 hover:bg-gray-100"
+                      className={
+                        "border-b border-gray-200  " +
+                        (obj.toolboxCategory.str_name === "Smarty"
+                          ? "bg-red-400 text-white text-xl "
+                          : "")
+                      }
                     >
                       <td className="py-3 px-6 text-left whitespace-nowrap">
                         <div className="flex items-center">

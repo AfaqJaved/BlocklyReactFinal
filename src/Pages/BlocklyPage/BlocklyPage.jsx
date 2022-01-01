@@ -22,9 +22,17 @@ import SelectionDialog from "./dialogSettings/SelectionDialog";
 import { setRobot } from "../../features/robot/robotSlice";
 import axiosInstance from "../../axios";
 import { CONSTANTS } from "../../utils/constants";
+import { SHOW_TOAST_WARN } from "../../utils/utils";
+
+import * as Ru from "blockly/msg/ru";
+import * as En from "blockly/msg/en";
+
+// importing generators
+import "../../generators";
 
 export default function BlocklyPage() {
   const blocklyDiv = React.useRef();
+  const language = useSelector((state) => state.language.language);
   const [expanded, setExpanded] = React.useState(false);
   const [toolbox, setToolbox] = React.useState(null);
   const [code, setcode] = React.useState("");
@@ -42,12 +50,25 @@ export default function BlocklyPage() {
 
   React.useEffect(() => {
     if (showDialog == false) {
-      if (blocklyOptions == null) {
-        getBlocklyParams();
-      }
-      if (toolbox == null) {
-        getBlocklyToolbox();
-      }
+      axiosInstance
+        .get(CONSTANTS.API.BLOCK_DEFINATION.FIND_ALL)
+        .then((res) => {
+          let options = JSON.parse(res.data.data.str_block_definations);
+          console.log(options);
+          options.forEach((element) => {
+            Blockly.Blocks[element.type] = {
+              init: function () {
+                this.jsonInit(element);
+              },
+            };
+          });
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+
+      getBlocklyParams();
+      getBlocklyToolbox();
     }
   }, [showDialog]);
 
@@ -57,6 +78,35 @@ export default function BlocklyPage() {
     }
   }, [blocklyOptions, toolbox]);
 
+  React.useEffect(() => {
+    setLanguage();
+  }, [language]);
+
+  const getTranslations = () => {
+    axiosInstance
+      .get(CONSTANTS.API.TRANSLATIONS.FIND_BY_LANGUAGE + language)
+      .then((res) => {
+        if (res.data.data != undefined) {
+          res.data.data.str_translations.forEach((element) => {
+            Blockly.Msg[element.key] = element.value;
+          });
+        }
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+
+  const setLanguage = () => {
+    if (language === CONSTANTS.LANGUAGE.ENGLISH) {
+      Blockly.setLocale(En);
+    }
+    if (language === CONSTANTS.LANGUAGE.RUSSIAN) {
+      Blockly.setLocale(Ru);
+      // Blockly.Msg["START_PROGRAM"] = "Начать программу";
+    }
+    getTranslations();
+  };
   const getBlocklyToolbox = () => {
     if (robot != undefined) {
       let find = {
@@ -81,10 +131,20 @@ export default function BlocklyPage() {
               contents: [],
             };
             element.blocks.forEach((block) => {
-              let customBlock = {
-                kind: block.str_kind,
-                blockxml: block.str_block_style_json,
-              };
+              let customBlock = undefined;
+              if (block.str_block_type == null) {
+                customBlock = {
+                  kind: block.str_kind,
+                  blockxml: block.str_block_xml,
+                  // type: block.str_block_style_json,
+                };
+              } else {
+                customBlock = {
+                  kind: block.str_kind,
+                  type: block.str_block_type,
+                };
+              }
+
               obj.contents.push(customBlock);
             });
             contents.push(obj);
@@ -103,8 +163,12 @@ export default function BlocklyPage() {
   };
 
   const generateCode = () => {
-    let codeGenertated = BlocklyJS.workspaceToCode(simpleWorkspace.current);
-    setcode(codeGenertated);
+    try {
+      let codeGenertated = BlocklyJS.workspaceToCode(simpleWorkspace.current);
+      setcode(codeGenertated);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onChangeDialog = (data) => {
@@ -129,13 +193,12 @@ export default function BlocklyPage() {
     primaryWorkspace = Blockly.inject(blocklyDiv.current, blocklyOptions);
     setSearchFuncBlockly();
     primaryWorkspace.updateToolbox(toolbox);
-    // render start block xml
-    // if (initialXml) {
-    //   Blockly.Xml.domToWorkspace(
-    //     Blockly.Xml.textToDom(props.initialXml),
-    //     primaryWorkspace
-    //   );
-    // }
+    Blockly.Xml.domToWorkspace(
+      Blockly.Xml.textToDom(`  <xml xmlns="http://www.w3.org/1999/xhtml">
+        <block type="start_block_en" x="200" y= "200"></block>
+        </xml>`),
+      primaryWorkspace
+    );
     window.addEventListener("resize", onResize(blocklyArea), false);
     onResize(blocklyArea);
     Blockly.svgResize(primaryWorkspace);

@@ -44,6 +44,11 @@ export default function SelectionDialog(props) {
 
   return (
     <Dialog
+      keepMounted
+      disableEscapeKeyDown={true}
+      onBackdropClick={() => {
+        setOpen(true);
+      }}
       PaperProps={{
         style: {
           backgroundColor: "transparent",
@@ -57,7 +62,11 @@ export default function SelectionDialog(props) {
       open={open}
       TransitionComponent={Transition}
       keepMounted
-      onClose={handleClose}
+      onClose={(event, reason) => {
+        if (reason !== "backdropClick") {
+          handleClose();
+        }
+      }}
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogContent>

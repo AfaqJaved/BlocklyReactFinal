@@ -17,6 +17,8 @@ import BlocklyToolBoxPage from "../Pages/blocklyToolboxPage/BlocklyToolBoxPage";
 import ProductPage from "../Pages/product-page/ProductPage";
 import ToolboxCategoriesPage from "../Pages/categories/ToolboxCategories";
 import BlocksPage from "../Pages/blocksPage/BlocksPage";
+import BlockDefinationPage from "../Pages/block-defination-page/BlockDefinationsPage";
+import TranslationsPage from "../Pages/translations-page/TranslationsPage";
 
 class RouterComponent extends Component {
   componentDidMount() {
@@ -75,6 +77,18 @@ class RouterComponent extends Component {
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKS_PAGE}
             component={BlocksPage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCK_DEFINATIONS}
+            component={BlockDefinationPage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.TRANSLATIONS_PAGE}
+            component={TranslationsPage}
           />
 
           {/* <PrivateRoute

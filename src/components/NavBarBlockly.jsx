@@ -82,7 +82,12 @@ export default function NavBarBlockly(props) {
     <div className="bg-pink-600   w-full">
       <nav className="flex  justify-center gap-x-0 md:gap-x-16 lg:gap-x-16 md:justify-between lg:justify-between pl-5 pr-10 items-center">
         <div className="p-2 flex  items-center justify-start">
-          <img src={BlocklsLogo} className="w-12 h-14 " alt="" />
+          <img
+            onClick={() => history.push(CONSTANTS.ROUTING.BLOCKLY_PARAMS_PAGE)}
+            src={BlocklsLogo}
+            className="w-12 h-14 cursor-pointer "
+            alt=""
+          />
           <label className="text-2xl  text-white font-sans font-medium ml-2">
             {t("APP_TITLE_BLOCKLY")}
           </label>
@@ -135,12 +140,12 @@ export default function NavBarBlockly(props) {
               <img src={Logout} className="w-8 h-8 mr-2"></img>
               {t("LOGOUT")}
             </button>
-            <button
+            {/* <button
               onClick={selectDevicesDialog}
               className=" ml-3 flex justify-center items-center rounded-md text-white hover:text-black uppercase font-medium text-sm   lg:p3 md:text-sm lg:text-xl "
             >
               <img src={GearLogo} className="w-12 h-12 mr-2"></img>
-            </button>
+            </button> */}
           </ul>
         </div>
       </nav>

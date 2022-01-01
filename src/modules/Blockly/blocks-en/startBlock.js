@@ -3,7 +3,7 @@ import { BLOCKS_LANGUAGE_CONSTANTS } from "../../../utils/blockConstants";
 
 export const start_block_en = {
   type: "start_block_en",
-  message0: BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.START_BLOCK.ENGLISH + "  %1 %2",
+  message0: "Start Program" + "  %1 %2",
   args0: [
     {
       type: "input_dummy",
@@ -19,8 +19,8 @@ export const start_block_en = {
   helpUrl: "",
 };
 
-Blockly.Blocks["start_block_en"] = {
-  init: function () {
-    this.jsonInit(start_block_en);
-  },
-};
+// Blockly.Blocks["start_block_en"] = {
+//   init: function () {
+//     this.jsonInit(start_block_en);
+//   },
+// };

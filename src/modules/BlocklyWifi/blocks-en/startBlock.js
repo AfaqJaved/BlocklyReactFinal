@@ -19,8 +19,8 @@ let startBlock = {
   helpUrl: "",
 };
 
-Blockly.Blocks["start_block_en"] = {
-  init: function () {
-    this.jsonInit(startBlock);
-  },
-};
+// Blockly.Blocks["start_block_en"] = {
+//   init: function () {
+//     this.jsonInit(startBlock);
+//   },
+// };

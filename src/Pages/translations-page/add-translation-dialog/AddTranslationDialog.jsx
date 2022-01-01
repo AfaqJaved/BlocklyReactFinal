@@ -15,7 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AddBlockDialog(props) {
+export default function AddTranslationDialog(props) {
   const [open, setOpen] = React.useState(props.open);
   const [value, setValue] = React.useState("");
   const [categories, setCategories] = React.useState([]);
@@ -47,28 +47,17 @@ export default function AddBlockDialog(props) {
     setValue(data);
   };
 
-  const addBlock = (data) => {
-    console.log(data);
-    let obj = undefined;
-    if (data.type === "XML") {
-      obj = {
-        categoryId: parseInt(data.categoryId),
-        name: data.name,
-        block_xml: value,
-      };
-    } else if (data.type === "TEXT") {
-      obj = {
-        categoryId: parseInt(data.categoryId),
-        name: data.name,
-        block_type: value,
-      };
-    }
-
+  const addTranslation = (data) => {
+    let obj = {
+      lang: data.lang,
+      translations: JSON.parse(value),
+    };
+    console.log(obj);
     axiosInstance
-      .post(CONSTANTS.API.BLOCK.ADD, obj)
+      .post(CONSTANTS.API.TRANSLATIONS.ADD, obj)
       .then((res) => {
         console.log(res);
-        SHOW_TOAST_SUCESS("Toolbox Added Sucess !!");
+        SHOW_TOAST_SUCESS("Translation Added Sucess !!");
         handleClose();
       })
       .catch((res) => {
@@ -96,67 +85,22 @@ export default function AddBlockDialog(props) {
           <div className="w-full h-full flex justify-center items-center flex-col">
             <h1 className="text-3xl font-Roboto ">Add Block</h1>
             <div className="flex justify-around w-full items-center mt-12 gap-2">
-              <label className="text-xl font-Roboto">Type</label>
-              <select
-                {...register("type")}
-                className="w-52 h-12 bg-red-200 border-black rounded-full border-2"
-                name="type"
-                id="type"
-                type="number"
-                defaultValue={""}
-              >
-                <option className="p-4" defaultChecked value={""}>
-                  ----Please Select----
-                </option>
-                <option className="p-4" value={"XML"}>
-                  XML
-                </option>
-                <option className="p-4" value={"TEXT"}>
-                  TEXT
-                </option>
-              </select>
-              <label className="text-xl font-Roboto">Category</label>
-              <select
-                {...register("categoryId")}
-                className="w-52 h-12 bg-red-200 border-black rounded-full border-2"
-                name="categoryId"
-                id="categoryId"
-                type="number"
-                defaultValue={""}
-              >
-                <option className="p-4" value={""} disabled>
-                  {"Select Category"}
-                </option>
-                {categories.map((obj) => {
-                  return (
-                    <>
-                      <option
-                        className="p-4 flex justify-start items-center gap-2 text-xl"
-                        value={obj.id}
-                      >
-                        Category : {obj.str_name}
-                        ----- Toolbox : {obj.toolbox.str_name}
-                      </option>
-                    </>
-                  );
-                })}
-              </select>
               <div className="flex justify-center items-center">
                 <span class="text-sm border border-2 rounded-l px-4 py-2 bg-purple-300 whitespace-no-wrap">
                   Name
                 </span>
                 <input
-                  {...register("name")}
-                  name="name"
-                  id="name"
+                  {...register("lang")}
+                  name="lang"
+                  id="lang"
                   class=" border border-2 rounded-r px-4 py-2 w-full"
                   type="text"
-                  placeholder="Block Name"
+                  placeholder="Language"
                 />
               </div>
 
               <button
-                onClick={handleSubmit(addBlock)}
+                onClick={handleSubmit(addTranslation)}
                 className=" px-6 py-2 rounded-md text-white font-Roboto bg-purple-600 shadow-md"
               >
                 Add
@@ -167,7 +111,7 @@ export default function AddBlockDialog(props) {
                 height="70vh"
                 width="90vh"
                 theme="vs-dark"
-                defaultLanguage="xml"
+                defaultLanguage="json"
                 value={value}
                 onChange={(data) => onChange(data)}
                 options={{

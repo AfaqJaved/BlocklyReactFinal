@@ -5,9 +5,11 @@ import { INITIAL_TOOLBOX_JSON_EN } from "../../modules/Blockly/toolbox/en/toolbo
 import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
 import { BLOCKLY_OPTIONS, CONSTANTS } from "../../utils/constants";
 import axiosInstance from "../../axios";
+import { useSelector } from "react-redux";
 
 function BlocklyComponent(props) {
   const blocklyDiv = React.useRef();
+
   let primaryWorkspace = null;
 
   const onResize = (blocklyArea) => {
