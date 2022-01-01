@@ -1,20 +1,23 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { BLE } from "../../utils/bleConstants";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  robot: {},
+  product: {},
+  mode: "",
 };
 
-export const robotSlice = createSlice({
-  name: "robot",
+export const productSlice = createSlice({
+  name: "product",
   initialState,
   reducers: {
-    setRobot(state, action) {
-      state.robot = action.payload;
+    setProduct(state, action) {
+      state.product = action.payload;
     },
-    resetRobot: () => initialState,
+    setMode(state, action) {
+      state.mode = action.payload;
+    },
+    resetProduct: () => initialState,
   },
 });
 
-export const { resetRobot, setRobot } = robotSlice.actions;
-export default robotSlice.reducer;
+export const { resetRobot, setProduct, setMode } = productSlice.actions;
+export default productSlice.reducer;

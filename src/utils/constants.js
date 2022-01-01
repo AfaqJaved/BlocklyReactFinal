@@ -1,6 +1,10 @@
 import { INITIAL_TOOLBOX_JSON_EN } from "../modules/Blockly/toolbox/en/toolbox";
 
 export const CONSTANTS = {
+  MODES: {
+    MQTT: "MQTT",
+    BLE: "BLE",
+  },
   LANGUAGE: {
     RUSSIAN: "ru",
     ENGLISH: "en",

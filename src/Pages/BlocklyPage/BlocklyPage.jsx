@@ -3,32 +3,29 @@ import BlocklyJS from "blockly/javascript";
 import { connect, useDispatch, useSelector } from "react-redux";
 import NavBarBlockly from "../../components/NavBarBlockly";
 import { BLOCKLY_THEME } from "../../utils/blocklyTheme";
-import { RUNCODE } from "../../utils/smartyConstants";
+import { RUNCODE, SMARTY, SMARTY_WIFI } from "../../utils/smartyConstants";
 import Bot from "../../assets/images/bot.png";
 import PlayIcon from "../../assets/images/play.png";
 import PauseIcon from "../../assets/images/pause.png";
+import Robots from "../../assets/images/robots.png";
 import ExpandIcon from "../../assets/images/expand.png";
 import Editor from "@monaco-editor/react";
 import BlocklyComponent from "../../components/blockly/BlocklyComponent";
 import * as Blockly from "blockly";
 import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
-
-import {
-  INITIAL_TOOLBOX_JSON_EN,
-  test,
-} from "../../modules/Blockly/toolbox/en/toolbox";
-import * as Fr from "blockly/msg/fr";
 import SelectionDialog from "./dialogSettings/SelectionDialog";
 import { setRobot } from "../../features/robot/robotSlice";
 import axiosInstance from "../../axios";
 import { CONSTANTS } from "../../utils/constants";
 import { SHOW_TOAST_WARN } from "../../utils/utils";
-
 import * as Ru from "blockly/msg/ru";
 import * as En from "blockly/msg/en";
 
 // importing generators
 import "../../generators";
+
+import MqttDevicesDialog from "./mqtt-devices-dialog/MqttDevicesDialog";
+import { useHistory } from "react-router-dom";
 
 export default function BlocklyPage() {
   const blocklyDiv = React.useRef();
@@ -39,12 +36,18 @@ export default function BlocklyPage() {
   const blocklyArea = React.useRef();
   const simpleWorkspace = React.useRef();
   const [showDialog, setShowDialog] = React.useState(true);
+  const [showMqttDevicesDialog, setShowMqttDevicesDialog] =
+    React.useState(false);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.userId);
-  const robot = useSelector((state) => state.robot.robot);
+  const product = useSelector((state) => state.robot.product);
+  const mode = useSelector((state) => state.robot.mode);
+  const history = useHistory();
+
   const getBlocklyArea = () => {
     return blocklyArea;
   };
+
   const [blocklyOptions, setBlocklyOptions] = React.useState(null);
   let primaryWorkspace = null;
 
@@ -80,6 +83,8 @@ export default function BlocklyPage() {
 
   React.useEffect(() => {
     setLanguage();
+    if (blocklyOptions != null) history.go(0);
+    // window.location.reload();
   }, [language]);
 
   const getTranslations = () => {
@@ -103,21 +108,25 @@ export default function BlocklyPage() {
     }
     if (language === CONSTANTS.LANGUAGE.RUSSIAN) {
       Blockly.setLocale(Ru);
-      // Blockly.Msg["START_PROGRAM"] = "Начать программу";
     }
     getTranslations();
+    if (primaryWorkspace != null) initBlockly();
   };
+
   const getBlocklyToolbox = () => {
-    if (robot != undefined) {
+    if (product != undefined) {
       let find = {
-        str_mode: "MQTT",
+        str_mode: mode,
         userId: userId,
-        productId: robot.id,
+        productId: product.id,
       };
       axiosInstance
         .post(CONSTANTS.API.TOOLBOX.FIND_TOOLBOX_BY_MODE_PRODUCT, find)
         .then((res) => {
           let contents = [];
+          if (res.data.data == undefined) {
+            SHOW_TOAST_WARN("No Toolbox Found");
+          }
           res.data.data.toolboxCat.forEach((element) => {
             let obj = {
               kind: element.str_kind,
@@ -164,7 +173,9 @@ export default function BlocklyPage() {
 
   const generateCode = () => {
     try {
-      let codeGenertated = BlocklyJS.workspaceToCode(simpleWorkspace.current);
+      let codeGenertated = BlocklyJS.workspaceToCode(
+        Blockly.getMainWorkspace()
+      );
       setcode(codeGenertated);
     } catch (error) {
       console.log(error);
@@ -174,7 +185,14 @@ export default function BlocklyPage() {
   const onChangeDialog = (data) => {
     console.log("parent dta" + JSON.stringify(data));
     setShowDialog(!showDialog);
-    dispatch(setRobot(data));
+    // if (mode === CONSTANTS.MODES.MQTT) setShowMqttDevicesDialog(true);
+    // // dispatch(setRobot(data));
+  };
+
+  const onMqttDevicesChangeDialog = (data) => {
+    console.log("parent dta" + JSON.stringify(data));
+    setShowMqttDevicesDialog(!showMqttDevicesDialog);
+    // dispatch(setRobot(data));
   };
 
   const getBlocklyParams = () => {
@@ -193,12 +211,12 @@ export default function BlocklyPage() {
     primaryWorkspace = Blockly.inject(blocklyDiv.current, blocklyOptions);
     setSearchFuncBlockly();
     primaryWorkspace.updateToolbox(toolbox);
-    Blockly.Xml.domToWorkspace(
-      Blockly.Xml.textToDom(`  <xml xmlns="http://www.w3.org/1999/xhtml">
-        <block type="start_block_en" x="200" y= "200"></block>
-        </xml>`),
-      primaryWorkspace
-    );
+    // Blockly.Xml.domToWorkspace(
+    //   Blockly.Xml.textToDom(`  <xml xmlns="http://www.w3.org/1999/xhtml">
+    //     <block type="start_block_en" x="200" y= "200"></block>
+    //     </xml>`),
+    //   primaryWorkspace
+    // );
     window.addEventListener("resize", onResize(blocklyArea), false);
     onResize(blocklyArea);
     Blockly.svgResize(primaryWorkspace);
@@ -233,8 +251,12 @@ export default function BlocklyPage() {
         open={showDialog}
         closeDialog={(data) => onChangeDialog(data)}
       ></SelectionDialog>
+      <MqttDevicesDialog
+        open={showMqttDevicesDialog}
+        closeDialog={() => onMqttDevicesChangeDialog()}
+      ></MqttDevicesDialog>
       <div>
-        <NavBarBlockly onChangeDialog={onChangeDialog}></NavBarBlockly>
+        <NavBarBlockly></NavBarBlockly>
       </div>
       <div className="grid grid-cols-3 gap-2 w-full h-full">
         <div
@@ -326,6 +348,18 @@ export default function BlocklyPage() {
                   <button className="flex text-white flex-col justify-center items-center p-5 text-2xl  bg-blue-500 rounded-3xl shadow-3xl">
                     <img className="w-16 h-16 " src={PauseIcon}></img>
                   </button>
+                  {mode === CONSTANTS.MODES.MQTT ? (
+                    <button
+                      onClick={() => {
+                        setShowMqttDevicesDialog(!showMqttDevicesDialog);
+                      }}
+                      className="flex text-white flex-col justify-center items-center p-5 text-2xl  bg-blue-500 rounded-3xl shadow-3xl"
+                    >
+                      <img className="w-16 h-16 " src={Robots}></img>
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

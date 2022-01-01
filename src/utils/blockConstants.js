@@ -15,7 +15,7 @@ export const BLOCKS_LANGUAGE_CONSTANTS = {
         FORWARD: "FORWARD",
         BACKWARD: "BACKWARD",
         LEFT: "LEFT",
-        RIGHT: "RIGHT ",
+        RIGHT: "RIGHT",
       },
       DIRECTIONS_RUSSIAN: {
         FORWARD: "вперед",

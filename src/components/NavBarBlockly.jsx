@@ -28,12 +28,14 @@ import Logout from "../assets/images/logout.png";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { RESET_REDUX_STATE } from "../utils/utils";
+import Iot from "../assets/images/iot.png";
 
 export default function NavBarBlockly(props) {
   const [navState, setnavState] = useState(true);
   const dispatch = useDispatch();
   const language = useSelector((state) => state.language.language);
   const bleStatus = useSelector((state) => state.ble.status);
+  const mode = useSelector((state) => state.robot.mode);
   const history = useHistory();
   const { t } = useTranslation();
 
@@ -118,20 +120,24 @@ export default function NavBarBlockly(props) {
         <div className=" invisible md:visible lg:visible ">
           <ul className="flex items-center justify-between ">
             <li>
-              <button
-                onClick={requestPermission}
-                className={
-                  " ml-3  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-1 md:p-1 lg:p-3 md:p0 lg:p3 md:text-sm lg:text-xl " +
-                  (bleStatus === BLE.BLE_CONNECTED
-                    ? "bg-green-500 hover:bg-green-500"
-                    : "bg-yellow-300 hover:bg-yellow-500")
-                }
-              >
-                <img src={BleLogo} className="w-8 h-8 mr-2"></img>
-                {bleStatus === BLE.BLE_CONNECTED
-                  ? t("SUCESS")
-                  : t("CONNECT_BLE")}
-              </button>
+              {mode === CONSTANTS.MODES.BLE ? (
+                <button
+                  onClick={requestPermission}
+                  className={
+                    " ml-3  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-1 md:p-1 lg:p-3 md:p0 lg:p3 md:text-sm lg:text-xl " +
+                    (bleStatus === BLE.BLE_CONNECTED
+                      ? "bg-green-500 hover:bg-green-500"
+                      : "bg-yellow-300 hover:bg-yellow-500")
+                  }
+                >
+                  <img src={BleLogo} className="w-8 h-8 mr-2"></img>
+                  {bleStatus === BLE.BLE_CONNECTED
+                    ? t("SUCESS")
+                    : t("CONNECT_BLE")}
+                </button>
+              ) : (
+                ""
+              )}
             </li>
             <button
               onClick={logout}

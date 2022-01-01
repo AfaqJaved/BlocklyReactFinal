@@ -1,14 +1,14 @@
 import React from "react";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import axiosInstance from "../../../axios";
 import { CONSTANTS } from "../../../utils/constants";
 import { SHOW_TOAST_SUCESS } from "../../../utils/utils";
+import { useDispatch } from "react-redux";
+import { setMode, setProduct } from "../../../features/robot/robotSlice";
+import { constants } from "blockly";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -16,8 +16,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function SelectionDialog(props) {
   const [open, setOpen] = React.useState(props.open);
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState({
+    status: false,
+    data: undefined,
+  });
   const [products, setProducts] = React.useState([]);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setOpen(props.open);
@@ -37,9 +41,14 @@ export default function SelectionDialog(props) {
       .catch((res) => {});
   }, []);
 
-  const onSelected = (data) => {
-    props.closeDialog(data);
-    SHOW_TOAST_SUCESS(data.str_productName + " Selected Sucessfully");
+  const onProductSelected = (data) => {
+    if (checked.data == data && checked.status) {
+      SHOW_TOAST_SUCESS(data.str_productName + "  DeSelected Sucessfully");
+    } else {
+      console.log("selected");
+      dispatch(setProduct(data));
+      SHOW_TOAST_SUCESS(data.str_productName + " Selected Sucessfully");
+    }
   };
 
   return (
@@ -85,6 +94,7 @@ export default function SelectionDialog(props) {
                   </div>
                 </div>
               </div>
+
               <div className="block w-full overflow-x-auto ">
                 <table className="items-center w-full bg-transparent border-collapse">
                   <thead>
@@ -106,15 +116,19 @@ export default function SelectionDialog(props) {
                         <tr
                           key={obj.id}
                           onClick={() => {
-                            onSelected(obj);
+                            setChecked({
+                              data: obj,
+                              status: !checked.status,
+                            });
+                            onProductSelected(obj);
                           }}
+                          className={
+                            checked.data === obj && checked.status
+                              ? "bg-yellow-500"
+                              : ""
+                          }
                         >
-                          <th
-                            className={
-                              "border-t-0 cursor-pointer px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center " +
-                              (checked ? "bg-red-200 " : "")
-                            }
-                          >
+                          <td className="border-t-0 cursor-pointer px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center ">
                             <img
                               src={obj.str_productImage}
                               className="h-12 w-12 bg-white rounded-full border"
@@ -123,7 +137,7 @@ export default function SelectionDialog(props) {
                             <span className="ml-3 font-Roboto text-sm text-white">
                               {obj.str_productName}
                             </span>
-                          </th>
+                          </td>
                           <td className=" font-Roboto text-sm  cursor-pointer border-t-0 px-6 align-middle border-l-0 border-r-0 whitespace-nowrap p-4">
                             {obj.str_productDescription}
                           </td>
@@ -137,6 +151,26 @@ export default function SelectionDialog(props) {
                   </tbody>
                 </table>
               </div>
+            </div>
+            <div className="flex justify-center items-center gap-2">
+              <button
+                onClick={() => {
+                  dispatch(setMode(CONSTANTS.MODES.BLE));
+                  props.closeDialog();
+                }}
+                className="py-2 px-6 shadow-lg rounded-xl text-black bg-green-400 hover:bg-green-500"
+              >
+                Single Device
+              </button>
+              <button
+                onClick={() => {
+                  dispatch(setMode(CONSTANTS.MODES.MQTT));
+                  props.closeDialog();
+                }}
+                className="py-2 px-6 shadow-lg rounded-xl text-black bg-yellow-400 hover:bg-yellow-500"
+              >
+                Multiple Device
+              </button>
             </div>
           </div>
         </section>

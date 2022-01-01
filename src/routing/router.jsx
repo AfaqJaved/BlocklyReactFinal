@@ -42,65 +42,46 @@ class RouterComponent extends Component {
             path={CONSTANTS.ROUTING.REGISTER_PAGE}
             component={SignupComponent}
           />
-
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKY_PAGE}
             component={BlocklyPage}
           />
-
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKLY_PARAMS_PAGE}
             component={BlocklyParamsPage}
           />
-
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKY_TOOLBOX_PAGE}
             component={BlocklyToolBoxPage}
           />
-
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.PRODUCT_PAGE}
             component={ProductPage}
           />
-
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.TOOLBOX_CATEGORIES}
             component={ToolboxCategoriesPage}
           />
-
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKS_PAGE}
             component={BlocksPage}
           />
-
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCK_DEFINATIONS}
             component={BlockDefinationPage}
           />
-
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.TRANSLATIONS_PAGE}
             component={TranslationsPage}
           />
-
-          {/* <PrivateRoute
-            authed={this.props.authenticated}
-            path={CONSTANTS.ROUTING.BLOCKY_PAGE}
-            component={BlocklySingleMode}
-          />
-          <PrivateRoute
-            authed={this.props.authenticated}
-            path={CONSTANTS.ROUTING.BLOCKLY_WIFI_PAGE}
-            component={BlocklyMultipleMode}
-          /> */}
           <PrivateRoute
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.DEVICES_PAGE}
