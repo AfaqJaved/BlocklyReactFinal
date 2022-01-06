@@ -9,6 +9,15 @@ import { SHOW_TOAST_SUCESS } from "../../../utils/utils";
 import { useDispatch } from "react-redux";
 import { setMode, setProduct } from "../../../features/robot/robotSlice";
 import { constants } from "blockly";
+import { BLE } from "../../../utils/bleConstants";
+import {
+  changeStatus,
+  setDevice,
+  setServer,
+  setService,
+  setchar,
+} from "../../../features/ble/bleSlice";
+import { useSelector } from "react-redux";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -21,6 +30,8 @@ export default function SelectionDialog(props) {
     data: undefined,
   });
   const [products, setProducts] = React.useState([]);
+  const mode = useSelector((state) => state.robot.mode);
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -30,6 +41,36 @@ export default function SelectionDialog(props) {
   const handleClose = () => {
     setOpen(false);
     props.closeDialog();
+  };
+
+  const onDisconnected = () => {
+    console.log("Device disconnected!!!");
+    dispatch(changeStatus(BLE.BLE_DISCONNECTED));
+  };
+
+  const requestPermission = async () => {
+    if (mode === "MQTT") {
+      const device = await BLE.getDevice();
+      device.addEventListener("gattserverdisconnected", onDisconnected);
+      const server = await BLE.connectGattServer(device);
+      const service = await BLE.getServices(server);
+      const char = await BLE.getChar(service);
+
+      if (device != undefined) {
+        dispatch(setDevice(device));
+        dispatch(setServer(server));
+        dispatch(setService(service));
+        dispatch(setchar(char));
+        dispatch(changeStatus(BLE.BLE_CONNECTED));
+
+        let obj = {
+          mode: "BLE",
+        };
+        BLE.writeBle(JSON.stringify(obj), char);
+      } else {
+        requestPermission();
+      }
+    }
   };
 
   React.useEffect(() => {

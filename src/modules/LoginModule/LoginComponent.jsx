@@ -3,7 +3,14 @@ import BlockLogo from "../../assets/images/blocks_logo.png";
 import { withRouter } from "react-router";
 import axiosInstance from "../../axios";
 import { DECODEJWT, SHOW_TOAST_WARN } from "../../utils/utils";
-import { setToken, setAuth, setEmail, setFirstName, setLastName, setUserId } from "../../features/auth/authSlice";
+import {
+  setToken,
+  setAuth,
+  setEmail,
+  setFirstName,
+  setLastName,
+  setUserId,
+} from "../../features/auth/authSlice";
 import { connect, useDispatch } from "react-redux";
 import { compose } from "redux";
 import { CONSTANTS } from "../../utils/constants";
@@ -26,11 +33,16 @@ class LoginComponent extends Component {
     } else {
       console.log(this.state.password);
       axiosInstance
-        .post(CONSTANTS.API.LOGIN, { email: this.state.email, password: this.state.password })
+        .post(CONSTANTS.API.LOGIN, {
+          email: this.state.email,
+          password: this.state.password,
+        })
         .then((res) => {
           console.log(res.data);
           console.log(DECODEJWT(res.data.data.token));
-          let { userId, first_name, last_name, email } = DECODEJWT(res.data.data.token);
+          let { userId, first_name, last_name, email } = DECODEJWT(
+            res.data.data.token
+          );
           this.props.dispatch(setAuth(true));
           this.props.dispatch(setFirstName(first_name));
           this.props.dispatch(setLastName(last_name));
@@ -54,11 +66,16 @@ class LoginComponent extends Component {
     } else {
       console.log(this.state.password);
       axiosInstance
-        .post("/api/login", { email: this.state.email, password: this.state.password })
+        .post("/api/login", {
+          email: this.state.email,
+          password: this.state.password,
+        })
         .then((res) => {
           console.log(res.data);
           console.log(DECODEJWT(res.data.data.token));
-          let { userId, first_name, last_name, email } = DECODEJWT(res.data.data.token);
+          let { userId, first_name, last_name, email } = DECODEJWT(
+            res.data.data.token
+          );
           this.props.dispatch(setAuth(true));
           this.props.dispatch(setFirstName(first_name));
           this.props.dispatch(setLastName(last_name));
@@ -86,13 +103,18 @@ class LoginComponent extends Component {
               <div className="flex justify-center items-start">
                 <img className="w-16 h-18" src={BlockLogo} alt="" />
               </div>
-              <label for="" className="block text-2xl  text-gray-700 text-center font-semibold">
+              <label
+                for=""
+                className="block text-2xl  text-gray-700 text-center font-semibold"
+              >
                 Blockly
               </label>
               <form method="#" action="#" className="mt-10">
                 <div>
                   <input
-                    onChange={(event) => this.setState({ email: event.target.value })}
+                    onChange={(event) =>
+                      this.setState({ email: event.target.value })
+                    }
                     type="email"
                     placeholder="Email"
                     className="mt-1 p-3 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
@@ -101,7 +123,9 @@ class LoginComponent extends Component {
 
                 <div className="mt-7">
                   <input
-                    onChange={(event) => this.setState({ password: event.target.value })}
+                    onChange={(event) =>
+                      this.setState({ password: event.target.value })
+                    }
                     type="password"
                     placeholder="Password"
                     className="mt-1 block w-full p-3 border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
@@ -109,18 +133,26 @@ class LoginComponent extends Component {
                 </div>
 
                 <div className="mt-7 flex">
-                  <label for="remember_me" className="inline-flex items-center w-full cursor-pointer">
+                  <label
+                    for="remember_me"
+                    className="inline-flex items-center w-full cursor-pointer"
+                  >
                     <input
                       id="remember_me"
                       type="checkbox"
                       className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                       name="remember"
                     ></input>
-                    <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                    <span className="ml-2 text-sm text-gray-600">
+                      Remember me
+                    </span>
                   </label>
 
                   <div className="w-full text-right">
-                    <a className="underline text-sm text-gray-600 hover:text-gray-900" href="#">
+                    <a
+                      className="underline text-sm text-gray-600 hover:text-gray-900"
+                      href="#"
+                    >
                       Forgot Password
                     </a>
                   </div>
@@ -129,21 +161,23 @@ class LoginComponent extends Component {
                 <div className="mt-7 flex justify-center items-center gap-2">
                   <button
                     onClick={(event) => this.onLogin(event)}
-                    className="bg-blue-500 w-1/2 py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-1000 ease-in  transform hover:-translate-x hover:scale-105"
+                    className="bg-blue-500 hover:bg-blue-600  py-3 rounded-xl w-full text-white shadow-xl hover:shadow-inner focus:outline-none "
                   >
-                    Login Single Mode
+                    LOGIN
                   </button>
-                  <button
+                  {/* <button
                     onClick={(event) => this.onMulitLogin(event)}
                     className="bg-red-500 w-1/2 py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
                   >
                     Login Mulitple Mode
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="flex mt-7 items-center text-center">
                   <hr className="border-gray-300 border-1 w-full rounded-md"></hr>
-                  <label className="block font-medium text-sm text-gray-600 w-full">End</label>
+                  <label className="block font-medium text-sm text-gray-600 w-full">
+                    End
+                  </label>
                   <hr className="border-gray-300 border-1 w-full rounded-md"></hr>
                 </div>
 
@@ -161,7 +195,10 @@ class LoginComponent extends Component {
                 <div className="mt-7">
                   <div className="flex justify-center items-center">
                     <label className="mr-2">binarybitz</label>
-                    <a href="#" className=" text-blue-500 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                    <a
+                      href="#"
+                      className=" text-blue-500 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+                    >
                       @allrightsreserved2021
                     </a>
                   </div>

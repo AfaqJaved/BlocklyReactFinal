@@ -24,7 +24,6 @@ import * as En from "blockly/msg/en";
 // importing generators
 import "../../generators";
 
-import MqttDevicesDialog from "./mqtt-devices-dialog/MqttDevicesDialog";
 import { useHistory } from "react-router-dom";
 
 export default function BlocklyPage() {
@@ -251,10 +250,6 @@ export default function BlocklyPage() {
         open={showDialog}
         closeDialog={(data) => onChangeDialog(data)}
       ></SelectionDialog>
-      <MqttDevicesDialog
-        open={showMqttDevicesDialog}
-        closeDialog={() => onMqttDevicesChangeDialog()}
-      ></MqttDevicesDialog>
       <div>
         <NavBarBlockly></NavBarBlockly>
       </div>
@@ -351,7 +346,7 @@ export default function BlocklyPage() {
                   {mode === CONSTANTS.MODES.MQTT ? (
                     <button
                       onClick={() => {
-                        setShowMqttDevicesDialog(!showMqttDevicesDialog);
+                        history.push(CONSTANTS.ROUTING.MQTT_DEVICES_PAGE);
                       }}
                       className="flex text-white flex-col justify-center items-center p-5 text-2xl  bg-blue-500 rounded-3xl shadow-3xl"
                     >

@@ -2,9 +2,14 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import RobotLogo from "../../assets/images/blocks_logo.png";
 import { CONSTANTS } from "../../utils/constants";
+import { RESET_REDUX_STATE } from "../../utils/utils";
 
 export default function HeaderComponent() {
   const history = useHistory();
+  const logout = () => {
+    RESET_REDUX_STATE();
+    history.push(CONSTANTS.ROUTING.LOGIN_PAGE);
+  };
   return (
     <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
       <div className="flex items-center justify-start md:justify-center p-5  pl-3 w-14 md:w-64 h-14 bg-blue-800 dark:bg-gray-800 border-none">
@@ -23,7 +28,11 @@ export default function HeaderComponent() {
             <div className="block w-px h-6 mx-3 bg-gray-400 dark:bg-gray-700" />
           </li>
           <li>
-            <a href="#" className="flex items-center mr-4 hover:text-blue-100">
+            <a
+              onClick={logout}
+              href="#"
+              className="flex items-center mr-4 hover:text-blue-100"
+            >
               <span className="inline-flex mr-1">
                 <svg
                   className="w-5 h-5"

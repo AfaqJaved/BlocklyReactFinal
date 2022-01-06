@@ -7,7 +7,7 @@ import axiosInstance from "../../axios";
 import { CONSTANTS } from "../../utils/constants";
 import Delete from "../../assets/images/delete.png";
 import Edit from "../../assets/images/edit.png";
-import { SHOW_TOAST_SUCESS } from "../../utils/utils";
+import { SHOW_TOAST_SUCESS, SHOW_TOAST_WARN } from "../../utils/utils";
 import AddCategoryDialog from "./AddCategoryDialog/AddCategoryDialog";
 
 export default function ToolboxCategoriesPage() {
@@ -24,8 +24,12 @@ export default function ToolboxCategoriesPage() {
     axiosInstance
       .get(CONSTANTS.API.TOOLBOX_CATEGORIES.DELETE + data.id)
       .then((res) => {
-        SHOW_TOAST_SUCESS("Sucessfully Deleted !!");
-        getAllCategories();
+        if (res.data.message === "sucess") {
+          SHOW_TOAST_SUCESS(res.data.message);
+          getAllCategories();
+        } else {
+          SHOW_TOAST_WARN(res.data.message + "   : " + res.data.data.detail);
+        }
       })
       .catch((res) => {
         console.log(res);

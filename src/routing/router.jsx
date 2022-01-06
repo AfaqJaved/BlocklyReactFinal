@@ -19,6 +19,7 @@ import ToolboxCategoriesPage from "../Pages/categories/ToolboxCategories";
 import BlocksPage from "../Pages/blocksPage/BlocksPage";
 import BlockDefinationPage from "../Pages/block-defination-page/BlockDefinationsPage";
 import TranslationsPage from "../Pages/translations-page/TranslationsPage";
+import MqttDevicesPage from "../Pages/mqtt-devices-page/MqttDevicesPage";
 
 class RouterComponent extends Component {
   componentDidMount() {
@@ -82,10 +83,11 @@ class RouterComponent extends Component {
             path={CONSTANTS.ROUTING.TRANSLATIONS_PAGE}
             component={TranslationsPage}
           />
+
           <PrivateRoute
             authed={this.props.authenticated}
-            path={CONSTANTS.ROUTING.DEVICES_PAGE}
-            component={DevicesComponent}
+            path={CONSTANTS.ROUTING.MQTT_DEVICES_PAGE}
+            component={MqttDevicesPage}
           />
         </Switch>
       </main>

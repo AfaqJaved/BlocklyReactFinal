@@ -4,10 +4,11 @@ import { store } from "../app/store";
 import storage from "redux-persist/lib/storage";
 
 import { resetAuth } from "../features/auth/authSlice";
-import { resetBle } from "../features/ble/bleSlice";
+import { changeStatus, resetBle } from "../features/ble/bleSlice";
 import { resetDevice } from "../features/devices/deviceSlice";
 import { resetLang } from "../features/language/languageSlice";
 import { resetModal } from "../features/modal/modalSlice";
+import { BLE } from "./bleConstants";
 
 export const DECODEJWT = (token) => {
   return jwt_decode(token);
@@ -44,4 +45,9 @@ export const RESET_REDUX_STATE = () => {
   store.dispatch(resetDevice());
   store.dispatch(resetLang());
   storage.removeItem("persist:root");
+};
+
+export const ON_BLE_DISCONNECTED = () => {
+  console.log("Device disconnected!!!");
+  store.dispatch(changeStatus(BLE.BLE_DISCONNECTED));
 };

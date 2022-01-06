@@ -1,6 +1,7 @@
 import { store } from "../app/store";
 import client from "../mqtt";
 import { BLOCKS_LANGUAGE_CONSTANTS } from "../utils/blockConstants";
+import { SHOW_TOAST_SUCESS } from "./utils";
 const TOPICS = {
   getForwardTopicSmarty(deviceName) {
     return (
@@ -100,7 +101,7 @@ export const SMARTY_WIFI = {
   async moveForward() {
     for (let i = 0; i < store.getState().devices.devices.length; i++) {
       let currentDevice = store.getState().devices.devices[i];
-      if (currentDevice.str_deployCode) {
+      if (JSON.parse(currentDevice.str_deployCode)) {
         console.log(
           TOPICS.getForwardTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
@@ -118,7 +119,7 @@ export const SMARTY_WIFI = {
   async moveBackward() {
     for (let i = 0; i < store.getState().devices.devices.length; i++) {
       let currentDevice = store.getState().devices.devices[i];
-      if (currentDevice.str_deployCode) {
+      if (JSON.parse(currentDevice.str_deployCode)) {
         console.log(
           TOPICS.getBackwardTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
@@ -136,7 +137,7 @@ export const SMARTY_WIFI = {
   async moveLeft() {
     for (let i = 0; i < store.getState().devices.devices.length; i++) {
       let currentDevice = store.getState().devices.devices[i];
-      if (currentDevice.str_deployCode) {
+      if (JSON.parse(currentDevice.str_deployCode)) {
         console.log(
           TOPICS.getLeftTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
@@ -154,7 +155,7 @@ export const SMARTY_WIFI = {
   async moveRight() {
     for (let i = 0; i < store.getState().devices.devices.length; i++) {
       let currentDevice = store.getState().devices.devices[i];
-      if (currentDevice.str_deployCode) {
+      if (JSON.parse(currentDevice.str_deployCode)) {
         console.log(
           TOPICS.getRightTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
@@ -175,5 +176,7 @@ export const SMARTY_WIFI = {
 };
 
 export const RUNCODE = (code) => {
+  SHOW_TOAST_SUCESS("Uploding !!!!");
   eval(code);
+  SHOW_TOAST_SUCESS("Uploading Done !!");
 };

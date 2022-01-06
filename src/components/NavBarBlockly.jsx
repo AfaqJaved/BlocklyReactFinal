@@ -16,18 +16,15 @@ import GearLogo from "../assets/images/gear.png";
 import { BLE } from "../utils/bleConstants";
 import Popup from "./Popup";
 import i18next from "i18next";
-import {
-  setToken,
-  setAuth,
-  setEmail,
-  setFirstName,
-  setLastName,
-  setUserId,
-} from "../features/auth/authSlice";
+
 import Logout from "../assets/images/logout.png";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { RESET_REDUX_STATE } from "../utils/utils";
+import {
+  ON_BLE_DISCONNECTED,
+  RESET_REDUX_STATE,
+  SHOW_TOAST_SUCESS,
+} from "../utils/utils";
 import Iot from "../assets/images/iot.png";
 
 export default function NavBarBlockly(props) {
@@ -37,16 +34,12 @@ export default function NavBarBlockly(props) {
   const bleStatus = useSelector((state) => state.ble.status);
   const mode = useSelector((state) => state.robot.mode);
   const history = useHistory();
+  const [deviceBle, setdeviceBle] = useState(null);
   const { t } = useTranslation();
-
-  const onDisconnected = () => {
-    console.log("Device disconnected!!!");
-    dispatch(changeStatus(BLE.BLE_DISCONNECTED));
-  };
 
   const requestPermission = async () => {
     const device = await BLE.getDevice();
-    device.addEventListener("gattserverdisconnected", onDisconnected);
+    device.addEventListener("gattserverdisconnected", ON_BLE_DISCONNECTED);
     const server = await BLE.connectGattServer(device);
     const service = await BLE.getServices(server);
     const char = await BLE.getChar(service);
@@ -57,7 +50,7 @@ export default function NavBarBlockly(props) {
       dispatch(setService(service));
       dispatch(setchar(char));
       dispatch(changeStatus(BLE.BLE_CONNECTED));
-      BLE.writeBle("This is from chrome", char);
+      setdeviceBle(device);
     } else {
       requestPermission();
     }
@@ -80,10 +73,17 @@ export default function NavBarBlockly(props) {
     props.onChangeDialog();
   };
 
+  const disconnectBle = () => {
+    if (deviceBle != null) {
+      deviceBle.gatt.disconnect();
+      SHOW_TOAST_SUCESS("Sucessfull Disconnected !!!");
+    }
+  };
+
   return (
     <div className="bg-pink-600   w-full">
       <nav className="flex  justify-center gap-x-0 md:gap-x-16 lg:gap-x-16 md:justify-between lg:justify-between pl-5 pr-10 items-center">
-        <div className="p-2 flex  items-center justify-start">
+        <div className="p-2 flex   items-center justify-start">
           <img
             onClick={() => history.push(CONSTANTS.ROUTING.BLOCKLY_PARAMS_PAGE)}
             src={BlocklsLogo}
@@ -119,10 +119,23 @@ export default function NavBarBlockly(props) {
         </div>
         <div className=" invisible md:visible lg:visible ">
           <ul className="flex items-center justify-between ">
+            {bleStatus === BLE.BLE_CONNECTED ? (
+              <li>
+                <button
+                  onClick={disconnectBle}
+                  className="py-2 px-6 rounded-md text-xl shadow-lg bg-red-400 hover:bg-red-600 text-white "
+                >
+                  Disconnect
+                </button>
+              </li>
+            ) : (
+              ""
+            )}
             <li>
               {mode === CONSTANTS.MODES.BLE ? (
                 <button
                   onClick={requestPermission}
+                  disabled={bleStatus === BLE.BLE_CONNECTED ? true : false}
                   className={
                     " ml-3  flex justify-center items-center rounded-md shadow-lg text-white hover:text-black uppercase font-medium text-sm  p-1 md:p-1 lg:p-3 md:p0 lg:p3 md:text-sm lg:text-xl " +
                     (bleStatus === BLE.BLE_CONNECTED
@@ -146,6 +159,7 @@ export default function NavBarBlockly(props) {
               <img src={Logout} className="w-8 h-8 mr-2"></img>
               {t("LOGOUT")}
             </button>
+
             {/* <button
               onClick={selectDevicesDialog}
               className=" ml-3 flex justify-center items-center rounded-md text-white hover:text-black uppercase font-medium text-sm   lg:p3 md:text-sm lg:text-xl "

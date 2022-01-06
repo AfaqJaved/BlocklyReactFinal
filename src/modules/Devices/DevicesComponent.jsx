@@ -29,14 +29,8 @@ import Offline from "../../assets/images/no-wifi.png";
 import Online from "../../assets/images/wifi.png";
 import { SHOW_TOAST_SUCESS, SHOW_TOAST_WARN } from "../../utils/utils";
 import { CONSTANTS } from "./../../utils/constants";
-import {
-  addDevice,
-  changeDeviceStatus,
-  resetDevice,
-  removeDeployCodeDevice,
-} from "../../features/devices/deviceSlice";
-import { SMARTY } from "../../utils/smartyConstants";
-import { SMARTY_WIFI, TOPICS } from "../../utils/smartyConstantsWifi";
+import { addDevice, resetDevice } from "../../features/devices/deviceSlice";
+import { TOPICS } from "../../utils/smartyConstantsWifi";
 
 class DevicesComponent extends Component {
   constructor(props) {
@@ -54,9 +48,6 @@ class DevicesComponent extends Component {
     console.log(topic + "   " + message);
     for (let x = 0; x < this.props.devices.length; x++) {
       let currentDevice = this.props.devices[x];
-      if (topic === TOPICS.getStatusTopic(currentDevice.str_deviceName)) {
-        this.props.dispatch(changeDeviceStatus(currentDevice.str_deviceName));
-      }
     }
   };
 
@@ -84,19 +75,7 @@ class DevicesComponent extends Component {
     console.log(device);
     console.log(data);
     if (data === "on") {
-      this.props.dispatch(
-        removeDeployCodeDevice({
-          str_deviceName: device.str_deviceName,
-          str_deployCode: false,
-        })
-      );
     } else {
-      this.props.dispatch(
-        removeDeployCodeDevice({
-          str_deviceName: device.str_deviceName,
-          str_deployCode: true,
-        })
-      );
     }
   };
 
@@ -226,73 +205,69 @@ class DevicesComponent extends Component {
           <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
             <div className="relative flex flex-col min-w-0 break-words bg-pink-300 w-full mb-6 shadow-lg rounded-3xl ">
               <div className="rounded-t mb-0 px-4 py-3 border-0">
-                <div className="flex flex-wrap items-center ">
-                  <div className="relative w-full px-4 max-w-full flex-grow flex-1">
+                <div className="flex  justify-start gap-2 flex-wrap items-center ">
+                  <div className="flex flex-col justify-center items-center w-24 px-4">
                     <img
                       src={Blocks_logo}
                       className="w-12 h-14 float-left mr-2"
                     ></img>
-                    <h3 className="text-2xl font-light text-blueGray-700 mt-2 ">
-                      Smarty List
+                    <h3 className="text-2xl  font-light text-blueGray-700 mt-2 ">
+                      Robots
                     </h3>
                   </div>
-                  <div>
-                    <input
-                      value={this.state.deviceName}
-                      onChange={(event) =>
-                        this.setState({ deviceName: event.target.value })
-                      }
-                      placeholder={"Smarty Name"}
-                      className="text-gray-700 bg-gray-200 shadow-xl  font-sans font-light   p-2 ml-2 rounded-full"
-                      type="text"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      value={this.state.ssid}
-                      onChange={(event) =>
-                        this.setState({ ssid: event.target.value })
-                      }
-                      placeholder={"Wifi SSid"}
-                      className="text-gray-700 bg-gray-200 shadow-xl font-sans font-light   p-2 ml-2 rounded-full"
-                      type="text"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      value={this.state.password}
-                      onChange={(event) =>
-                        this.setState({ password: event.target.value })
-                      }
-                      placeholder={"Password"}
-                      className="text-gray-700 bg-gray-200 shadow-xl  font-sans font-light  p-2 ml-2 rounded-full"
-                      type="text"
-                    />
-                  </div>
 
-                  <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                  <input
+                    value={this.state.deviceName}
+                    onChange={(event) =>
+                      this.setState({ deviceName: event.target.value })
+                    }
+                    placeholder={"Smarty Name"}
+                    className="text-gray-700 w-52  bg-gray-200 shadow-xl  font-sans font-light   p-2 ml-2 rounded-full"
+                    type="text"
+                  />
+
+                  <input
+                    value={this.state.ssid}
+                    onChange={(event) =>
+                      this.setState({ ssid: event.target.value })
+                    }
+                    placeholder={"Wifi SSid"}
+                    className="text-gray-700 w-52  bg-gray-200 shadow-xl font-sans font-light   p-2 ml-2 rounded-full"
+                    type="text"
+                  />
+                  <input
+                    value={this.state.password}
+                    onChange={(event) =>
+                      this.setState({ password: event.target.value })
+                    }
+                    placeholder={"Password"}
+                    className="text-gray-700 w-52  bg-gray-200 shadow-xl  font-sans font-light  p-2 ml-2 rounded-full"
+                    type="text"
+                  />
+
+                  <div className="flex justify-around items-center w-full px-4 max-w-full flex-grow flex-1 text-right">
                     <button
                       hidden={false}
                       disabled={this.state.addBtnStatus}
                       onClick={() => {
                         this.sendBle();
                       }}
-                      className="bg-gray-300 text-white active:bg-indigo-600  font-light uppercase p-2 hover:bg-indigo-600 rounded-2xl outline-none text-2xl focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      className="bg-indigo-400 text-white active:bg-indigo-600  font-light  p-2 hover:bg-indigo-600 rounded-2xl outline-none text-2xl focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 shadow-lg hover:shadow-sm "
                       type="button"
                     >
-                      <img src={Add_logo} className="w-12 h-12"></img>
+                      <img src={Add_logo} className="w-12 h-12"></img> Add
                     </button>
                     <button
                       onClick={() => this.bleStart()}
                       className={
-                        " active:bg-indigo-600  font-light uppercase p-2 rounded-2xl outline-none text-2xl focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " +
+                        " active:bg-indigo-600  font-light bg-red-400 hover:bg-red-500 shadow-lg hover:shadow-sm  p-2 rounded-2xl outline-none text-2xl focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " +
                         (this.props.bleState === BLE.BLE_CONNECTED
                           ? "bg-blue-600 text-white "
                           : "  bg-gray-300 text-white")
                       }
                       type="button"
                     >
-                      <img src={Scan} className="w-12 h-12"></img>
+                      <img src={Scan} className="w-12 h-12"></img>Scan
                     </button>
                   </div>
                 </div>
@@ -301,23 +276,23 @@ class DevicesComponent extends Component {
               <div className="block w-full overflow-x-auto">
                 <table className="items-center bg-transparent w-full border-collapse ">
                   <thead>
-                    <tr>
-                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                    <tr className="bg-gray-700 text-white">
+                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         Device Name
                       </th>
-                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         Wifi Ssid
                       </th>
-                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         Password
                       </th>
-                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         Status
                       </th>
-                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle  py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         Deploy Code
                       </th>
-                      <th className=" flex justify-center items-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      <th className=" flex justify-center items-center px-6 bg-blueGray-50 text-blueGray-500 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                         Actions
                       </th>
                     </tr>
@@ -327,24 +302,24 @@ class DevicesComponent extends Component {
                     {/* <tr>{this.state.devices}</tr> */}
                     {this.props.devices.map((item, i) => (
                       <tr key={i}>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap  text-left text-blueGray-700 ">
                           {item.str_deviceName}
                         </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap  text-left text-blueGray-700 ">
                           {item.str_ssid}
                         </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap  text-left text-blueGray-700 ">
                           {item.str_pass}
                         </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap  justify-center items-center  text-left text-blueGray-700 ">
                           <img
-                            className=" ml-1 w-12 h-12 flex justify-center items-center flex-col"
+                            className=" ml-4 w-12 h-12 flex justify-center items-center flex-col"
                             src={item.str_status === true ? Online : Offline}
                             alt=""
                           />
-                          <h1>
+                          {/* <h1>
                             {item.str_status === true ? "Online" : "Offline"}
-                          </h1>
+                          </h1> */}
                         </td>
                         <td className="border-t-0   px-12  align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-left text-blueGray-700 ">
                           <label className="inline-flex  items-center mb-3">
@@ -371,6 +346,9 @@ class DevicesComponent extends Component {
                     ))}
                   </tbody>
                 </table>
+                <div className="bg-pink-400 flex justify-center items-center p-5 text-black">
+                  {this.props.devices.length === 0 ? <h1>No Data</h1> : ""}
+                </div>
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ import Delete from "../../assets/images/delete.png";
 import AddProductDialog from "./AddProductDialog/AddProductDialog";
 import axiosInstance from "../../axios";
 import { CONSTANTS } from "../../utils/constants";
-import { SHOW_TOAST_SUCESS } from "../../utils/utils";
+import { SHOW_TOAST_SUCESS, SHOW_TOAST_WARN } from "../../utils/utils";
 
 export default function ProductPage() {
   const [openAddDialog, setOpenAddDialog] = React.useState(false);
@@ -22,8 +22,12 @@ export default function ProductPage() {
     axiosInstance
       .get(CONSTANTS.API.PRODUCT.DELETE + data.id)
       .then((res) => {
-        SHOW_TOAST_SUCESS("Product Sucessfull Deleted!!");
-        getAllProducts();
+        if (res.data.message === "sucess") {
+          SHOW_TOAST_SUCESS(res.data.message);
+          getAllProducts();
+        } else {
+          SHOW_TOAST_WARN(res.data.message + "   : " + res.data.data.detail);
+        }
       })
       .catch((res) => {
         console.log(res);

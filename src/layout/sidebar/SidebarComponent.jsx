@@ -6,6 +6,7 @@ import OptionsLogo from "../../assets/images/options.png";
 import Robot from "../../assets/images/robot2.png";
 import Json from "../../assets/images/json.png";
 import Translate from "../../assets/images/translate.png";
+import SmartPhone from "../../assets/images/smartphone.png";
 import Cubes from "../../assets/images/cubes.png";
 import { CONSTANTS } from "../../utils/constants";
 
@@ -131,6 +132,21 @@ export default function SidebarComponent() {
               </span>
               <span className="ml-2 text-xl tracking-wide truncate">
                 Translations
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              onClick={() => history.push(CONSTANTS.ROUTING.MQTT_DEVICES_PAGE)}
+              className=" cursor-pointer relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6 p-5 mt-4 "
+            >
+              <span className="inline-flex justify-center items-center ml-4">
+                {/* logo */}
+                <img src={SmartPhone} className=" w-8 h-8  "></img>
+              </span>
+              <span className="ml-2 text-xl tracking-wide truncate">
+                Mqtt Devices
               </span>
             </a>
           </li>

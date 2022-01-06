@@ -7,7 +7,7 @@ import axiosInstance from "../../axios";
 import { CONSTANTS } from "../../utils/constants";
 import Delete from "../../assets/images/delete.png";
 import Edit from "../../assets/images/edit.png";
-import { SHOW_TOAST_SUCESS } from "../../utils/utils";
+import { SHOW_TOAST_SUCESS, SHOW_TOAST_WARN } from "../../utils/utils";
 
 export default function BlocklyToolBoxPage() {
   const [openAddDialog, setOpenAddDialog] = React.useState(false);
@@ -20,8 +20,13 @@ export default function BlocklyToolBoxPage() {
     axiosInstance
       .get(CONSTANTS.API.TOOLBOX.DELETE + data.id)
       .then((res) => {
-        SHOW_TOAST_SUCESS("Sucessfully Deleted !!");
-        getAllToolbox();
+        console.log(res.data);
+        if (res.data.message === "sucess") {
+          SHOW_TOAST_SUCESS(res.data.message);
+          getAllToolbox();
+        } else {
+          SHOW_TOAST_WARN(res.data.message + "   : " + res.data.data.detail);
+        }
       })
       .catch((res) => {
         console.log(res);
