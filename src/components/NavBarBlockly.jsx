@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../features/language/languageSlice";
 import {
   changeStatus,
+  setChar,
   setDevice,
   setServer,
   setService,
-  setchar,
 } from "../features/ble/bleSlice";
 import { CONSTANTS } from "../utils/constants";
 import BlocklsLogo from "../assets/images/blocks_logo.png";
@@ -38,21 +38,25 @@ export default function NavBarBlockly(props) {
   const { t } = useTranslation();
 
   const requestPermission = async () => {
-    const device = await BLE.getDevice();
-    device.addEventListener("gattserverdisconnected", ON_BLE_DISCONNECTED);
-    const server = await BLE.connectGattServer(device);
-    const service = await BLE.getServices(server);
-    const char = await BLE.getChar(service);
+    try {
+      const device = await BLE.getDevice();
+      device.addEventListener("gattserverdisconnected", ON_BLE_DISCONNECTED);
+      const server = await BLE.connectGattServer(device);
+      const service = await BLE.getServices(server);
+      const char = await BLE.getChar(service);
 
-    if (device != undefined) {
-      dispatch(setDevice(device));
-      dispatch(setServer(server));
-      dispatch(setService(service));
-      dispatch(setchar(char));
-      dispatch(changeStatus(BLE.BLE_CONNECTED));
-      setdeviceBle(device);
-    } else {
-      requestPermission();
+      if (device != undefined) {
+        dispatch(setDevice(device));
+        dispatch(setServer(server));
+        dispatch(setService(service));
+        dispatch(setChar(char));
+        dispatch(changeStatus(BLE.BLE_CONNECTED));
+        setdeviceBle(device);
+      } else {
+        requestPermission();
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 

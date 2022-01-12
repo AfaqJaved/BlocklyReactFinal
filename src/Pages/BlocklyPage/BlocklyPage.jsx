@@ -6,7 +6,7 @@ import { BLOCKLY_THEME } from "../../utils/blocklyTheme";
 import { RUNCODE, SMARTY, SMARTY_WIFI } from "../../utils/smartyConstants";
 import Bot from "../../assets/images/bot.png";
 import PlayIcon from "../../assets/images/play.png";
-import PauseIcon from "../../assets/images/pause.png";
+import PauseIcon from "../../assets/images/example.png";
 import Robots from "../../assets/images/robots.png";
 import ExpandIcon from "../../assets/images/expand.png";
 import Editor from "@monaco-editor/react";
@@ -25,6 +25,7 @@ import * as En from "blockly/msg/en";
 import "../../generators";
 
 import { useHistory } from "react-router-dom";
+import ShowExamplesDialog from "./dialogSamples/ShowExamples";
 
 export default function BlocklyPage() {
   const blocklyDiv = React.useRef();
@@ -37,6 +38,7 @@ export default function BlocklyPage() {
   const [showDialog, setShowDialog] = React.useState(true);
   const [showMqttDevicesDialog, setShowMqttDevicesDialog] =
     React.useState(false);
+  const [showExampleDialog, setShowExampleDialog] = React.useState(false);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.userId);
   const product = useSelector((state) => state.robot.product);
@@ -244,12 +246,30 @@ export default function BlocklyPage() {
     Blockly.svgResize(primaryWorkspace);
   };
 
+  const onExamplesDialogClose = (data) => {
+    console.log(data);
+    if (data != undefined) {
+      let xml = data.samples_str_xml;
+      Blockly.mainWorkspace.clear();
+      Blockly.Xml.domToWorkspace(
+        Blockly.Xml.textToDom(xml),
+        Blockly.mainWorkspace
+      );
+    }
+
+    setShowExampleDialog(!showExampleDialog);
+  };
+
   return (
     <div className="h-screen w-screen overflow-hidden ">
       <SelectionDialog
         open={showDialog}
         closeDialog={(data) => onChangeDialog(data)}
       ></SelectionDialog>
+      <ShowExamplesDialog
+        open={showExampleDialog}
+        closeDialog={(data) => onExamplesDialogClose(data)}
+      ></ShowExamplesDialog>
       <div>
         <NavBarBlockly></NavBarBlockly>
       </div>
@@ -340,7 +360,10 @@ export default function BlocklyPage() {
                   >
                     <img className="w-16 h-16 " src={PlayIcon}></img>
                   </button>
-                  <button className="flex text-white flex-col justify-center items-center p-5 text-2xl  bg-blue-500 rounded-3xl shadow-3xl">
+                  <button
+                    onClick={() => setShowExampleDialog(!showExampleDialog)}
+                    className="flex text-white flex-col justify-center items-center p-5 text-2xl  bg-blue-500 rounded-3xl shadow-3xl"
+                  >
                     <img className="w-16 h-16 " src={PauseIcon}></img>
                   </button>
                   {mode === CONSTANTS.MODES.MQTT ? (

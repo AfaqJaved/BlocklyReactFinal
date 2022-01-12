@@ -20,6 +20,8 @@ import BlocksPage from "../Pages/blocksPage/BlocksPage";
 import BlockDefinationPage from "../Pages/block-defination-page/BlockDefinationsPage";
 import TranslationsPage from "../Pages/translations-page/TranslationsPage";
 import MqttDevicesPage from "../Pages/mqtt-devices-page/MqttDevicesPage";
+import BlocklySamplePage from "../Pages/blockly-samples-page/BlocklySamplePage";
+import BlocklySampleHome from "../Pages/blockly-samples-page/BlocklySampleHome";
 
 class RouterComponent extends Component {
   componentDidMount() {
@@ -88,6 +90,18 @@ class RouterComponent extends Component {
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.MQTT_DEVICES_PAGE}
             component={MqttDevicesPage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCKY_SAMPLES_PAGE_ADD}
+            component={BlocklySamplePage}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLOCKY_SAMPLES_PAGE}
+            component={BlocklySampleHome}
           />
         </Switch>
       </main>

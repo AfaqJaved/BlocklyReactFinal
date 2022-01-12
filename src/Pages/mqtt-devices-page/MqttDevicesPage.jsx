@@ -18,7 +18,8 @@ import {
   setDevice,
   setServer,
   setService,
-  setchar,
+  setchar_Rx,
+  setChar,
 } from "../../features/ble/bleSlice";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
@@ -138,7 +139,7 @@ class MqttDevicesPage extends Component {
         this.props.dispatch(setDevice(device));
         this.props.dispatch(setServer(server));
         this.props.dispatch(setService(service));
-        this.props.dispatch(setchar(char));
+        this.props.dispatch(setChar(char));
         this.props.dispatch(changeStatus(BLE.BLE_CONNECTED));
         console.log(await BLE.getSsidPassword());
         let { ssid, pass, deviceId } = JSON.parse(await BLE.getSsidPassword());

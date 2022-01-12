@@ -20,5 +20,49 @@
     "colour": 230,
     "tooltip": "",
     "helpUrl": ""
+  },
+  {
+    "type": "start_block_en",
+    "message0": "Start Program  %1 %2",
+    "args0": [
+      {
+        "type": "input_dummy",
+        "align": "CENTRE"
+      },
+      {
+        "type": "input_statement",
+        "name": "NAME"
+      }
+    ],
+    "colour": 230,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "blink_leds",
+    "message0": "BlinkLeds %1 No of Times %2",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "color",
+        "options": [
+          ["RED", "RED"],
+          ["BLUE", "BLUE"],
+          ["GREEN", "GREEN"]
+        ]
+      },
+      {
+        "type": "field_number",
+        "name": "loop",
+        "value": 0,
+        "min": 1,
+        "max": 10
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 230,
+    "tooltip": "",
+    "helpUrl": ""
   }
 ]

@@ -25,12 +25,20 @@ export const bleSlice = createSlice({
     setService: (state, action) => {
       state.service = action.payload;
     },
-    setchar: (state, action) => {
+    setChar: (state, action) => {
       state.char = action.payload;
     },
+
     resetBle: () => initialState,
   },
 });
 
-export const { changeStatus, setDevice, setServer, setService, setchar, resetBle } = bleSlice.actions;
+export const {
+  changeStatus,
+  setDevice,
+  setServer,
+  setService,
+  setChar,
+  resetBle,
+} = bleSlice.actions;
 export default bleSlice.reducer;

@@ -25,6 +25,12 @@ export const CONSTANTS = {
       DELETE: "/api/toolbox/delete/",
       FIND_TOOLBOX_BY_MODE_PRODUCT: "/api/toolbox/findByParams",
     },
+    BLOCKLY_SAMPLES: {
+      FIND_ALL: "/api/blockly-samples/findAll",
+      FIND_BY_PARAMS: "/api/blockly-samples/findByParams",
+      ADD: "/api/blockly-samples/add",
+      DELETE: "/api/blockly-samples/delete/",
+    },
     BLOCK_DEFINATION: {
       FIND_ALL: "/api/block/findAllCustomBlock",
       ADD: "/api/block/addCustomBlock",
@@ -59,6 +65,8 @@ export const CONSTANTS = {
     LOGIN_PAGE: "/login",
     REGISTER_PAGE: "/register",
     BLOCKY_PAGE: "/blockly",
+    BLOCKY_SAMPLES_PAGE: "/blockly-samples",
+    BLOCKY_SAMPLES_PAGE_ADD: "/blockly-samples-add",
     BLOCKLY_WIFI_PAGE: "/blockly-wifi",
     MQTT_DEVICES_PAGE: "/devices",
     BLOCKLY_PARAMS_PAGE: "/blockly-params",

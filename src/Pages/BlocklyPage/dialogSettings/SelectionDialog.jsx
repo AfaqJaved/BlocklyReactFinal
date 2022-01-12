@@ -15,7 +15,8 @@ import {
   setDevice,
   setServer,
   setService,
-  setchar,
+  setchar_Rx,
+  setChar,
 } from "../../../features/ble/bleSlice";
 import { useSelector } from "react-redux";
 
@@ -60,7 +61,7 @@ export default function SelectionDialog(props) {
         dispatch(setDevice(device));
         dispatch(setServer(server));
         dispatch(setService(service));
-        dispatch(setchar(char));
+        dispatch(setChar(char));
         dispatch(changeStatus(BLE.BLE_CONNECTED));
 
         let obj = {

@@ -2,6 +2,8 @@ import { store } from "../app/store";
 import client from "../mqtt";
 import { BLOCKS_LANGUAGE_CONSTANTS } from "../utils/blockConstants";
 import { SHOW_TOAST_SUCESS } from "./utils";
+import { VARIABLES } from "./SmartyVariables";
+
 const TOPICS = {
   getForwardTopicSmarty(deviceName) {
     return (
@@ -92,8 +94,24 @@ export const SMARTY = {
   },
   async getDistance() {
     let value = await store.getState().ble.char.readValue();
-    console.log(new TextDecoder().decode(value));
-    return new TextDecoder().decode(value);
+    let valueInString = new TextDecoder().decode(value);
+    console.log(valueInString);
+    let obj = JSON.parse(valueInString);
+    return obj.distance;
+  },
+
+  async blinkLeds(color, times) {
+    await store
+      .getState()
+      .ble.char.writeValue(
+        new TextEncoder().encode(
+          VARIABLES.ACTIONS.BLINK_COLOR_ITERATION +
+            "," +
+            times.toString() +
+            "," +
+            color
+        )
+      );
   },
 };
 
@@ -107,7 +125,7 @@ export const SMARTY_WIFI = {
             store.getState().devices.devices[i].str_deviceName
           )
         );
-        client.publish(
+        await client.publish(
           TOPICS.getForwardTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
           ),
@@ -125,7 +143,7 @@ export const SMARTY_WIFI = {
             store.getState().devices.devices[i].str_deviceName
           )
         );
-        client.publish(
+        await client.publish(
           TOPICS.getBackwardTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
           ),
@@ -143,7 +161,7 @@ export const SMARTY_WIFI = {
             store.getState().devices.devices[i].str_deviceName
           )
         );
-        client.publish(
+        await client.publish(
           TOPICS.getLeftTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
           ),
@@ -161,7 +179,7 @@ export const SMARTY_WIFI = {
             store.getState().devices.devices[i].str_deviceName
           )
         );
-        client.publish(
+        await client.publish(
           TOPICS.getRightTopicSmarty(
             store.getState().devices.devices[i].str_deviceName
           ),
