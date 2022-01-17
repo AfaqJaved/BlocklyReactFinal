@@ -5,6 +5,7 @@ import Blocks_logo from "../../assets/images/blocks_logo.png";
 import Ble_logo from "../../assets/images/bluetooth2.png";
 import Add_logo from "../../assets/images/add.png";
 import Led from "../../assets/images/led.png";
+import { ACTIONS } from "../../utils/smartyConstants";
 import {
   setToken,
   setAuth,
@@ -216,7 +217,12 @@ class MqttDevicesPage extends Component {
 
   blinkLeds = async (data) => {
     client.publish(
-      "/topic/" + this.props.userId + "/" + data.str_deviceName + "/STATUS",
+      "/topic/" +
+        this.props.userId +
+        "/" +
+        data.str_deviceName +
+        "/" +
+        ACTIONS.SIMPLE_BLINK,
       "blink"
     );
   };

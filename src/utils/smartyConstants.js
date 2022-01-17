@@ -4,40 +4,55 @@ import { BLOCKS_LANGUAGE_CONSTANTS } from "../utils/blockConstants";
 import { SHOW_TOAST_SUCESS } from "./utils";
 import { VARIABLES } from "./SmartyVariables";
 
+export const ACTIONS = {
+  FORWARD: "FORWARD",
+  BACKWARD: "BACKWARD",
+  LEFT: "LEFT",
+  RIGHT: "RIGHT",
+  SIMPLE_BLINK: "BLINK",
+  BLINK_RED_LED: "BLINK_RED_LED",
+  BLINK_COLOR_ITERATION: "BLINK_COLOR_ITERATION",
+};
+
 const TOPICS = {
   getForwardTopicSmarty(deviceName) {
     return (
-      "/topic/" + store.getState().auth.userId + "/" + deviceName + "/FORWARD"
+      "/topic/" +
+      store.getState().auth.userId +
+      "/" +
+      deviceName +
+      "/" +
+      ACTIONS.FORWARD
     );
   },
   getBackwardTopicSmarty(deviceName) {
     return (
-      "/topic/" + store.getState().auth.userId + "/" + deviceName + "/BACKWARD"
+      "/topic/" +
+      store.getState().auth.userId +
+      "/" +
+      deviceName +
+      "/" +
+      ACTIONS.BACKWARD
     );
   },
   getLeftTopicSmarty(deviceName) {
     return (
-      "/topic/" + store.getState().auth.userId + "/" + deviceName + "/LEFT"
+      "/topic/" +
+      store.getState().auth.userId +
+      "/" +
+      deviceName +
+      "/" +
+      ACTIONS.LEFT
     );
   },
   getRightTopicSmarty(deviceName) {
     return (
-      "/topic/" + store.getState().auth.userId + "/" + deviceName + "/RIGHT"
-    );
-  },
-  getStatusTopic(deviceName) {
-    return (
-      "/topic/" + store.getState().auth.userId + "/" + deviceName + "/STATUS"
-    );
-  },
-  subscribeStatusTopicSmarty(deviceName) {
-    client.subscribe(
-      "/topic/" + store.getState().auth.userId + "/" + deviceName + "/STATUS"
-    );
-  },
-  unSubscribeStatusTopicSmarty(deviceName) {
-    client.unsubscribe(
-      "/topic/" + store.getState().auth.userId + "/" + deviceName + "/STATUS"
+      "/topic/" +
+      store.getState().auth.userId +
+      "/" +
+      deviceName +
+      "/" +
+      ACTIONS.RIGHT
     );
   },
 };
@@ -46,42 +61,22 @@ export const SMARTY = {
   async moveForward() {
     await store
       .getState()
-      .ble.char.writeValue(
-        new TextEncoder().encode(
-          BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH
-            .FORWARD
-        )
-      );
+      .ble.char.writeValue(new TextEncoder().encode(ACTIONS.FORWARD));
   },
   async moveBackward() {
     await store
       .getState()
-      .ble.char.writeValue(
-        new TextEncoder().encode(
-          BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH
-            .BACKWARD
-        )
-      );
+      .ble.char.writeValue(new TextEncoder().encode(ACTIONS.BACKWARD));
   },
   async moveLeft() {
     await store
       .getState()
-      .ble.char.writeValue(
-        new TextEncoder().encode(
-          BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH
-            .LEFT
-        )
-      );
+      .ble.char.writeValue(new TextEncoder().encode(ACTIONS.LEFT));
   },
   async moveRight() {
     await store
       .getState()
-      .ble.char.writeValue(
-        new TextEncoder().encode(
-          BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH
-            .RIGHT
-        )
-      );
+      .ble.char.writeValue(new TextEncoder().encode(ACTIONS.RIGHT));
   },
   async rotateSmarty(angle) {
     await store
@@ -105,11 +100,7 @@ export const SMARTY = {
       .getState()
       .ble.char.writeValue(
         new TextEncoder().encode(
-          VARIABLES.ACTIONS.BLINK_COLOR_ITERATION +
-            "," +
-            times.toString() +
-            "," +
-            color
+          ACTIONS.BLINK_COLOR_ITERATION + "," + times.toString() + "," + color
         )
       );
   },

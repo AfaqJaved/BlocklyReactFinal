@@ -22,6 +22,7 @@ import TranslationsPage from "../Pages/translations-page/TranslationsPage";
 import MqttDevicesPage from "../Pages/mqtt-devices-page/MqttDevicesPage";
 import BlocklySamplePage from "../Pages/blockly-samples-page/BlocklySamplePage";
 import BlocklySampleHome from "../Pages/blockly-samples-page/BlocklySampleHome";
+import BleTestingPage from "../Pages/ble-testing-page/BleTestingPage";
 
 class RouterComponent extends Component {
   componentDidMount() {
@@ -102,6 +103,12 @@ class RouterComponent extends Component {
             authed={this.props.authenticated}
             path={CONSTANTS.ROUTING.BLOCKY_SAMPLES_PAGE}
             component={BlocklySampleHome}
+          />
+
+          <PrivateRoute
+            authed={this.props.authenticated}
+            path={CONSTANTS.ROUTING.BLE_TESTING_PAGE}
+            component={BleTestingPage}
           />
         </Switch>
       </main>

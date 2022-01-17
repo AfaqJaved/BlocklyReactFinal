@@ -76,6 +76,7 @@ export const CONSTANTS = {
     BLOCKS_PAGE: "/blocks",
     BLOCK_DEFINATIONS: "/block-definations",
     TRANSLATIONS_PAGE: "/translations",
+    BLE_TESTING_PAGE: "/ble-testing",
   },
 };
 
