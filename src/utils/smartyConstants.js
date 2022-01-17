@@ -95,12 +95,18 @@ export const SMARTY = {
     return obj.distance;
   },
 
-  async blinkLeds(color, times) {
+  async blinkLeds(color, times, led_type) {
     await store
       .getState()
       .ble.char.writeValue(
         new TextEncoder().encode(
-          ACTIONS.BLINK_COLOR_ITERATION + "," + times.toString() + "," + color
+          ACTIONS.BLINK_COLOR_ITERATION +
+            "," +
+            times.toString() +
+            "," +
+            color +
+            "," +
+            led_type
         )
       );
   },
