@@ -13,7 +13,7 @@ import * as Blockly from "blockly";
 //   return code;
 // };
 
-Blockly.JavaScript["blink_leds"] = function (block) {
+Blockly.JavaScript["blink_rgb_leds"] = function (block) {
   var dropdown_color = block.getFieldValue("color");
   var number_loop = block.getFieldValue("loop");
   var dropdown_led_type = block.getFieldValue("led_type");
