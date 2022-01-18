@@ -12,6 +12,7 @@ export const ACTIONS = {
   SIMPLE_BLINK: "BLINK",
   BLINK_RED_LED: "BLINK_RED_LED",
   BLINK_COLOR_ITERATION: "BLINK_COLOR_ITERATION",
+  PLAY_MELODY: "PLAY_MELODY",
 };
 
 const TOPICS = {
@@ -77,6 +78,13 @@ export const SMARTY = {
     await store
       .getState()
       .ble.char.writeValue(new TextEncoder().encode(ACTIONS.RIGHT));
+  },
+  async playMelody(times) {
+    await store
+      .getState()
+      .ble.char.writeValue(
+        new TextEncoder().encode(ACTIONS.PLAY_MELODY + "," + times)
+      );
   },
   async rotateSmarty(angle) {
     await store
