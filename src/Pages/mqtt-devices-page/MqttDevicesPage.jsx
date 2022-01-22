@@ -4,7 +4,7 @@ import Scan from "../../assets/images/scan.png";
 import Blocks_logo from "../../assets/images/blocks_logo.png";
 import Ble_logo from "../../assets/images/bluetooth2.png";
 import Add_logo from "../../assets/images/add.png";
-import Led from "../../assets/images/led.png";
+import Led from "../../assets/images/music.png";
 import { ACTIONS } from "../../utils/smartyConstants";
 import {
   setToken,
@@ -215,15 +215,16 @@ class MqttDevicesPage extends Component {
     });
   };
 
-  blinkLeds = async (data) => {
+  playMelod = async (data) => {
+    console.log();
     client.publish(
       "/topic/" +
         this.props.userId +
         "/" +
         data.str_deviceName +
         "/" +
-        ACTIONS.SIMPLE_BLINK,
-      "blink"
+        ACTIONS.PLAY_MELODY,
+      "sound"
     );
   };
 
@@ -369,10 +370,11 @@ class MqttDevicesPage extends Component {
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap  justify-center items-center  text-left text-blueGray-700 ">
                           {item.str_mode === "MQTT" ? (
                             <button
-                              onClick={() => this.blinkLeds(item)}
-                              className="px-6  flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 shadow-sm rounded-md text-white font-Roboto "
+                              onClick={() => this.playMelod(item)}
+                              className="px-6 py-2 gap-2  flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 shadow-sm rounded-md text-white font-Roboto "
                             >
-                              <img src={Led} className="w-12 h-12"></img>Blink
+                              <img src={Led} className="w-12 h-12"></img>Play
+                              Melody
                             </button>
                           ) : (
                             ""

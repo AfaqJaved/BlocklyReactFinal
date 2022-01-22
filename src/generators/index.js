@@ -1,5 +1,10 @@
 import "./StartProgram";
-import "./MoveDirection";
-import "./Blink_Leds";
-import "./GetDistance";
-import "./Play_Melody";
+
+// Ble
+import "./ble/MoveDirection";
+import "./ble/Blink_Leds";
+import "./ble/GetDistance";
+import "./ble/Play_Melody";
+
+// Mqtt
+import "./mqtt/MoveDirection";
