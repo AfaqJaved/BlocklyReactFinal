@@ -28,3 +28,37 @@ Blockly.JavaScript["direction_block_mqtt"] = function (block) {
   }
   return "good";
 };
+
+// {
+//   "type": "direction_block_ble",
+//   "message0": "Move in Direction %1",
+//   "args0": [
+//     {
+//       "type": "field_dropdown",
+//       "name": "direction",
+//       "options": [
+//         [
+//           "FORWARD",
+//           "FORWARD"
+//         ],
+//         [
+//           "BACKWARD",
+//           "BACKWARD"
+//         ],
+//         [
+//           "LEFT",
+//           "LEFT"
+//         ],
+//         [
+//           "RIGHT",
+//           "RIGHT"
+//         ]
+//       ]
+//     }
+//   ],
+//   "previousStatement": null,
+//   "nextStatement": null,
+//   "colour": 230,
+//   "tooltip": "",
+//   "helpUrl": ""
+// }

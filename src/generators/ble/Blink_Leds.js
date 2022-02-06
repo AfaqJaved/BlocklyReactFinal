@@ -16,3 +16,54 @@ Blockly.JavaScript["blink_rgb_leds_ble"] = function (block) {
     ");\n";
   return code;
 };
+
+// {
+//   "type": "blink_rgb_leds_ble",
+//   "message0": "Blink Leds  %1 No of Times %2 Led Type %3",
+//   "args0": [
+//     {
+//       "type": "field_dropdown",
+//       "name": "color",
+//       "options": [
+//         [
+//           "RED",
+//           "RED"
+//         ],
+//         [
+//           "GREEN",
+//           "GREEN"
+//         ],
+//         [
+//           "BLUE",
+//           "BLUE"
+//         ]
+//       ]
+//     },
+//     {
+//       "type": "field_number",
+//       "name": "loop",
+//       "value": 1,
+//       "min": 1,
+//       "max": 10
+//     },
+//     {
+//       "type": "field_dropdown",
+//       "name": "led_type",
+//       "options": [
+//         [
+//           "CATHODE",
+//           "CATHODE"
+//         ],
+//         [
+//           "ANODE",
+//           "ANODE"
+//         ]
+//       ]
+//     }
+//   ],
+//   "previousStatement": null,
+//   "nextStatement": null,
+//   "colour": 230,
+//   "tooltip": "",
+//   "helpUrl": ""
+// }

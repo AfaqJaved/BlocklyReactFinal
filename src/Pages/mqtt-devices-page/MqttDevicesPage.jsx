@@ -48,17 +48,6 @@ class MqttDevicesPage extends Component {
     };
   }
 
-  // onMqttCallBack = (topic, message) => {
-  //   let newDevices = [];
-  //   console.log(topic + "   " + message);
-  //   for (let x = 0; x < this.props.devices.length; x++) {
-  //     let currentDevice = this.props.devices[x];
-  //     if (topic === TOPICS.getStatusTopic(currentDevice.str_deviceName)) {
-  //       this.props.dispatch(changeDeviceStatus(currentDevice.str_deviceName));
-  //     }
-  //   }
-  // };
-
   onDeleteDevice = (item) => {
     TOPICS.unSubscribeStatusTopicSmarty(item.str_deviceName);
     axiosInstance
@@ -292,6 +281,9 @@ class MqttDevicesPage extends Component {
                     </option>
                     <option className="p-4" value={"BLE"}>
                       Single
+                    </option>
+                    <option className="p-4" value={"OTA"}>
+                      Firmware Update
                     </option>
                   </select>
 
