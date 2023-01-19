@@ -81,7 +81,7 @@ const BleTestingPage = (props) => {
           <input
             {...register("command")}
             type={"text"}
-            className="border-2 p-4 w-full text-xl uppercase text-white bg-gray-500"
+            className="border-2 p-4 w-full text-xl text-white bg-gray-500"
           ></input>
           <button
             onClick={handleSubmit(bleSend)}

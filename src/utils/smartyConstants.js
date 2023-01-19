@@ -5,12 +5,12 @@ import { SHOW_TOAST_SUCESS } from "./utils";
 import { VARIABLES } from "./SmartyVariables";
 
 export const ACTIONS = {
-  FORWARD: "FORWARD",
-  BACKWARD: "BACKWARD",
-  LEFT: "LEFT",
-  RIGHT: "RIGHT",
-  SIMPLE_BLINK: "BLINK",
-  BLINK_RED_LED: "BLINK_RED_LED",
+  FORWARD: "f",
+  BACKWARD: "b",
+  LEFT: "l",
+  RIGHT: "r",
+  SIMPLE_BLINK: "b",
+  BLINK_RED_LED: "r",
   BLINK_COLOR_ITERATION: "BLINK_COLOR_ITERATION",
   PLAY_MELODY: "PLAY_MELODY",
 };
