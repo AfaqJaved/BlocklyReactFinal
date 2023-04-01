@@ -131,7 +131,7 @@ export default function BlocklyPage() {
       let find = {
         str_mode: mode,
         userId: userId,
-        productId: product.id,
+        productId: 1,
       };
       axiosInstance
         .post(CONSTANTS.API.TOOLBOX.FIND_TOOLBOX_BY_MODE_PRODUCT, find)
