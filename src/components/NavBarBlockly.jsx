@@ -32,7 +32,7 @@ export default function NavBarBlockly(props) {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.language.language);
   const bleStatus = useSelector((state) => state.ble.status);
-  const mode = useSelector((state) => state.robot.mode);
+  const mode = "BLE";
   const history = useHistory();
   const [deviceBle, setdeviceBle] = useState(null);
   const { t } = useTranslation();
@@ -136,7 +136,7 @@ export default function NavBarBlockly(props) {
               ""
             )}
             <li>
-              {mode === CONSTANTS.MODES.BLE ? (
+              {"BLE" === CONSTANTS.MODES.BLE ? (
                 <button
                   onClick={requestPermission}
                   disabled={bleStatus === BLE.BLE_CONNECTED ? true : false}

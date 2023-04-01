@@ -4,6 +4,8 @@ export const CONSTANTS = {
   MODES: {
     MQTT: "MQTT",
     BLE: "BLE",
+    JAVASCRIPT : "javascript",
+    PYTHON : "python"
   },
   LANGUAGE: {
     RUSSIAN: "ru",

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BlocklyJS from "blockly/javascript";
+import BlocklyPython from "blockly/python";
 import { connect, useDispatch, useSelector } from "react-redux";
 import NavBarBlockly from "../../components/NavBarBlockly";
 import { BLOCKLY_THEME } from "../../utils/blocklyTheme";
@@ -9,7 +10,7 @@ import PlayIcon from "../../assets/images/play.png";
 import PauseIcon from "../../assets/images/example.png";
 import Robots from "../../assets/images/robots.png";
 import ExpandIcon from "../../assets/images/expand.png";
-import Editor from "@monaco-editor/react";
+import Editor, { useMonaco } from "@monaco-editor/react";
 import BlocklyComponent from "../../components/blockly/BlocklyComponent";
 import * as Blockly from "blockly";
 import { WorkspaceSearch } from "@blockly/plugin-workspace-search";
@@ -26,6 +27,9 @@ import "../../generators";
 
 import { useHistory } from "react-router-dom";
 import ShowExamplesDialog from "./dialogSamples/ShowExamples";
+import { fontSize } from "tailwindcss/lib/plugins";
+
+
 
 export default function BlocklyPage() {
   const blocklyDiv = React.useRef();
@@ -34,6 +38,7 @@ export default function BlocklyPage() {
   const [toolbox, setToolbox] = React.useState(null);
   const [code, setcode] = React.useState("");
   const blocklyArea = React.useRef();
+  // const [editorLanguage , setEditorLanguage] = React.useState("javascript");
   const simpleWorkspace = React.useRef();
   const [showDialog, setShowDialog] = React.useState(true);
   const [showMqttDevicesDialog, setShowMqttDevicesDialog] =
@@ -42,18 +47,25 @@ export default function BlocklyPage() {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.userId);
   const product = useSelector((state) => state.robot.product);
-  const mode = useSelector((state) => state.robot.mode);
+  const editorLanguage = useSelector((state) => state.robot.mode);
   const history = useHistory();
+  const [blocklyReady , setBlocklyReady] = React.useState(false);
+  // const monaco = useMonaco();
+
+  let mode = CONSTANTS.MODES.BLE;
 
   const getBlocklyArea = () => {
     return blocklyArea;
   };
 
+
+
+
+
   const [blocklyOptions, setBlocklyOptions] = React.useState(null);
   let primaryWorkspace = null;
 
   React.useEffect(() => {
-    if (showDialog == false) {
       axiosInstance
         .get(CONSTANTS.API.BLOCK_DEFINATION.FIND_ALL)
         .then((res) => {
@@ -73,14 +85,14 @@ export default function BlocklyPage() {
 
       getBlocklyParams();
       getBlocklyToolbox();
-    }
-  }, [showDialog]);
+
+  }, []);
 
   React.useEffect(() => {
     if (blocklyOptions != null && toolbox != null) {
       initBlockly();
     }
-  }, [blocklyOptions, toolbox]);
+  }, [blocklyOptions, toolbox , editorLanguage ]);
 
   React.useEffect(() => {
     setLanguage();
@@ -172,12 +184,32 @@ export default function BlocklyPage() {
     }
   };
 
-  const generateCode = () => {
+
+  const generatePython = () => {
     try {
-      let codeGenertated = BlocklyJS.workspaceToCode(
+      let codeGenerated = "";
+      BlocklyPython.init(Blockly.getMainWorkspace());
+        codeGenerated = BlocklyPython.workspaceToCode(
+          Blockly.getMainWorkspace()
+        );
+      // }
+      console.log(codeGenerated);
+      setcode(codeGenerated);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const generateJS = () => {
+    try {
+      let codeGenerated = "";
+      BlocklyPython.init(Blockly.getMainWorkspace());
+      codeGenerated = BlocklyJS.workspaceToCode(
         Blockly.getMainWorkspace()
       );
-      setcode(codeGenertated);
+      // }
+      console.log(codeGenerated);
+      setcode(codeGenerated);
     } catch (error) {
       console.log(error);
     }
@@ -221,7 +253,14 @@ export default function BlocklyPage() {
     window.addEventListener("resize", onResize(blocklyArea), false);
     onResize(blocklyArea);
     Blockly.svgResize(primaryWorkspace);
-    primaryWorkspace.addChangeListener(generateCode);
+    console.log("Init Blockly CAlled" + editorLanguage);
+    // if(editorLanguage === "javascript") {
+    //   primaryWorkspace.addChangeListener(generateJS);
+    // }
+    // else {
+    //   primaryWorkspace.addChangeListener(generatePython);
+    // }
+    setBlocklyReady(true);
   };
 
   const setSearchFuncBlockly = () => {
@@ -260,6 +299,17 @@ export default function BlocklyPage() {
     setShowExampleDialog(!showExampleDialog);
   };
 
+  React.useEffect(()=>{
+    console.log(editorLanguage);
+    console.log(primaryWorkspace);
+    console.log(blocklyReady);
+
+  },[editorLanguage])
+
+
+
+
+
   return (
     <div className="h-screen w-screen overflow-hidden ">
       <SelectionDialog
@@ -277,13 +327,13 @@ export default function BlocklyPage() {
         <div
           style={{ height: "90%" }}
           className={
-            "relative col-span-3 md:col-span-3 bg-red-500 w-full " +
+            "relative col-span-3 md:col-span-3 bg-red-500 w-full transition-all ease-linear delay-1000 " +
             (expanded ? "lg:col-span-1" : "lg:col-span-2")
           }
         >
           <div ref={blocklyArea}>
             <div
-              className="w-full bottom-0 md:pb-20 lg:pb-0 pb-20  top-0 absolute  h-screen lg:h-full md:h-screen"
+              className="w-full transition-all ease-linear delay-1000 bottom-0 md:pb-20 lg:pb-0 pb-20  top-0 absolute  h-screen lg:h-full md:h-screen"
               ref={blocklyDiv}
               id="blocklyDiv"
             >
@@ -313,11 +363,22 @@ export default function BlocklyPage() {
 
         <div
           className={
-            "flex flex-col p-5 justify-between items-center bg-blue-300 md:invisible lg:visible invisible " +
-            (expanded ? "col-span-2" : "")
+            "flex flex-col p-5 justify-between transition-all ease-linear delay-1000 items-center bg-blue-300 md:invisible lg:visible invisible " +
+            (expanded ? "col-span-3" : "")
           }
         >
           {/* This is the generate btn */}
+          <div className={"flex justify-between gap-5 text-white "}>
+            <button onClick={()=>{
+              if(editorLanguage === "javascript") {
+                generateJS();
+              }
+              else {
+                generatePython();
+              }
+            }} className={"text-xl bg-blue-500 hover:bg-blue-600 rounded shadow-lg py-2 px-4 "}>Generate Code</button>
+            <h1 className={"text-3xl text-gray-700 font-bold "}>{editorLanguage.toUpperCase()}</h1>
+          </div>
 
           <div className="flex  justify-center  items-center  w-full h-full p-5 ">
             <div className="w-full h-full bg-yellow-500 border-4 border-white  shadow-2xl rounded-t-2xl p-5">
@@ -331,11 +392,22 @@ export default function BlocklyPage() {
                 ></img>
               </div>
               <Editor
-                theme="light"
-                defaultLanguage="javascript"
+                theme="vs-dark"
+                defaultLanguage={editorLanguage}
+                language={editorLanguage}
                 value={code}
+                onChange={(value)=>{
+                  setcode(value);
+                }}
                 defaultValue={code}
                 height="100%"
+                options={
+                  {
+                    fontSize : "22px"
+                  }
+                }
+                // beforeMount={handleEditorWillMount}
+                // onMount={handleEditorDidMount}
               />
             </div>
           </div>
@@ -353,7 +425,21 @@ export default function BlocklyPage() {
                 <div className="flex justify-around items-center ">
                   <button
                     onClick={() => {
-                      RUNCODE(code);
+                        if(editorLanguage === 'python'){
+                          try {
+                            let codeGenerated = "";
+                            BlocklyPython.init(Blockly.getMainWorkspace());
+                            codeGenerated = BlocklyJS.workspaceToCode(
+                              Blockly.getMainWorkspace()
+                            );
+                            // }
+                            console.log(codeGenerated);
+                            RUNCODE(codeGenerated);
+                          } catch (error) {
+                            console.log(error);
+                          }
+                        }
+                        RUNCODE(code);
                     }}
                     className="p-5 flex flex-col text-white justify-center items-center text-2xl bg-blue-500 rounded-3xl
                     shadow-3xl"

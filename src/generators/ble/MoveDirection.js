@@ -1,6 +1,7 @@
 import * as Blockly from "blockly";
 import { BLOCKS_LANGUAGE_CONSTANTS } from "../../utils/blockConstants";
 
+
 Blockly.JavaScript["direction_block_ble"] = function (block) {
   var dropdown_direction = block.getFieldValue("direction");
   // TODO: Assemble JavaScript into code variable.
@@ -28,6 +29,42 @@ Blockly.JavaScript["direction_block_ble"] = function (block) {
   }
   return "good";
 };
+
+
+Blockly.Python["direction_block_ble"] = function (block) {
+  var dropdown_direction = block.getFieldValue("direction");
+  // TODO: Assemble JavaScript into code variable.
+  if (
+    dropdown_direction ===
+    BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.FORWARD
+  ) {
+    return "moveForward()\n";
+  } else if (
+    dropdown_direction ===
+    BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.BACKWARD
+  ) {
+    return "moveBack()\n";
+  } else if (
+    dropdown_direction ===
+    BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.LEFT
+  ) {
+    return "moveLeft()\n";
+  } else if (
+    dropdown_direction ===
+    BLOCKS_LANGUAGE_CONSTANTS.BLOCKS.DIRECTION_BLOCK.DIRECTIONS_ENGLISH.RIGHT
+  ) {
+    return "moveRight()\n";
+  } else {
+  }
+  return "good";
+};
+
+
+
+
+
+
+
 
 // {
 //   "type": "direction_block_ble",

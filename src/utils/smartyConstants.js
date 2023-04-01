@@ -200,6 +200,7 @@ export const SMARTY_WIFI = {
 
 export const RUNCODE = (code) => {
   SHOW_TOAST_SUCESS("Uploding !!!!");
+  console.log(code);
   eval(code);
   SHOW_TOAST_SUCESS("Uploading Done !!");
 };
